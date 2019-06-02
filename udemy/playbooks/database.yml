@@ -14,7 +14,7 @@
       service: name=mysql state=started enabled=yes
 
     - name: fix mysql listen address
-      lineinfile: dest=/etc/mysql/mysql.conf.d/mysqld.cnf regexp=^bind-address line="bind-address = 0.0.0.0"
+      lineinfile: dest=/etc/mysql/my.cnf regexp=^bind-address line="bind-address = 0.0.0.0"
       notify: restart mysql
 
     - name: create demo database
