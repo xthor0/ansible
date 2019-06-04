@@ -1,0 +1,5 @@
+---
+- hosts: loadbalancer
+  become: true # this tells ansible to use sudo
+  roles:
+    - nginx
