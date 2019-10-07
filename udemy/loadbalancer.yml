@@ -1,5 +1,6 @@
 ---
 - hosts: loadbalancer
   become: true # this tells ansible to use sudo
+  gather_facts: false
   roles:
     - nginx
