@@ -1,0 +1,2 @@
+#Members of Sudo group can run sudo with no password
+%sudo ALL=(ALL) NOPASSWD:ALL

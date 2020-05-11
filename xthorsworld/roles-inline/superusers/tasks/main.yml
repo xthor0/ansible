@@ -1,0 +1,54 @@
+---
+- name: Copy superusers file to /etc/sudoers.d/ to allow perm elevation
+  copy:
+    src: superusers
+    dest: /etc/sudoers.d/superusers
+
+- name: create sudo group
+  group:
+    name: sudo
+    system: true
+  tags: [ users, groups ]
+
+- name: remove superusers
+  user:
+    name: "{{ item }}"
+    state: absent
+    force: true
+    remove: yes
+  with_items: "{{ removed_superusers }}"
+  tags: [ remove ]
+
+- name: Setup New superusers
+  user:
+    name: "{{ item }}"
+    create_home: True
+    groups: sudo
+    shell: /bin/bash
+    state: present
+  with_items: "{{ superusers }}"
+  tags: [ users, groups ]
+
+# without this, Alpine locks the account
+- name: Alpine | Unlock user
+  command: "passwd -d {{ item }}"
+  ignore_errors: true
+  changed_when: False
+  with_items: "{{ superusers }}"
+  when: ansible_os_family == "Alpine"
+
+# Alpine also needs bash... otherwise, user can't log in
+- name: install bash
+  package:
+    name: bash
+    state: present
+  when: ansible_os_family == "Alpine"
+
+- name: Apply keys to added superusers
+  authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ authorized_keys[item] }}"
+  with_items: "{{ superusers }}"
+  tags: [ users, groups ]
+
