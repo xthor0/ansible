@@ -1,0 +1,27 @@
+---
+- name: setup centos server
+  hosts: all
+  gather_facts: False
+
+  pre_tasks:
+    - name: Check Python is installed
+      raw: test -e /usr/bin/python || test -e /usr/bin/python3
+      changed_when: False
+      failed_when: False
+      register: check_python
+    - name: Alpine | Install Python
+      raw: sudo apk update && sudo apk add python
+      changed_when: False
+      failed_when: False
+      when: check_python.rc != 0
+    - name: CentOS 7 | Install Python
+      raw: sudo yum -y install python
+      changed_when: False
+      failed_when: False
+      when: check_python.rc != 0
+    - name: CentOS 8 | Install Python
+      raw: sudo dnf -y install python3
+      changed_when: False
+      failed_when: False
+      when: check_python.rc != 0
+

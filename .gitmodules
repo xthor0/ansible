@@ -1,0 +1,6 @@
+[submodule "xthorsworld/roles/ansible-hardening"]
+	path = xthorsworld/roles/ansible-hardening
+	url = git@github.com:openstack/ansible-hardening.git
+[submodule "xthorsworld/roles/ansible-playbooks"]
+	path = xthorsworld/roles/ansible-playbooks
+	url = git@github.com:Icinga/ansible-playbooks.git

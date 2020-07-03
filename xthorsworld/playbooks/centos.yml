@@ -1,5 +1,0 @@
----
-- name: setup centos server
-  hosts: all
-  roles:
-    - { role: superusers, tags: superusers }

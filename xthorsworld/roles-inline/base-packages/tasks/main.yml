@@ -1,0 +1,66 @@
+---
+# RHEL/CentOS systems
+- name: CentOS/RHEL | Install EPEL
+  package:
+    name: epel-release
+    state: present
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+- name: CentOS/RHEL | Install base packages for CentOS
+  package:
+    name:
+      - bind-utils
+      - dmidecode
+      - epel-release
+      - lsof
+      - nano
+      - net-tools
+      - rsync
+      - screen
+      - sysstat
+      - vim-enhanced
+      - wget
+      - yum-plugin-versionlock
+      - rpm-cron
+      - policycoreutils-python
+      - man-db
+      - nmap-ncat
+      - procps-ng
+      - util-linux
+      - bash-completion
+      - bash-completion-extras
+      - ncdu
+      - htop
+    state: present
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
+# Alpine systems
+- name: Alpine | Install base packages
+  package:
+    name:
+      - vim
+      - rsync
+      - dmidecode
+      - lsof
+      - nano
+      - screen
+      - wget
+      - bash-completion
+      - bind-tools
+      - file
+    state: present
+  when: ansible_os_family == "Alpine"
+
+# Debian systems
+- name: Debian | Install base packages
+  package:
+    name:
+      - vim
+      - rsync
+      - dmidecode
+      - lsof
+      - nano
+      - screen
+      - wget
+      - bash-completion
+    state: present
+  when: ansible_os_family == "Debian"

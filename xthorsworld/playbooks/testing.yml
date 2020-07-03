@@ -1,0 +1,9 @@
+---
+- import_playbook: bootstrap.yml
+- name: test playbooks
+  hosts: all
+  
+  roles:
+    - { role: superusers, tags: superusers }
+    - { role: base-packages }
+    - { role: ansible-hardening }

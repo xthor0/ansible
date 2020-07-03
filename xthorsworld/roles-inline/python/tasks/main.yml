@@ -1,0 +1,7 @@
+---
+# Alpine systems
+- name: Alpine | Install Python
+  raw: test -e /usr/bin/python || (apk update && apk add python3)
+  changed_when: false
+  when: ansible_os_family == "Alpine"
+
