@@ -1,0 +1,14 @@
+---
+- name: Download Bootstrap Script
+  get_url:
+    url: https://bootstrap.saltstack.com
+    dest: /usr/local/bin/bootstrap_salt.sh
+    mode: '0770'
+
+# output is logged to /tmp/boostrap_salt.log on the target host
+- name: Execute bootstrap script
+  shell: "/usr/local/bin/bootstrap_salt.sh -P -x python3"
+  no_log: true
+
+- name: remove bootstrap script
+  shell: "rm -f /usr/local/bin/bootstrap_salt.sh"

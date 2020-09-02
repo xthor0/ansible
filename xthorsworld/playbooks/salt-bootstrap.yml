@@ -1,0 +1,6 @@
+---
+- name: Bootstrap Salt Minion
+  hosts: all
+
+  roles:
+    - { role: salt-bootstrap }
