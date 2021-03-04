@@ -1,0 +1,107 @@
+# conky configuration
+# THIS FILE IS MANAGED BY ANSIBLE. DO NOT EDIT.
+# this also needs work around interface names. 
+#
+# The list of variables has been removed from this file in favour
+# of keeping the documentation more maintainable.
+# Check http://conky.sf.net for an up-to-date-list.
+#
+# For ideas about how to modify conky, please see:
+# http://crunchbanglinux.org/forums/topic/59/my-conky-config/
+#
+# For help with conky, please see:
+# http://crunchbanglinux.org/forums/topic/2047/conky-help/
+#
+# Enjoy! :)
+##############################################
+#  Settings
+##############################################
+ background yes
+    use_xft yes
+    xftfont Handel Gothic D:size=8
+    xftalpha 0.5
+    update_interval 2.0
+    total_run_times 0
+    own_window yes
+    own_window_type normal
+    own_window_argb_visual yes
+    own_window_transparent yes
+    own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+    own_window_class Conky
+    double_buffer yes
+    minimum_size 200 5
+    maximum_width 220
+    draw_shades no
+    draw_outline no
+    draw_borders no
+    draw_graph_borders yes
+    default_color grey
+    default_shade_color red
+    default_outline_color green
+    alignment top_right
+    xinerama_head 1
+    gap_x 5
+    gap_y 35
+    no_buffers yes
+    uppercase no
+    cpu_avg_samples 2
+    override_utf8_locale no
+
+
+TEXT
+${font sans-serif:bold:size=8}SYSTEM ${hr 2}
+${font sans-serif:normal:size=8}$sysname $kernel $alignr $machine
+Host:$alignr$nodename
+Uptime:$alignr$uptime
+File System: $alignr${fs_type}
+
+
+${font sans-serif:bold:size=8}CPU ${hr 2}
+${font sans-serif:normal:size=8}${cpugraph cpu0 33ffff 0000ff}
+
+CPU: ${cpu cpu1}% ${cpubar cpu0}
+
+${font sans-serif:bold:size=8}TOP PROCESSES - CPU ${hr 2}
+${font sans-serif:normal:size=8}${top name 1}${alignr}${top cpu 1} %
+${top name 2}${alignr}${top cpu 2} %
+$font${top name 3}${alignr}${top cpu 3} %
+$font${top name 4}${alignr}${top cpu 4} %
+$font${top name 5}${alignr}${top cpu 5} %
+
+
+${font sans-serif:bold:size=8}MEMORY ${hr 2}
+${font sans-serif:normal:size=8}RAM $alignc $mem / $memmax $alignr $memperc%
+$membar
+SWAP $alignc ${swap} / ${swapmax} $alignr ${swapperc}%
+${swapbar}
+
+${font sans-serif:bold:size=8}TOP PROCESSES - MEMORY ${hr 2}
+${font sans-serif:normal:size=8}${top_mem name 1}${alignr}${top mem 1} %
+${top_mem name 2}${alignr}${top mem 2} %
+$font${top_mem name 3}${alignr}${top mem 3} %
+$font${top_mem name 4}${alignr}${top mem 4} %
+$font${top_mem name 5}${alignr}${top mem 5} %
+
+
+${font sans-serif:bold:size=8}DISKS ${hr 2}
+${font sans-serif:normal:size=8}/ $alignc ${fs_used /} / ${fs_size /} $alignr ${fs_used_perc /}%
+${fs_bar /}
+
+
+${font sans-serif:bold:size=8}NETWORK ${hr 2}${if_existing /sys/class/net/wlp2s0/operstate up}
+${font sans-serif:normal:size=8}IP address: $alignr ${addr wlp2s0}
+ESSID: $alignr ${wireless_essid wlp2s0}
+Connection quality: $alignr ${wireless_link_qual_perc wlp2s0}%
+${downspeedgraph wlp2s0 99cc33 006600}
+DLS:${downspeed wlp2s0} kb/s $alignr total: ${totaldown wlp2s0}
+${upspeedgraph wlp2s0  ffcc00 ff0000}
+ULS:${upspeed wlp2s0} kb/s $alignr total: ${totalup wlp2s0}${endif}
+${hr 2}${if_existing /sys/class/net/enp0s20f0u2u3/operstate up}
+${font sans-serif:normal:size=8}IP address: $alignr ${addr enp0s20f0u2u3}
+ESSID: $alignr ${wireless_essid enp0s20f0u2u3}
+Connection quality: $alignr ${wireless_link_qual_perc enp0s20f0u2u3}%
+${downspeedgraph enp0s20f0u2u3 99cc33 006600}
+DLS:${downspeed enp0s20f0u2u3} kb/s $alignr total: ${totaldown enp0s20f0u2u3}
+${upspeedgraph enp0s20f0u2u3  ffcc00 ff0000}
+ULS:${upspeed enp0s20f0u2u3} kb/s $alignr total: ${totalup enp0s20f0u2u3}
+${endif}

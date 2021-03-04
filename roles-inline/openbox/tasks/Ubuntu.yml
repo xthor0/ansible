@@ -1,0 +1,35 @@
+- name: install packages for Openbox
+  apt:
+    name:
+      - lxqt-openssh-askpass
+      - blueberry
+      - vim-enhanced
+      - arc-theme
+      - tint2
+      - xfce4-notifyd
+      - x11-ssh-askpass
+      - openbox
+      - obconf
+      - compton
+      - volumeicon
+      - nitrogen
+      - conky-all
+      - arandr
+      - leafpad
+      - lxappearance
+      - network-manager-applet
+      - xbacklight
+      - flameshot
+      - playerctl
+      - mate-calc
+      - lightdm-gtk
+      - xfce4-appfinder
+      - xss-lock
+      - i3lock
+      - mupdf
+      - numix-icon-theme
+      - thunar
+      - dunst
+    state: present
+    update_cache: yes
+  become: true

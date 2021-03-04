@@ -1,13 +1,14 @@
 # add GPG keys for repositories
-- name: kubectl, vscode, and pgadmin4 apt key
+- name: add apt keys from urls
   apt_key:
     url: "{{ item }}"
     state: present
   with_items:
-    - "https://packages.microsoft.com/keys/microsoft.asc"
-    - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    - "https://packages.microsoft.com/keys/microsoft.asc" # vscode
+    - "https://packages.cloud.google.com/apt/doc/apt-key.gpg" # kubectl
+    - "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_release }}/Release.key" # podman
 
-- name: add apt keys
+- name: add apt keys from ubuntu keyserver
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: "{{ item }}"
@@ -24,6 +25,7 @@
     - "deb https://apt.kubernetes.io/ kubernetes-xenial main"
     - "deb https://repo.pritunl.com/stable/apt {{ ansible_distribution_release }} main"
     - "deb [arch=amd64] https://downloads.1password.com/linux/debian edge main"
+    - "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_release }}/ /"
 
 - name: install deb packages from URLs
   apt:
@@ -34,7 +36,7 @@
     - "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.13.0-amd64.deb"
 
 # install apps with apt
-- name: install Ubuntu packages for DevOps workstation
+- name: install necessary packages
   apt:
     name:
       - kubectl
@@ -51,12 +53,19 @@
       - pwgen
       - htop
       - putty-tools
-      - conky-all
       - axel
       - remmina-plugin-rdp
       - freerdp2-x11
       - mpv
       - network-manager-openvpn-gnome
+      - f3
+      - screen
+      - p7zip-plugins
+      - iperf3
+      - podman
+      - xorriso
+      - jq
+      - golang
     state: present
     update_cache: yes
 

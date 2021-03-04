@@ -1,0 +1,96 @@
+---
+- name: Include Ubuntu tasks
+  include_tasks: Ubuntu.yml
+  become: true
+  when: "'Ubuntu' in ansible_distribution"
+  
+- name: Include Pop!_OS tasks (really, just ubuntu)
+  include_tasks: Ubuntu.yml
+  become: true
+  when: "'Pop!_OS' in ansible_distribution"
+
+- name: template conkyrc file
+  template:
+    src: templates/conkyrc.j2
+    dest: ~/.conkyrc
+    mode: '0660'
+
+- name: template compton conf file
+  template:
+    src: templates/conkyrc.j2
+    dest: ~/.config/compton.conf
+    mode: '0660'
+
+- name: create config dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0750'
+    recurse: yes
+  with_items:
+    - ~/.config/xfce4/xfconf/xfce-perchannel-xml
+    - ~/.config/tint2
+    - ~/.config/terminator
+    - ~/.config/volumeicon
+    - ~/.config/openbox
+    - ~/.config/gtk-3.0
+
+- name: copy tint2 config file
+  file:
+    src: files/tint2rc
+    dest: ~/.config/tint2/tint2rc
+    mode: '0660'
+
+- name: copy xfce4-power-manager config file
+  file:
+    src: files/xfce4-power-manager.xml
+    dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+    mode: '0660'
+
+- name: copy volumeicon config file
+  file:
+    src: files/volumeicon
+    dest: ~/.config/volumeicon/volumeicon
+    mode: '0660'
+
+- name: copy openbox autostart config file
+  file:
+    src: files/autostart
+    dest: ~/.config/openbox/autostart
+    mode: '0770'
+
+- name: copy openbox menu.xml config file
+  file:
+    src: files/menu.xml
+    dest: ~/.config/openbox/menu.xml
+    mode: '0660'
+
+- name: copy openbox rc.xml config file
+  file:
+    src: files/rc.xml
+    dest: ~/.config/openbox/rc.xml
+    mode: '0660'
+
+- name: install i3lock-fancy-rapid binary
+  file: 
+    src: files/bin/i3lock-fancy-rapid
+    dest: ~/bin/i3lock-fancy-rapid
+    mode: '0770'
+
+- name: install dock.sh script
+  file: 
+    src: files/bin/dock.sh
+    dest: ~/bin/dock.sh
+    mode: '0770'
+
+- name: install undock.sh script
+  file: 
+    src: files/bin/undock.sh
+    dest: ~/bin/undock.sh
+    mode: '0770'
+
+- name: install lockscreen.sh binary
+  file: 
+    src: files/bin/lockscreen.sh
+    dest: ~/bin/lockscreen.sh
+    mode: '0770'

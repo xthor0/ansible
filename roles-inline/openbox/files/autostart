@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# d-bus
+if which dbus-launch >/dev/null && test -z "${DBUS_SESSION_BUS_ADDRESS}"; then
+  eval $(dbus-launch --sh-syntax --exit-with-session)
+fi
+
+# without this, I get errors using lxsession-logout
+lxpolkit &
+
+# necessary if we want notifications from libnotify
+/usr/lib64/xfce4/notifyd/xfce4-notifyd &
+
+# restore background
+nitrogen --restore &
+
+# launch pcmanfm in daemon mode
+pcmanfm -d &
+
+# compositor for tear-free windows and some basic effects
+compton -b
+
+# a status bar with icons/time
+tint2 &
+
+# launch conky, but with a delay to give the screens some time to come up
+sleep 2 && conky &
+
+# prompt for SSH passphrase, if key exists
+(test -f $HOME/.ssh/id_rsa && ssh-add) &
+
+# unlock gnome keyring so that network-manager will store secrets
+/usr/bin/gnome-keyring-daemon --start --daemonize --components=secrets 
+
+# fix touchpad so I can right-click with 2 fingers
+# you'll have to adjust the ID: xinput list | grep -i touchpad, find id for the one you want to tweak
+xinput set-prop 12 "libinput Click Method Enabled" 0 1
+
+# screen locker
+exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
+
+# notify me about updates
+dnfdragora-updater &
+
+# power management, which really just gives us battery status
+# xscreensaver is handling the power management of the monitors for me
+xfce4-power-manager &
+
+# bluetooth icon
+/bin/blueberry-tray &
+
+# screen shot tool
+flameshot &
+
+# Make things like 'ping -a' work, woo!
+pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
+pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
+
+# FIN

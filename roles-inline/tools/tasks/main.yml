@@ -1,5 +1,4 @@
 ---
-
 - name: Include Ubuntu tasks
   include_tasks: Ubuntu.yml
   become: true
@@ -33,7 +32,5 @@
 # TODO:
 
 # store SSH key in ansible-vault? Or use 1password CLI to extract it? That's an interesting idea...
-
-# there's a bunch of apps that really only install well from snaps: todoist, simplenote, standard-notes, spotify
 
 # plus I should really template out my dotfiles and store them here
