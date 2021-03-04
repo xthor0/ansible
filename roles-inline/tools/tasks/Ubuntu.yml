@@ -47,7 +47,7 @@
       - pritunl-client-electron
       - kubectl
       - vim
-      - vim-gtk
+      - vim-gtk3
       - code
       - ansible
       - awscli
@@ -61,6 +61,12 @@
       - pwgen
       - htop
       - putty-tools
+      - conky-all
+      - axel
+      - remmina-plugin-rdp
+      - freerdp2-x11
+      - mpv
+      - network-manager-openvpn-gnome
     state: present
     update_cache: yes
   become: true

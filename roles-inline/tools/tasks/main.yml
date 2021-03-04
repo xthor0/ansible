@@ -16,31 +16,22 @@
 
 # TODO: put in a check so the zip doesn't download if the vault binary exists
 # at least, I think, it's downloading the zip even if we don't need it.
-- name: Install Vault binary client
-  unarchive:
-    src: https://releases.hashicorp.com/vault/1.6.3/vault_1.6.3_linux_amd64.zip
-    dest: ~/bin
-    remote_src: yes
-
 - name: Install Telegram Desktop client
   unarchive:
     src: https://telegram.org/dl/desktop/linux
     dest: ~/bin
     remote_src: yes
 
+- name: Install pCloud client
+  get_url:
+    url: https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64
+    dest: ~/bin/pcloud
+    mode: '0750'
+
 # TODO:
-# what about ZSH and Oh-my-zsh?
 
 # store SSH key in ansible-vault? Or use 1password CLI to extract it? That's an interesting idea...
 
-# I think I should also figure out if I can check out a bunch of Git repos, but this means the user has to set up a ssh key and make sure it's
-# been uploading to git.nav.com
-# https://docs.ansible.com/ansible/2.3/git_module.html
-# might be challeging, but there's some stuff in devops and terraform that, for sure, a
+# there's a bunch of apps that really only install well from snaps: todoist, simplenote, standard-notes, spotify
 
-# I still need to do a BUNCH of personal stuff, like... telegram, pcloud, todoist and all these apps:
-# sudo apt install zsh vim nmap vim-gtk3 conky-all axel remmina-plugin-rdp freerdp2-x11 terminator ncdu pwgen mpv putty-tools network-manager-openvpn-gnome git
 # plus I should really template out my dotfiles and store them here
-# move all this shit to Github instead of doing it in pcloud, too
-
-# write a curl | bash wrapper to install ansible/git and then do the rest of the magic

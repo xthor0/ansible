@@ -78,3 +78,7 @@
     dest: ~/.fonts/MesloLGS_NF_Bold_Italic.ttf
     mode: '0640'
   notify: refresh font cache
+
+- name: change user shell to zsh
+  command: chsh -s /bin/zsh "{{ lookup('env', 'USER') }}"
+  become: true
