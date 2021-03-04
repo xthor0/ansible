@@ -86,3 +86,4 @@
       - spotify
       - standard-notes
       - todoist
+  become: true
