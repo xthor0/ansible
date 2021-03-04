@@ -1,7 +1,6 @@
 ---
 - name: Include Ubuntu tasks
   include_tasks: Ubuntu.yml
-  become: true
   when: "'Ubuntu' in ansible_distribution"
   
 - name: Include Pop!_OS tasks (really, just ubuntu)
