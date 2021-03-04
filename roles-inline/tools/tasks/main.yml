@@ -10,20 +10,22 @@
 
 - name: create bin directory in users home dir
   file:
-    path: "{{ lookup('env','HOME') }}/bin"
+    path: ~/bin
     state: directory
     mode: '0750'
 
+# TODO: put in a check so the zip doesn't download if the vault binary exists
+# at least, I think, it's downloading the zip even if we don't need it.
 - name: Install Vault binary client
   unarchive:
     src: https://releases.hashicorp.com/vault/1.6.3/vault_1.6.3_linux_amd64.zip
-    dest: "{{ lookup('env','HOME') }}/bin"
+    dest: ~/bin
     remote_src: yes
 
 - name: Install Telegram Desktop client
   unarchive:
     src: https://telegram.org/dl/desktop/linux
-    dest: "{{ lookup('env','HOME') }}/bin"
+    dest: ~/bin
     remote_src: yes
 
 # TODO:

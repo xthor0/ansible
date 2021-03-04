@@ -49,6 +49,7 @@
 - name: Create fonts directory
   file:
     path: ~/.fonts
+    state: directory
     mode: '0750'
 
 - name: install font MesloLGS Regular
