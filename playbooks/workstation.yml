@@ -1,0 +1,5 @@
+---
+- name: Setup personal Linux workstation
+  hosts: localhost
+  roles:
+    - { role: tools, tags: [ "tools" ] }

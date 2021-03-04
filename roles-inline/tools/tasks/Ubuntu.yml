@@ -1,0 +1,73 @@
+# add GPG keys for repositories
+- name: kubectl, vscode, and pgadmin4 apt key
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+    - "https://packages.microsoft.com/keys/microsoft.asc"
+    - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    - "https://www.pgadmin.org/static/packages_pgadmin_org.pub"
+  become: true
+
+- name: pritunl/1password apt key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+  with_items:
+    - 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+    - 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
+  become: true
+
+# add apt repositories
+- name: DevOps workstation apt repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    - "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+    - "deb https://repo.pritunl.com/stable/apt {{ ansible_distribution_release }} main"
+    - "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/{{ ansible_distribution_release }} pgadmin4 main"
+    - "deb [arch=amd64] https://downloads.1password.com/linux/debian edge main"
+  become: true
+
+- name: install packages from URLs
+  apt:
+    deb: "{{ item }}"
+  with_items:
+    - "https://prerelease.keybase.io/keybase_amd64.deb"
+    - "https://zoom.us/client/latest/zoom_amd64.deb"
+    - "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.13.0-amd64.deb"
+  become: true
+
+# install apps with apt
+- name: install Ubuntu packages for DevOps workstation
+  apt:
+    name:
+      - pritunl-client-electron
+      - kubectl
+      - vim
+      - vim-gtk
+      - code
+      - ansible
+      - awscli
+      - nmap
+      - postgresql-client-12
+      - pgadmin4-desktop
+      - zsh
+      - 1password
+      - terminator
+      - ncdu
+      - pwgen
+      - htop
+      - putty-tools
+    state: present
+    update_cache: yes
+  become: true
+
+# full upgrade, just to be safe
+- name: Update all packages to their latest version
+  apt:
+    name: "*"
+    state: latest
+  become: true
