@@ -92,3 +92,5 @@
     src: files/bin/lockscreen.sh
     dest: ~/bin/lockscreen.sh
     mode: '0770'
+
+# TODO: need to set lightdm as default DE, and set a nice theme there, that's dark
