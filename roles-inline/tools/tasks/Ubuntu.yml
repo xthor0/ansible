@@ -64,7 +64,7 @@
       - network-manager-openvpn-gnome
       - f3
       - screen
-      - p7zip-plugins
+      - p7zip-full
       - iperf3
       - podman
       - xorriso
