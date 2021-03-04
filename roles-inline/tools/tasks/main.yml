@@ -34,3 +34,4 @@
 # store SSH key in ansible-vault? Or use 1password CLI to extract it? That's an interesting idea...
 
 # plus I should really template out my dotfiles and store them here
+# - for openbox, but also vim and stuffs. and ~/tmp, because vim uses that

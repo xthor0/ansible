@@ -7,6 +7,7 @@
     - "https://packages.microsoft.com/keys/microsoft.asc" # vscode
     - "https://packages.cloud.google.com/apt/doc/apt-key.gpg" # kubectl
     - "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_release }}/Release.key" # podman
+  become: true 
 
 - name: add apt keys from ubuntu keyserver
   apt_key:
@@ -14,6 +15,7 @@
     id: "{{ item }}"
   with_items:
     - 3FEF9748469ADBE15DA7CA80AC2D62742012EA22 # 1password
+  become: true 
 
 # add apt repositories
 - name: add apt repositories
@@ -26,6 +28,7 @@
     - "deb https://repo.pritunl.com/stable/apt {{ ansible_distribution_release }} main"
     - "deb [arch=amd64] https://downloads.1password.com/linux/debian edge main"
     - "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_release }}/ /"
+  become: true 
 
 - name: install deb packages from URLs
   apt:
@@ -34,6 +37,7 @@
     - "https://prerelease.keybase.io/keybase_amd64.deb"
     - "https://zoom.us/client/latest/zoom_amd64.deb"
     - "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.13.0-amd64.deb"
+  become: true 
 
 # install apps with apt
 - name: install necessary packages
@@ -68,12 +72,14 @@
       - golang
     state: present
     update_cache: yes
+  become: true 
 
 # full upgrade, just to be safe, some of the above packages will add apt sources and this will upgrade them
 - name: Update all packages to their latest version
   apt:
     name: "*"
     state: latest
+  become: true 
 
 # install packages from snap
 - name: Install packages from snap
@@ -83,3 +89,4 @@
       - spotify
       - standard-notes
       - todoist
+  become: true 
