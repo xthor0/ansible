@@ -79,6 +79,14 @@
     mode: '0640'
   notify: refresh font cache
 
+- name: check if user shell is already zsh
+  command:
+    cmd: grep -E "{{ lookup('env', 'USER') }}".*zsh /etc/passwd
+  register: zsh_shell_set
+  changed_when: false
+  ignore_errors: true
+
 - name: change user shell to zsh
   command: chsh -s /bin/zsh "{{ lookup('env', 'USER') }}"
   become: true
+  when: zsh_shell_set.failed
