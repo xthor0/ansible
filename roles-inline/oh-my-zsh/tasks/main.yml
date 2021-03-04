@@ -41,7 +41,7 @@
   when: not stat_zsh_theme_result.stat.exists
 
 - name: Creating new ~/.zshrc
-  copy:
+  template:
     src: templates/zshrc.j2
     dest: ~/.zshrc
   when: not stat_rc_result.stat.exists
