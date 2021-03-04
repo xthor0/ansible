@@ -3,3 +3,4 @@
   hosts: localhost
   roles:
     - { role: tools, tags: [ "tools" ] }
+    - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
