@@ -5,7 +5,6 @@
   
 - name: Include Pop!_OS tasks (really, just ubuntu)
   include_tasks: Ubuntu.yml
-  become: true
   when: "'Pop!_OS' in ansible_distribution"
 
 - name: create bin directory in users home dir
