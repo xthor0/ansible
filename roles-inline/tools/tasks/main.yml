@@ -34,7 +34,7 @@
 # I think I should also figure out if I can check out a bunch of Git repos, but this means the user has to set up a ssh key and make sure it's
 # been uploading to git.nav.com
 # https://docs.ansible.com/ansible/2.3/git_module.html
-# might be challeging, but there's some stuff in devops and terraform that, for sure, should exist
+# might be challeging, but there's some stuff in devops and terraform that, for sure, a
 
 # I still need to do a BUNCH of personal stuff, like... telegram, pcloud, todoist and all these apps:
 # sudo apt install zsh vim nmap vim-gtk3 conky-all axel remmina-plugin-rdp freerdp2-x11 terminator ncdu pwgen mpv putty-tools network-manager-openvpn-gnome git
