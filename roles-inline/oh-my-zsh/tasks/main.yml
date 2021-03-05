@@ -52,7 +52,7 @@
   register: stat_p10kzsh_result
 
 - name: Creating new ~/.p10k.zsh
-  template:
+  copy:
     src: templates/p10k.zsh
     dest: ~/.p10k.zsh
   when: not stat_p10kzsh_result.stat.exists
