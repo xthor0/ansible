@@ -24,7 +24,6 @@
     path: "{{ item }}"
     state: directory
     mode: '0750'
-    recurse: yes
   with_items:
     - ~/.config/xfce4/xfconf/xfce-perchannel-xml
     - ~/.config/tint2
