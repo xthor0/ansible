@@ -1,0 +1,7 @@
+Host *
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  ServerAliveInterval 120
+  ServerAliveCountMax 2
+  StrictHostKeyChecking accept-new
+  HashKnownHosts no

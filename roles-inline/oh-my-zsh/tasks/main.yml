@@ -46,6 +46,17 @@
     dest: ~/.zshrc
   when: not stat_rc_result.stat.exists
 
+- name: Check if .p10k.zsh exists
+  stat:
+    path: ~/.p10k.zsh
+  register: stat_p10kzsh_result
+
+- name: Creating new ~/.p10k.zsh
+  template:
+    src: templates/p10k.zsh
+    dest: ~/.p10k.zsh
+  when: not stat_p10kzsh_result.exists
+
 - name: Create fonts directory
   file:
     path: ~/.fonts

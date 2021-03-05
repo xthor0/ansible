@@ -2,7 +2,7 @@
   apt:
     name:
       - lxqt-openssh-askpass
-      - blueberry
+      - blueman
       - vim-enhanced
       - arc-theme
       - tint2

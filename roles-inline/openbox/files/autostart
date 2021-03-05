@@ -47,7 +47,7 @@ dnfdragora-updater &
 xfce4-power-manager &
 
 # bluetooth icon
-/bin/blueberry-tray &
+/usr/bin/blueman-applet &
 
 # screen shot tool
 flameshot &
