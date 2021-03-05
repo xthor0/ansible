@@ -3,7 +3,6 @@
     name:
       - lxqt-openssh-askpass
       - blueman
-      - vim-enhanced
       - arc-theme
       - tint2
       - xfce4-notifyd
