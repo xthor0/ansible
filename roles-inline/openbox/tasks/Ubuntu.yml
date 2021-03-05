@@ -6,7 +6,7 @@
       - arc-theme
       - tint2
       - xfce4-notifyd
-      - x11-ssh-askpass
+      - ssh-askpass
       - openbox
       - obconf
       - compton
