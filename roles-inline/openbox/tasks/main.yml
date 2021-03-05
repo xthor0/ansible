@@ -34,61 +34,61 @@
     - ~/.config/gtk-3.0
 
 - name: copy tint2 config file
-  file:
+  copy:
     src: files/tint2rc
     dest: ~/.config/tint2/tint2rc
     mode: '0660'
 
 - name: copy xfce4-power-manager config file
-  file:
+  copy:
     src: files/xfce4-power-manager.xml
     dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     mode: '0660'
 
 - name: copy volumeicon config file
-  file:
+  copy:
     src: files/volumeicon
     dest: ~/.config/volumeicon/volumeicon
     mode: '0660'
 
 - name: copy openbox autostart config file
-  file:
+  copy:
     src: files/autostart
     dest: ~/.config/openbox/autostart
     mode: '0770'
 
 - name: copy openbox menu.xml config file
-  file:
+  copy:
     src: files/menu.xml
     dest: ~/.config/openbox/menu.xml
     mode: '0660'
 
 - name: copy openbox rc.xml config file
-  file:
+  copy:
     src: files/rc.xml
     dest: ~/.config/openbox/rc.xml
     mode: '0660'
 
 - name: install i3lock-fancy-rapid binary
-  file: 
+  copy: 
     src: files/bin/i3lock-fancy-rapid
     dest: ~/bin/i3lock-fancy-rapid
     mode: '0770'
 
 - name: install dock.sh script
-  file: 
+  copy: 
     src: files/bin/dock.sh
     dest: ~/bin/dock.sh
     mode: '0770'
 
 - name: install undock.sh script
-  file: 
+  copy: 
     src: files/bin/undock.sh
     dest: ~/bin/undock.sh
     mode: '0770'
 
 - name: install lockscreen.sh binary
-  file: 
+  copy: 
     src: files/bin/lockscreen.sh
     dest: ~/bin/lockscreen.sh
     mode: '0770'
