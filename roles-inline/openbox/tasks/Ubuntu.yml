@@ -5,7 +5,6 @@
       - blueman
       - arc-theme
       - tint2
-      - xfce4-notifyd
       - ssh-askpass
       - openbox
       - obconf
@@ -29,6 +28,7 @@
       - numix-icon-theme
       - thunar
       - dunst
+      - xautolock
     state: present
     update_cache: yes
   become: true
