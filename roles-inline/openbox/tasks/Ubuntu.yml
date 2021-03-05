@@ -21,7 +21,7 @@
       - flameshot
       - playerctl
       - mate-calc
-      - lightdm-gtk
+      - lightdm-gtk-greeter
       - xfce4-appfinder
       - xss-lock
       - i3lock
