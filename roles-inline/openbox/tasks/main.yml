@@ -80,6 +80,10 @@
     dest: ~/bin/i3lock-fancy-rapid
     mode: '0770'
 
+
+# TODO: Don't make these bash scripts. Make them zsh aliases, 
+# and make them use autorandr with the --detect option.
+# or, this might not be useful. At all. Or necessary. maybe autorandr handles this alllll by itself.
 - name: install dock.sh script
   copy: 
     src: files/bin/dock.sh
@@ -92,6 +96,8 @@
     dest: ~/bin/undock.sh
     mode: '0770'
 
+
+# TODO: this doesn't work at all - i3lock-fancy-rapid and the version of i3lock on Ubuntu, well, no --raw
 - name: install lockscreen.sh binary
   copy: 
     src: files/bin/lockscreen.sh
