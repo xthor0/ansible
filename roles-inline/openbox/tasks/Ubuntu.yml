@@ -10,13 +10,13 @@
       - openbox
       - obconf
       - compton
-      - volumeicon
+      - volumeicon-alsa
       - nitrogen
       - conky-all
       - arandr
       - leafpad
       - lxappearance
-      - network-manager-applet
+      - nm-tray
       - xbacklight
       - flameshot
       - playerctl
