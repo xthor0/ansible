@@ -55,7 +55,7 @@
   template:
     src: templates/p10k.zsh
     dest: ~/.p10k.zsh
-  when: not stat_p10kzsh_result.exists
+  when: not stat_p10kzsh_result.stat.exists
 
 - name: Create fonts directory
   file:
