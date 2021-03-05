@@ -15,7 +15,7 @@ lxpolkit &
 nitrogen --restore &
 
 # launch pcmanfm in daemon mode
-pcmanfm -d &
+thunar --daemon &
 
 # compositor for tear-free windows and some basic effects
 compton -b
@@ -39,9 +39,6 @@ xinput set-prop 12 "libinput Click Method Enabled" 0 1
 # screen locker
 exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
 
-# notify me about updates
-dnfdragora-updater &
-
 # power management, which really just gives us battery status
 # xscreensaver is handling the power management of the monitors for me
 xfce4-power-manager &
@@ -51,6 +48,9 @@ xfce4-power-manager &
 
 # screen shot tool
 flameshot &
+
+# volume control
+volumeicon &
 
 # Make things like 'ping -a' work, woo!
 pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
