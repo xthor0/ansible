@@ -9,7 +9,7 @@ fi
 lxpolkit &
 
 # necessary if we want notifications from libnotify
-/usr/lib64/xfce4/notifyd/xfce4-notifyd &
+dunst &
 
 # restore background
 nitrogen --restore &

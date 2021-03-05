@@ -1,3 +1,21 @@
+# add GPG keys for repositories
+- name: add apt keys from urls
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+    - "https://download.opensuse.org/repositories/home:/phillipberndt/xUbuntu_{{ ansible_distribution_version }}/Release.key" # autorandr
+  become: true 
+
+# add apt repositories
+- name: add apt repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb https://download.opensuse.org/repositories/home:/phillipberndt/xUbuntu_{{ ansible_distribution_version }}/ /"
+  become: true 
+
 - name: install packages for Openbox
   apt:
     name:
@@ -29,6 +47,7 @@
       - thunar
       - dunst
       - xautolock
+      - autorandr
     state: present
     update_cache: yes
   become: true
