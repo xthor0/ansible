@@ -2,7 +2,7 @@
   become: true
   package:
     name:
-      - python3-psutil
+      - python-psutil
       - dconf-cli
       - gnome-tweaks
       - gnome-shell-extensions
