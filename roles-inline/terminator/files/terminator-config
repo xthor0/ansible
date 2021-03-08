@@ -16,7 +16,7 @@
     background_darkness = 0.75
     background_type = transparent
     cursor_color = "#aaaaaa"
-    font = MesloLGS NF Regular 9
+    font = MesloLGS NF Regular 10
     foreground_color = "#ffffff"
     login_shell = True
     scrollback_infinite = True
