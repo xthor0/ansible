@@ -3,9 +3,7 @@
   package:
     name:
       - python3-psutil
-      - dconf
-      - dbus-tools
-      - dbus-daemon
+      - dconf-cli
       - gnome-tweaks
       - gnome-shell-extensions
 
