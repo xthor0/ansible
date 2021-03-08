@@ -4,4 +4,4 @@
   roles:
     - { role: tools, tags: [ "tools" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
-    - { role: openbox, tags: [ "openbox" ] }
+    - { role: gnome-settings, tags: [ "gnome-settings" ] }
