@@ -13,6 +13,7 @@
     state: directory
     mode: '0750'
 
+# I wish pCloud had a better way of distributing their app, but here we are
 - name: Open download link for pCloud in a browser window
   shell: xdg-open https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64
 
