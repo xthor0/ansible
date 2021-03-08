@@ -53,12 +53,12 @@
 
 - name: sleep when inactive for 15 minutes
   dconf:
-    key: "org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
     value: "3600"
 
 - name: full LCD hinting
   dconf:
-    key: "org/gnome/settings-daemon/plugins/xsettings/hinting"
+    key: "/org/gnome/settings-daemon/plugins/xsettings/hinting"
     value: "full"
 
 - name: enable gnome extensions
