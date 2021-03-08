@@ -6,6 +6,8 @@
       - dconf-cli
       - gnome-tweaks
       - gnome-shell-extensions
+      - arc-theme
+      - numix-icon-theme
 
 - name: show battery percentage
   dconf:
