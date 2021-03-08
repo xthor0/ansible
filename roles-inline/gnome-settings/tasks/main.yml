@@ -73,7 +73,7 @@
 
 - name: set user theme to Arc-Dark
   dconf:
-    key: "org/gnome/shell/extensions/user-theme/name"
+    key: "/org/gnome/shell/extensions/user-theme/name"
     value: "'Arc-Dark'"
 
 # terminal settings
