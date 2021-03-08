@@ -5,3 +5,4 @@
     - { role: tools, tags: [ "tools" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: gnome-settings, tags: [ "gnome-settings" ] }
+    - { role: terminator, tags: [ "terminator" ] }
