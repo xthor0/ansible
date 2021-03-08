@@ -13,19 +13,8 @@
     state: directory
     mode: '0750'
 
-# TODO: put in a check so the zip doesn't download if the vault binary exists
-# at least, I think, it's downloading the zip even if we don't need it.
-- name: Install Telegram Desktop client
-  unarchive:
-    src: https://telegram.org/dl/desktop/linux
-    dest: ~/bin
-    remote_src: yes
-
-- name: Install pCloud client
-  get_url:
-    url: https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64
-    dest: ~/bin/pcloud
-    mode: '0750'
+- name: Open download link for pCloud in a browser window
+  shell: xdg-open https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64
 
 # TODO:
 

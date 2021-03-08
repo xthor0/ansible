@@ -20,12 +20,5 @@ else
     exit 255
 fi
 
-# check it out to /tmp
-mkdir /tmp/temp_bootstrap && cd /tmp/temp_bootstrap && git clone https://github.com/xthor0/ansible.git
-
-cd ansible
-
-# won't need this after merge to master
-git checkout refactor
-
-ansible-playbook -K -i inv/local.hosts playbooks/workstation.yml
+# refactor can be removed once merged
+ansible-pull -U https://github.com/xthor0/ansible.git -K -C refactor -i inv/local.hosts playbooks/workstation.yml

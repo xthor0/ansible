@@ -42,6 +42,7 @@
 - name: install necessary packages
   apt:
     name:
+      - curl
       - kubectl
       - vim
       - vim-gtk3

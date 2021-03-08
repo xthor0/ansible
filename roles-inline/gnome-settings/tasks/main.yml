@@ -12,11 +12,6 @@
 
 # gnome interface settings
 
-- name: show battery percentage
-  dconf:
-    key: "/org/gnome/desktop/interface/show-battery-percentage"
-    value: "true"
-
 - name: clock show date
   dconf:
     key: "/org/gnome/desktop/interface/clock-show-date"
@@ -37,6 +32,26 @@
     key: "/org/gnome/desktop/interface/icon-theme"
     value: "'Numix'"
 
+- name: full LCD hinting
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/xsettings/hinting"
+    value: "'full'"
+
+- name: enable gnome extensions
+  dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'horizontal-workspaces@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com']"
+
+- name: disable ubuntu dock
+  dconf:
+    key: "/org/gnome/shell/disabled-extensions"
+    value: "['ubuntu-dock@ubuntu.com']"
+
+- name: set user theme to Arc-Dark
+  dconf:
+    key: "/org/gnome/shell/extensions/user-theme/name"
+    value: "'Arc-Dark'"
+
 # mutter settings
 
 - name: workspaces span displays
@@ -51,6 +66,11 @@
 
 # power settings
 
+- name: show battery percentage
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+
 - name: blank screen after 15 minutes
   dconf:
     key: "/org/gnome/desktop/session/idle-delay"
@@ -60,21 +80,6 @@
   dconf:
     key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
     value: "'nothing'"
-
-- name: full LCD hinting
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/xsettings/hinting"
-    value: "'full'"
-
-- name: enable gnome extensions
-  dconf:
-    key: "/org/gnome/shell/enabled-extensions"
-    value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'horizontal-workspaces@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com']"
-
-- name: set user theme to Arc-Dark
-  dconf:
-    key: "/org/gnome/shell/extensions/user-theme/name"
-    value: "'Arc-Dark'"
 
 # terminal settings
 
@@ -122,6 +127,11 @@
   dconf:
     key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color"
     value: "'rgb(255,255,255)'"
+
+- name: terminal background color
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color"
+    value: "'rgb(0,0,0)'"
 
 - name: terminal color palette
   dconf:
