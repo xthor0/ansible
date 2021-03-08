@@ -51,15 +51,20 @@
 
 # power settings
 
+- name: blank screen after 15 minutes
+  dconf:
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: "uint32 900"
+
 - name: sleep when inactive for 15 minutes
   dconf:
     key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
-    value: "3600"
+    value: "'nothing'"
 
 - name: full LCD hinting
   dconf:
     key: "/org/gnome/settings-daemon/plugins/xsettings/hinting"
-    value: "full"
+    value: "'full'"
 
 - name: enable gnome extensions
   dconf:
