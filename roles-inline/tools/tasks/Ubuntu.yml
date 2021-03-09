@@ -91,4 +91,5 @@
       - spotify
       - standard-notes
       - todoist
+      - telegram-desktop
   become: true 
