@@ -32,6 +32,9 @@
     - ~/.config/openbox
     - ~/.config/gtk-3.0
 
+# TODO: only copy these files if THEY DON'T EXIST
+# I don't want a subsequent 'ansible-pull' command screwing this up
+
 - name: copy tint2 config file
   copy:
     src: files/tint2rc
@@ -72,6 +75,12 @@
   copy:
     src: files/gtk30settings.ini
     dest: ~/.config/gtk-3.0/settings.ini
+    mode: '0660'
+
+- name: copy xscreensaver prefs file
+  copy:
+    src: files/xscreensaver-rc
+    dest: ~/.xscreensaver
     mode: '0660'
 
 # TODO: need to set lightdm as default DE, and set a nice theme there, that's dark

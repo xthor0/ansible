@@ -52,13 +52,12 @@
       - nmap
       - zsh
       - 1password
-      - terminator
       - ncdu
       - pwgen
       - htop
       - putty-tools
       - axel
-      - remmina-plugin-rdp
+      - remmina-plugin-rdp # todo: move this to flatpak
       - freerdp2-x11
       - mpv
       - network-manager-openvpn-gnome
@@ -82,6 +81,8 @@
     name: "*"
     state: latest
   become: true 
+
+## TODO: purge snapd, move to flatpak
 
 # install packages from snap
 - name: Install packages from snap

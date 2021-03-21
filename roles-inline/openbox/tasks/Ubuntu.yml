@@ -20,6 +20,7 @@
   apt:
     name:
       - lxqt-openssh-askpass
+      - firefox
       - blueman
       - arc-theme
       - tint2
@@ -46,6 +47,8 @@
       - thunar
       - dunst
       - autorandr
+      - xscreensaver
+      - xscreensaver-screensaver-bsod
     state: present
     update_cache: yes
   become: true
