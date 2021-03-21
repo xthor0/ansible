@@ -33,6 +33,7 @@
       - arandr
       - mousepad
       - lxappearance
+      - lxterminal
       - nm-tray
       - xbacklight
       - flameshot
@@ -40,13 +41,10 @@
       - mate-calc
       - lightdm-gtk-greeter
       - xfce4-appfinder
-      - xss-lock
-      - i3lock
       - mupdf
       - numix-icon-theme
       - thunar
       - dunst
-      - xautolock
       - autorandr
     state: present
     update_cache: yes

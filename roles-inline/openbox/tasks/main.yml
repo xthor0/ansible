@@ -74,34 +74,4 @@
     dest: ~/.config/gtk-3.0/settings.ini
     mode: '0660'
 
-- name: install i3lock-fancy-rapid binary
-  copy: 
-    src: files/bin/i3lock-fancy-rapid
-    dest: ~/bin/i3lock-fancy-rapid
-    mode: '0770'
-
-
-# TODO: Don't make these bash scripts. Make them zsh aliases, 
-# and make them use autorandr with the --detect option.
-# or, this might not be useful. At all. Or necessary. maybe autorandr handles this alllll by itself.
-- name: install dock.sh script
-  copy: 
-    src: files/bin/dock.sh
-    dest: ~/bin/dock.sh
-    mode: '0770'
-
-- name: install undock.sh script
-  copy: 
-    src: files/bin/undock.sh
-    dest: ~/bin/undock.sh
-    mode: '0770'
-
-
-# TODO: this doesn't work at all - i3lock-fancy-rapid and the version of i3lock on Ubuntu, well, no --raw
-- name: install lockscreen.sh binary
-  copy: 
-    src: files/bin/lockscreen.sh
-    dest: ~/bin/lockscreen.sh
-    mode: '0770'
-
 # TODO: need to set lightdm as default DE, and set a nice theme there, that's dark

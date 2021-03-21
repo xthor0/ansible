@@ -361,7 +361,7 @@
           <enabled>true</enabled>
           <name>Web Browser</name>
         </startupnotify>
-        <command>brave-browser</command>
+        <command>firefox</command>
       </action>
     </keybind>
     <keybind key="W-l">
@@ -370,7 +370,7 @@
           <enabled>true</enabled>
           <name>Lock screen</name>
         </startupnotify>
-        <command>xautolock -locknow</command>
+        <command>dm-tool lock</command>
       </action>
     </keybind>
     <keybind key="W-e">
@@ -388,7 +388,7 @@
           <enabled>true</enabled>
           <name>Mediaplayer</name>
         </startupnotify>
-        <command>vlc</command>
+        <command>mpv</command>
       </action>
     </keybind>
     <keybind key="W-h">
@@ -427,12 +427,12 @@
     <!-- docking and undocking, I imagine this will need adjusting! -->
     <keybind key="C-S-u">
       <action name="Execute">
-        <command>~/bin/undock.sh</command>
+        <command>autorandr --load mobile</command>
       </action>
     </keybind>
     <keybind key="C-S-d">
       <action name="Execute">
-        <command>~/bin/dock.sh</command>
+        <command>autorandr --load docked</command>
       </action>
     </keybind>
     <!-- Keybindings for window tiling -->
