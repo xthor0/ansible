@@ -72,6 +72,7 @@
       - python3-boto
       - python3-pip
       - whois
+      - flatpak
     state: present
     update_cache: yes
   become: true 
@@ -83,7 +84,30 @@
     state: latest
   become: true 
 
-## TODO: purge snapd, move to flatpak
+- name: Remove snapd from Ubuntu
+  apt:
+    name: snapd
+    state: absent
+    purge: yes
+
+- name: Remove snapd-related directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /snap
+    - /var/snap
+    - /var/lib/snapd
+
+- name: Install apps from flatpak
+  community.general.flatpak:
+    name: 
+      - com.spotify.Client
+      - com.simplenote.Simplenote
+      - com.todoist.Todoist
+      - org.telegram
+    state: present
+    method: user
 
 # install packages from snap
 - name: Install packages from snap
