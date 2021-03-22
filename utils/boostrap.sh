@@ -22,3 +22,6 @@ fi
 
 # refactor can be removed once merged
 ansible-pull -U https://github.com/xthor0/ansible.git -K -C refactor -i inv/local.hosts playbooks/workstation.yml
+
+# or, for openbox...
+# ansible-pull -U https://github.com/xthor0/ansible.git -K -C refactor playbooks/openbox-workstation.yml
