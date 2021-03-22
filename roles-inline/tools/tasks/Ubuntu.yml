@@ -108,6 +108,7 @@
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
     method: user
 
+# I tried this all as a list. It always failed. :man_shrugging:
 - name: Install spotify from flatpak
   flatpak:
     name: com.spotify.Client
