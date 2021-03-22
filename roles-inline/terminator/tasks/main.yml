@@ -2,6 +2,7 @@
   apt:
     name:
       - terminator
+  become: true
 
 - name: create config dir for terminator
   file:
