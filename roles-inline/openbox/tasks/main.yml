@@ -77,10 +77,15 @@
     dest: ~/.config/gtk-3.0/settings.ini
     mode: '0660'
 
-- name: copy xscreensaver prefs file
+- name: copy lockscreen script to ~/bin
   copy:
-    src: files/xscreensaver-rc
-    dest: ~/.xscreensaver
-    mode: '0660'
+    src: files/lockscreen.sh
+    dest: ~/bin/lockscreen.sh
+    mode: '0750'
+
+- name: checkout i3lock-fancy-multimonitor repo
+  ansible.builtin.git:
+    repo: 'https://github.com/guimeira/i3lock-fancy-multimonitor.git'
+    dest: ~/git/github/i3lock-fancy-multimonitor
 
 # TODO: need to set lightdm as default DE, and set a nice theme there, that's dark

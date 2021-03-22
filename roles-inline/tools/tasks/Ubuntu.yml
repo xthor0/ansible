@@ -71,6 +71,7 @@
       - golang
       - python3-boto
       - python3-pip
+      - whois
     state: present
     update_cache: yes
   become: true 

@@ -47,8 +47,11 @@
       - thunar
       - dunst
       - autorandr
-      - xscreensaver
-      - xscreensaver-screensaver-bsod
+      - xautolock
+      - scrot
+      - i3lock
+      - imagemagick
+      - git # probably already here, but just in case...
     state: present
     update_cache: yes
   become: true

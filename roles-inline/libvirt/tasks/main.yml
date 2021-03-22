@@ -1,0 +1,10 @@
+# this needs a lot of work
+- name: install packages for libvirt
+  apt:
+    name:
+      - cloud-image-utils
+
+# this did the job on ubuntu 20.04
+# sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager libguestfs-tools
+# sudo systemctl is-active libvirtd
+# sudo usermod -aG libvirt $USER

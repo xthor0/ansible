@@ -37,8 +37,7 @@ sleep 2 && conky &
 xinput set-prop 12 "libinput Click Method Enabled" 0 1
 
 # screen locker
-#exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
-xscreensaver &
+exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
 
 # power management, which really just gives us battery status
 xfce4-power-manager &
