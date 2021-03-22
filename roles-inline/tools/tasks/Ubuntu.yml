@@ -100,7 +100,7 @@
     - /var/lib/snapd
 
 - name: Install apps from flatpak
-  community.general.flatpak:
+  flatpak:
     name: 
       - com.spotify.Client
       - com.simplenote.Simplenote
@@ -108,14 +108,3 @@
       - org.telegram
     state: present
     method: user
-
-# install packages from snap
-- name: Install packages from snap
-  snap:
-    name:
-      - simplenote
-      - spotify
-      - standard-notes
-      - todoist
-      - telegram-desktop
-  become: true 
