@@ -108,12 +108,26 @@
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
     method: user
 
-- name: Install apps from flatpak
+- name: Install spotify from flatpak
   flatpak:
-    name: 
-      - com.spotify.Client
-      - com.simplenote.Simplenote
-      - com.todoist.Todoist
-      - org.telegram
+    name: com.spotify.Client
+    state: present
+    method: user
+
+- name: Install simplenote from flatpak
+  flatpak:
+    name: com.simplenote.Simplenote
+    state: present
+    method: user
+
+- name: Install todoist from flatpak
+  flatpak:
+    name: com.todoist.Todoist
+    state: present
+    method: user
+
+- name: Install telegram from flatpak
+  flatpak:
+    name: org.telegram
     state: present
     method: user
