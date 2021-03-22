@@ -89,6 +89,7 @@
     name: snapd
     state: absent
     purge: yes
+  become: true
 
 - name: Remove snapd-related directories
   file:
@@ -98,6 +99,7 @@
     - /snap
     - /var/snap
     - /var/lib/snapd
+  become: true
 
 - name: Install apps from flatpak
   flatpak:
