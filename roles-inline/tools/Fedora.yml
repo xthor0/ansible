@@ -104,7 +104,7 @@
       - htop
       - putty
       - axel
-      - remmina-plugin-rdp # todo: move this to flatpak
+      - remmina-plugins-rdp
       - mpv
       - NetworkManager-openvpn-gnome
       - f3
