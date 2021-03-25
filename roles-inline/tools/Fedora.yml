@@ -5,7 +5,7 @@
     state: present
   with_items:
     - "https://packages.microsoft.com/keys/microsoft.asc" # vscode
-    - "https://packages.cloud.google.com/apt/doc/apt-key.gpg" # kubectl
+    - "https://packages.cloud.google.com/yum/doc/yum-key.gpg" # kubectl
     - "https://downloads.1password.com/linux/keys/1password.asc" # 1password
   become: true 
 
