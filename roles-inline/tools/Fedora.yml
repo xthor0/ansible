@@ -9,6 +9,8 @@
     - "https://downloads.1password.com/linux/keys/1password.asc" # 1password
     - "https://zoom.us/linux/download/pubkey" # zoom
     - "https://keybase.io/docs/server_security/code_signing_key.asc" # keybase
+    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" # rpmfusion free
+    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020" # rpmfusion non-free
   become: true 
 
 # add yum/dnf repositories
@@ -61,11 +63,13 @@
     group: root
   become: true
 
-- name: Enable the RPM Fusion repository
+- name: install the rpmfusion repo packages
   dnf:
-    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
+    name: "{{ item }}"
     state: present
-  become: true
+  with_items:
+    - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ fedora_current }}.noarch.rpm
+    - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ fedora_current }}.noarch.rpm
 
 - name: Enable Fedora Copr for Slack
   command:
