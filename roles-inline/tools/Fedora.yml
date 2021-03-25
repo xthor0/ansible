@@ -7,6 +7,8 @@
     - "https://packages.microsoft.com/keys/microsoft.asc" # vscode
     - "https://packages.cloud.google.com/yum/doc/yum-key.gpg" # kubectl
     - "https://downloads.1password.com/linux/keys/1password.asc" # 1password
+    - "https://zoom.us/linux/download/pubkey" # zoom
+    - "https://keybase.io/docs/server_security/code_signing_key.asc" # keybase
   become: true 
 
 # add yum/dnf repositories
