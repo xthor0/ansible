@@ -1,5 +1,5 @@
 - name: install terminator package
-  apt:
+  package:
     name:
       - terminator
   become: true
