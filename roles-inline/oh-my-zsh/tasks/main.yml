@@ -2,7 +2,7 @@
 - name: Installing Zsh and git - Debian family
   apt: pkg=zsh,git state=latest
   register: installation
-  when: "'Ubuntu' in ansible_distribution" # has to be a way to make this Debian agnostic, but...
+    when: ansible_os_family == "Debian"
   become: true
 
 - name: Installing Zsh and git - Fedora
@@ -12,7 +12,7 @@
       - git
       - util-linux-user
   register: installation
-  when: "'Fedora' in ansible_distribution" #
+  when: "'Fedora' in ansible_distribution"
   become: true
 
 - name: Check if .zshrc exists

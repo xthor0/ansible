@@ -1,5 +1,5 @@
 # only tested on Ubuntu 20.04. Probably won't work on distros with different versions of Gnome, but... :man-shrugging:
-- name: install playbook requirements
+- name: install required gnome packages - Ubuntu
   become: true
   package:
     name:
@@ -9,6 +9,23 @@
       - gnome-shell-extensions
       - arc-theme
       - numix-icon-theme
+  when: ansible_os_family == "Debian"
+
+- name: install required gnome packages - Fedora
+  become: true
+  package:
+    name:
+      - python3-psutil
+      - gnome-tweaks
+      - gnome-shell-extension-user-theme
+      - gnome-shell-extension-topicons-plus
+      - gnome-shell-extension-horizontal-workspace
+      - gnome-shell-extension-launch-new-instance
+      - gnome-shell-extension-common
+      - chrome-gnome-shell
+      - arc-theme
+      - numix-icon-theme
+  when: "'Fedora' in ansible_distribution"
 
 # gnome interface settings
 
