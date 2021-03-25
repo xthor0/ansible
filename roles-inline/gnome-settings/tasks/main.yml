@@ -19,7 +19,7 @@
       - gnome-tweaks
       - gnome-shell-extension-user-theme
       - gnome-shell-extension-topicons-plus
-      - gnome-shell-extension-horizontal-workspace
+      - gnome-shell-extension-horizontal-workspaces
       - gnome-shell-extension-launch-new-instance
       - gnome-shell-extension-common
       - chrome-gnome-shell
