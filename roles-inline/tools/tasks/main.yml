@@ -9,7 +9,7 @@
 
 - name: Include Fedora tasks
   include_tasks: Fedora.yml
-  when "'Fedora' in ansible_distribution"
+  when: "'Fedora' in ansible_distribution"
 
 - name: create bin directory in users home dir
   file:
