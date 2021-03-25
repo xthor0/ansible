@@ -61,6 +61,12 @@
     group: root
   become: true
 
+- name: Enable the RPM Fusion repository
+  dnf:
+    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
+    state: present
+  become: true
+
 - name: Enable Fedora Copr for Slack
   command:
       cmd: dnf copr enable -y jdoss/slack-repo
@@ -81,7 +87,7 @@
       - curl
       - kubectl
       - vim
-      - vim-gtk3
+      - vim-X11
       - code
       - ansible
       - awscli
@@ -91,15 +97,14 @@
       - ncdu
       - pwgen
       - htop
-      - putty-tools
+      - putty
       - axel
       - remmina-plugin-rdp # todo: move this to flatpak
-      - freerdp2-x11
       - mpv
-      - network-manager-openvpn-gnome
+      - NetworkManager-openvpn-gnome
       - f3
       - screen
-      - p7zip-full
+      - p7zip-plugins
       - iperf3
       - podman
       - xorriso
