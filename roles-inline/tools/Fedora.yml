@@ -1,7 +1,7 @@
 # add GPG keys for repositories
 - name: add yum GPG keys from urls
   rpm_key:
-    url: "{{ item }}"
+    key: "{{ item }}"
     state: present
   with_items:
     - "https://packages.microsoft.com/keys/microsoft.asc" # vscode
