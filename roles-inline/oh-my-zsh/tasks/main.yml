@@ -10,6 +10,7 @@
     name:
       - zsh
       - git
+      - util-linux-user
   register: installation
   when: "'Fedora' in ansible_distribution" #
   become: true
