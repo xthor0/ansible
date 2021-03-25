@@ -66,8 +66,7 @@
   become: true
 
 - name: install RPM packages from URLs
-  apt:
-    rpm: "{{ item }}"
+  yum: name="{{ item }}"
   with_items:
     - "https://prerelease.keybase.io/keybase_amd64.rpm"
     - "https://zoom.us/client/latest/zoom_x86_64.rpm"
