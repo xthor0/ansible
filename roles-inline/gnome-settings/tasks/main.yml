@@ -1,7 +1,7 @@
 # only tested on Ubuntu 20.04. Probably won't work on distros with different versions of Gnome, but... :man-shrugging:
 - name: install required gnome packages - Ubuntu
   become: true
-  package:
+  apt:
     name:
       - python3-psutil
       - dconf-cli

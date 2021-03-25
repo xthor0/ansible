@@ -2,7 +2,7 @@
 - name: Installing Zsh and git - Debian family
   apt: pkg=zsh,git state=latest
   register: installation
-    when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
   become: true
 
 - name: Installing Zsh and git - Fedora
