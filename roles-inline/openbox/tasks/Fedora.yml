@@ -1,22 +1,8 @@
-# add GPG keys for repositories
-- name: add yum gpg keys from urls
-  rpm_key:
-    key: "{{ item }}"
-    state: present
-  with_items:
-    - "https://download.opensuse.org/repositories/home:/phillipberndt/Fedora_{{ ansible_distribution_version }}/repodata/repomd.xml.key" # autorandr
-  become: true 
-
-# add yum repositories
-# didn't use yum_repository here because this file has a line in it I can't manage in
-- name: template yum repo file for autorandr
+- name: Enable Fedora Copr for Autorandr
+  command:
+      cmd: dnf copr enable -y tofik/autorandr 
+      creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:tofik:autorandr.repo
   become: true
-  template:
-    src: templates/autorandr.repo.j2
-    dest: /etc/yum.repos.d/autorandr.repo
-    mode: '0664'
-    owner: root
-    group: root
 
 - name: install packages for Openbox
   dnf:
