@@ -1,7 +1,7 @@
 # add GPG keys for repositories
 - name: add yum gpg keys from urls
   rpm_key:
-    url: "{{ item }}"
+    key: "{{ item }}"
     state: present
   with_items:
     - "https://download.opensuse.org/repositories/home:/phillipberndt/Fedora_{{ ansible_distribution_version }}/repodata/repomd.xml.key" # autorandr

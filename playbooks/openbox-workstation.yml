@@ -6,4 +6,5 @@
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: openbox, tags: [ "openbox" ] }
     - { role: terminator, tags: [ "terminator" ] }
+    - { role: power-management, tags: [ "power-management" ] }
     # TODO: vim + vimrc files

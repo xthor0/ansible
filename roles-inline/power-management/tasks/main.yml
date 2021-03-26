@@ -1,0 +1,12 @@
+---
+- shell: hostnamectl status | grep Chassis
+  register: chassis_type
+
+- name: install powertop and tlp
+  become: true
+  package:
+    name:
+      - powertop
+      - tlp
+  notify: enable power management
+  when: "'laptop' in chassis_type.stdout"
