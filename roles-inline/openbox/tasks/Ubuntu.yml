@@ -47,10 +47,9 @@
       - dunst
       - autorandr
       - xautolock
-      - scrot
+      - maim
       - i3lock
       - imagemagick
-      - git # probably already here, but just in case...
       - fonts-liberation
       - pavucontrol
     state: present

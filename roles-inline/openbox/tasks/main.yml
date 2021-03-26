@@ -35,6 +35,8 @@
     - ~/.config/volumeicon
     - ~/.config/openbox
     - ~/.config/gtk-3.0
+    - ~/bin
+    - ~/.screenlocker
 
 # TODO: only copy these files if THEY DON'T EXIST
 # I don't want a subsequent 'ansible-pull' command screwing this up
@@ -87,9 +89,21 @@
     dest: ~/bin/lockscreen.sh
     mode: '0750'
 
-- name: checkout i3lock-fancy-multimonitor repo
-  ansible.builtin.git:
-    repo: 'https://github.com/guimeira/i3lock-fancy-multimonitor.git'
-    dest: ~/git/github/i3lock-fancy-multimonitor
+- name: copy screenlocker script to ~/.screenlocker
+  copy:
+    src: files/lock
+    dest: ~/.screenlocker/lock
+    mode: '0770'
+
+- name: copy lock png to ~/.screenlocker
+  copy:
+    src: files/lock.png
+    dest: ~/.screenlocker/lock.png
+    mode: '0660'
+
+- name: copy text png to ~/.screenlocker
+    src: files/text.png
+    dest: ~/.screenlocker/text.png
+    mode: '0660'
 
 # TODO: need to set lxdm as default DE, and set a nice theme there, that's dark

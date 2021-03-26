@@ -26,7 +26,6 @@
       - blueman
       - arc-theme
       - tint2
-      - ssh-askpass
       - openbox
       - obconf
       - compton
@@ -49,9 +48,9 @@
       - dunst
       - autorandr
       - xautolock
-      - scrot
+      - maim
       - i3lock
-      - imagemagick
+      - ImageMagick
       - liberation-fonts
       - pavucontrol
     state: present
