@@ -29,7 +29,7 @@
       - openbox
       - obconf
       - compton
-      - volumeicon-alsa
+      - volumeicon
       - nitrogen
       - conky
       - arandr
