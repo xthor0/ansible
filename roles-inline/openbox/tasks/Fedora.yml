@@ -19,7 +19,7 @@
     group: root
 
 - name: install packages for Openbox
-  apt:
+  dnf:
     name:
       - lxqt-openssh-askpass
       - firefox
