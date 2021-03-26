@@ -1,0 +1,58 @@
+# add GPG keys for repositories
+- name: add yum gpg keys from urls
+  rpm_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+    - "https://download.opensuse.org/repositories/home:/phillipberndt/Fedora_{{ ansible_distribution_version }}/repodata/repomd.xml.key" # autorandr
+  become: true 
+
+# add yum repositories
+- name: Add autorandr yum repository
+  yum_repository:
+    name: "home:phillipberndt (Fedora_{{ ansible_distribution_version }})"
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgcheck: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    enabled: yes
+  become: true
+
+- name: install packages for Openbox
+  apt:
+    name:
+      - lxqt-openssh-askpass
+      - firefox
+      - blueman
+      - arc-theme
+      - tint2
+      - ssh-askpass
+      - openbox
+      - obconf
+      - compton
+      - volumeicon-alsa
+      - nitrogen
+      - conky
+      - arandr
+      - mousepad
+      - lxappearance
+      - lxterminal
+      - xbacklight
+      - flameshot
+      - playerctl
+      - mate-calc
+      - lxdm
+      - xfce4-appfinder
+      - mupdf
+      - numix-icon-theme
+      - thunar
+      - dunst
+      - autorandr
+      - xautolock
+      - scrot
+      - i3lock
+      - imagemagick
+      - liberation-fonts
+      - pavucontrol
+    state: present
+    update_cache: yes
+  become: true

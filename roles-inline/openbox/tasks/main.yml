@@ -7,6 +7,10 @@
   include_tasks: Ubuntu.yml
   when: "'Pop!_OS' in ansible_distribution"
 
+- name: Include Fedora tasks
+  include_tasks: Fedora.yml
+  when: "'Fedora' in ansible_distribution"
+  
 - name: template conkyrc file
   template:
     src: templates/conkyrc.j2
@@ -88,4 +92,4 @@
     repo: 'https://github.com/guimeira/i3lock-fancy-multimonitor.git'
     dest: ~/git/github/i3lock-fancy-multimonitor
 
-# TODO: need to set lightdm as default DE, and set a nice theme there, that's dark
+# TODO: need to set lxdm as default DE, and set a nice theme there, that's dark
