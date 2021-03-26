@@ -102,6 +102,7 @@
     mode: '0660'
 
 - name: copy text png to ~/.screenlocker
+  copy:
     src: files/text.png
     dest: ~/.screenlocker/text.png
     mode: '0660'
