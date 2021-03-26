@@ -14,7 +14,7 @@
     src: templates/autorandr.repo.j2
     dest: /etc/yum.repos.d/autorandr.repo
     mode: '0664'
-    user: root
+    owner: root
     group: root
 
 - name: install packages for Openbox
