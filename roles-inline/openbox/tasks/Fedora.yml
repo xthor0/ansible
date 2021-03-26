@@ -10,6 +10,7 @@
 # add yum repositories
 # didn't use yum_repository here because this file has a line in it I can't manage in
 - name: template yum repo file for autorandr
+  become: true
   template:
     src: templates/autorandr.repo.j2
     dest: /etc/yum.repos.d/autorandr.repo
