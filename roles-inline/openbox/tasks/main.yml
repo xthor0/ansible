@@ -48,7 +48,7 @@
     mode: '0660'
     force: no
 
-- name: template compton conf file
+- name: copy compton conf file
   copy:
     src: files/compton.conf
     dest: ~/.config/compton.conf

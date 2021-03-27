@@ -7,4 +7,5 @@
     - { role: openbox, tags: [ "openbox" ] }
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
-    # TODO: vim + vimrc files
+    - { role: vim, tags: [ "vim" ] }
+    # TODO: git repo checkout!

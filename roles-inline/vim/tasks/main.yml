@@ -1,0 +1,39 @@
+---
+- name: install vim-enhanced (RedHat derivatives)
+  package:
+    name:
+      - vim-enhanced
+      - vim-X11
+    state: present
+  become: true
+  when: ansible_os_family == "RedHat"
+
+- name: install vim-enhanced (Debian derivatives)
+  package:
+    name:
+      - vim
+      - vim-gtk3
+    state: present
+  become: true
+  when: ansible_os_family == "Debian"
+
+- name: create ~/tmp dir for vim temp files
+  file:
+    path: ~/tmp
+    state: directory
+    mode: '0750'
+
+- name: Copy dot vim folder to home dir
+  copy:
+    src: files/dotvim
+    dest: ~/.vim
+    mode: '0750'
+    directory: true
+    force: no
+
+- name: copy dot vimrc file to home dir
+  copy:
+    src: files/vimrc
+    dest: ~/.vimrc
+    mode: '0660'
+    force: no
