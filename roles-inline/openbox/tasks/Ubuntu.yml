@@ -67,3 +67,10 @@
     state: link
     force: true
   become: true
+
+# in order for pkexec to work correctly, my account MUST be a member of the sudo group on Ubuntu
+- name: Add my account to sudo group
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: sudo
+    append: yes

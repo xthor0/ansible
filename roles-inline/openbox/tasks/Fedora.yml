@@ -41,6 +41,7 @@
       - liberation-fonts
       - pavucontrol
       - python3-distutils-extra
+      - python-distutils-extra
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
     state: present
