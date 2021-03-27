@@ -12,13 +12,15 @@ lxpolkit &
 dunst &
 
 # restore background
-nitrogen --restore &
+#nitrogen --restore &
+(test -f ~/Pictures/background.jpg && nitrogen --set-tiled --head=-1 ~/Pictures/background.jpg) &
 
 # launch pcmanfm in daemon mode
 thunar --daemon &
 
 # compositor for tear-free windows and some basic effects
-compton -b
+# running this on a virtual machine causes problems
+hostnamectl | grep -q 'Chassis: vm' || compton -b
 
 # a status bar with icons/time
 tint2 &
@@ -34,7 +36,8 @@ sleep 2 && conky &
 
 # fix touchpad so I can right-click with 2 fingers
 # you'll have to adjust the ID: xinput list | grep -i touchpad, find id for the one you want to tweak
-xinput set-prop 12 "libinput Click Method Enabled" 0 1
+# I want to put more Bash into this, to find the right ID and set it correctly
+xinput list | grep -qi touchpad && xinput set-prop 12 "libinput Click Method Enabled" 0 1
 
 # screen locker
 exec xautolock -time 15 -locker ~/bin/lockscreen.sh &

@@ -22,9 +22,24 @@
     - ~/.config/terminator
     - ~/.config/volumeicon
     - ~/.config/openbox
+    - ~/.config/dunst
     - ~/.config/gtk-3.0
     - ~/bin
     - ~/.screenlocker
+
+- name: openbox menu for Fedora
+  copy:
+    src: files/openbox.menu.xml.fedora
+    dest: ~/.config/openbox/menu.xml
+    force: no
+  when: "'Fedora' in ansible_distribution"
+
+- name: openbox menu for Debian and derivatives
+  copy:
+    src: files/openbox.menu.xml.debian
+    dest: ~/.config/openbox/menu.xml
+    force: no
+  when: ansible_os_family == "Debian"
 
 - name: template conkyrc file
   copy:
@@ -89,6 +104,13 @@
     mode: '0660'
     force: no
 
+- name: copy dunstrc file
+  copy:
+    src: files/dunstrc
+    dest: ~/.config/dunst/dunstrc
+    mode: '0660'
+    force: no
+
 - name: copy lockscreen script to ~/bin
   copy:
     src: files/lockscreen.sh
@@ -113,6 +135,12 @@
     dest: ~/.screenlocker/text.png
     mode: '0660'
 
+- name: copy background to ~/Pictures
+  copy:
+    src: files/background.jpg
+    dest: ~/Pictures/background.jpg
+    mode: '0660'
+
 - name: checkout oblogout-py3 repo
   ansible.builtin.git:
     repo: 'https://github.com/trizen/oblogout-py3.git'
@@ -128,5 +156,13 @@
   args:
     chdir: ~/git/github/oblogout-py3
     creates: /etc/oblogout.conf
+
+- name: copy oblogout configuration file
+  copy:
+    src: files/obloglout.conf
+    dest: /etc/obloglout.conf
+    mode: '0660'
+    owner: root
+    group: root
 
 # TODO: need to set lxdm as default DE, and set a nice theme there, that's dark
