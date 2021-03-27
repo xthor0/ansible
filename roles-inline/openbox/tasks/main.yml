@@ -167,9 +167,9 @@
     group: root
   become: true
 
-- name: copy lightdm-gtk-greeter.conf
-  copy:
-    src: files/lightdm-gtk-greeter.conf
+- name: template lightdm-gtk-greeter.conf
+  template:
+    src: templates/lightdm-gtk-greeter.conf.j2
     dest: /etc/lightdm/lightdm-gtk-greeter.conf
     mode: '0664'
     owner: root

@@ -20,6 +20,7 @@
   apt:
     name:
       - lxqt-openssh-askpass
+      - lxpolkit
       - firefox
       - blueman
       - arc-theme
