@@ -43,13 +43,15 @@ exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
 xfce4-power-manager &
 
 # bluetooth icon
-/usr/bin/blueman-applet &
+# already autostarted in /etc/xdg/autostart
+# /usr/bin/blueman-applet &
 
 # screen shot tool
 flameshot &
 
 # volume control
-volumeicon &
+# already autostarted in /etc/xdg/autostart
+# volumeicon &
 
 # Make things like 'ping -a' work, woo!
 pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell

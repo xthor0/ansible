@@ -42,3 +42,9 @@
     state: present
     update_cache: yes
   become: true
+
+- name: remove pcmanfm (defaults with lxde)
+  dnf:
+    name: pcmanfm
+    state: absent
+  become: true

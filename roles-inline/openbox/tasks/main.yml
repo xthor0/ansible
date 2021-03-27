@@ -11,18 +11,6 @@
   include_tasks: Fedora.yml
   when: "'Fedora' in ansible_distribution"
   
-- name: template conkyrc file
-  template:
-    src: templates/conkyrc.j2
-    dest: ~/.conkyrc
-    mode: '0660'
-
-- name: template compton conf file
-  template:
-    src: templates/conkyrc.j2
-    dest: ~/.config/compton.conf
-    mode: '0660'
-
 - name: create config dirs
   file:
     path: "{{ item }}"
@@ -40,6 +28,20 @@
 
 # TODO: only copy these files if THEY DON'T EXIST
 # I don't want a subsequent 'ansible-pull' command screwing this up
+
+- name: template conkyrc file
+  copy:
+    src: files/conkyrc
+    dest: ~/.conkyrc
+    mode: '0660'
+  force: no
+
+- name: template compton conf file
+  copy:
+    src: files/compton.conf
+    dest: ~/.config/compton.conf
+    mode: '0660'
+  force: no
 
 - name: copy tint2 config file
   copy:
