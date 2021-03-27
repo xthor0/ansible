@@ -162,7 +162,7 @@
   copy:
     src: files/oblogout.conf
     dest: /etc/oblogout.conf
-    mode: '0660'
+    mode: '0664'
     owner: root
     group: root
   become: true
