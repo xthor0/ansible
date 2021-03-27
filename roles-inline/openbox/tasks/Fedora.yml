@@ -41,6 +41,7 @@
       - pavucontrol
       - python3-distutils-extra
       - xfce4-power-manager
+      - lightdm-gtk-greeter-settings
     state: present
     update_cache: yes
   become: true
@@ -50,5 +51,14 @@
     name:
       - pcmanfm
       - xscreensaver-base
+      - lxdm
     state: absent
   become: true
+
+  - name: set LightDM as display manager
+    file:
+      path: /etc/systemd/system/display-manager.service
+      src: /usr/lib/systemd/system/lightdm.service
+      state: link
+      force: true
+    become: true

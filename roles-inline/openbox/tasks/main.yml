@@ -167,4 +167,13 @@
     group: root
   become: true
 
+- name: copy lightdm-gtk-greeter.conf
+  copy:
+    src: files/lightdm-gtk-greeter.conf
+    dest: /etc/lightdm/lightdm-gtk-greeter.conf
+    mode: '0664'
+    owner: root
+    group: root
+  become: true
+
 # TODO: need to set lxdm as default DE, and set a nice theme there, that's dark
