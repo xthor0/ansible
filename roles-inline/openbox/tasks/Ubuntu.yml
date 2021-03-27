@@ -57,6 +57,7 @@
       - python-distutils-extra
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
+      - python-is-python3
     state: present
     update_cache: yes
   become: true

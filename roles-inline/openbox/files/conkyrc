@@ -118,17 +118,17 @@ own_window_colour 000000
 TEXT
 #SYSTEM DETAILS:
 ${font Monospace:style=Bold:pixelsize=16}${color4}SYSTEM ${color6}${hr 2}
-${color}${font Monospace:size=7.2}OS: ${alignr}Ubuntu 16.04.1 LTS (Xenial Xerus) - Unity
+${color}${font Monospace:size=7.2}OS: ${alignr}${execi 999999 lsb_release -ds}
 KERNEL: $alignr$sysname $kernel ($machine)
+CPU MODEL: $alignr${execi 999999 cat /proc/cpuinfo | grep 'model name' | head -n1 | sed -e 's/model name.*: //' | sed -e 's/ CPU @.*//'}
 UPTIME: $alignr$uptime
 RUNNING PROCESSES: ${alignr}$processes (${color4}$running_processes Executing${color})
 
 
 ${color4}${font Monospace:style=Bold:pixelsize=12}CPU USAGE ${color6}${hr 2 }
-${color}${font Monospace:style=Bold:pixelsize=8}
-CORE I:                        CORE II:${font Monospace:size=6.5}
-${freq}MHz / ${acpitemp}°C ${color3}(${cpu cpu1}%)           ${color}${freq}MHz / ${acpitemp}°C ${color3}(${cpu cpu2}%)
-${cpubar 5,120 cpu1}       ${cpubar 5,120 cpu2}
+${color}${font Monospace:size=6.5}
+${execi 999999 lscpu | grep ^Core | awk '{ print $4 }'} CPU Cores (${cpu cpu1}%)
+${cpubar 5,120 cpu0}
 ${color}1st ${color4}${top name 1}${top cpu 1}%${alignr}${color}1st ${color4}${top name 2}${top cpu 2}%
 ${color}2nd ${color}${top name 3}${top cpu 3}%${alignr}${color}2nd ${color}${top name 4}${top cpu 4}%
 ${color}3rd ${color1}${top name 5}${top cpu 5}%${alignr}${color}3rd ${color1}${top name 6}${top cpu 6}%
@@ -149,22 +149,40 @@ ${color}5th ${color3}${top_mem name 5}${top_mem mem 5}% ${alignr}${color}10th ${
 
 ${color4}${font Monospace:style=Bold:pixelsize=12}DISK USAGE ${color6}${hr 2 }
 
-${color}${font Monospace:style=Bold:pixelsize=11}COMPUTER:${font Monospace:size=7} ${alignr}${fs_used /}/${fs_size /}
+${color}${font Monospace:style=Bold:pixelsize=11}ROOT:${font Monospace:size=7} ${alignr}${fs_used /}/${fs_size /}
 ${alignr}${color2}${fs_used_perc /}% ${color3}${fs_bar 5,120 /}
 
-${color4}${font Monospace:style=Bold:pixelsize=12}INTERNET ${color6}${hr 2 }
+${color4}${font Monospace:style=Bold:pixelsize=12}NETWORK ${color6}${hr 2 }
 
-${font Monospace:style=Bold:pixelsize=11}${color}WIRELESS:${font Monospace:size=7}
-#${color}SSID: ${alignr} ${color}${wireless_essid wlan0}
-${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual wlan0}%
-#${color}WLAN IP: ${alignr} ${color}${addr wlan0}
-#${color}MAC: ${alignr} ${color}${wireless_ap wlan0}
+${font Monospace:style=Bold:pixelsize=11}${color}WAN IP:${font Monospace:size=7}${font Monospace:size=7} ${alignr}${execi 14400 curl ifconfig.co}
+
+${if_existing /sys/class/net/wlp0s20f3/operstate up}${font Monospace:style=Bold:pixelsize=11}${color}WIRELESS:${font Monospace:size=7}
+${color}SSID: ${alignr} ${color}${wireless_essid wlp0s20f3}
+${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual wlp0s20f3}%
+${color}WLAN IP: ${alignr} ${color}${addr wlp0s20f3}
+${color}MAC: ${alignr} ${color}${wireless_ap wlp0s20f3}
 
 
-${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed wlan0} kb/s 
-${alignr}${color BBCCDD}${downspeedgraph wlan0 20,290 EF5A29 EF5A29}
-${color}TOTAL DOWN ${alignr}${totaldown wlan0} 
+${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed wlp0s20f3} kb/s 
+${alignr}${color BBCCDD}${downspeedgraph wlp0s20f3 20,290 EF5A29 EF5A29}
+${color}TOTAL DOWN ${alignr}${totaldown wlp0s20f3} 
 
-${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed wlan0} kb/s 
-${alignr}${color BBCCDD}${upspeedgraph wlan0 20,290 77B753 77B753}
-${color}TOTAL UP ${alignr}${totalup wlan0}
+${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed wlp0s20f3} kb/s 
+${alignr}${color BBCCDD}${upspeedgraph wlp0s20f3 20,290 77B753 77B753}
+${color}TOTAL UP ${alignr}${totalup wlp0s20f3}
+${endif}
+${if_existing /sys/class/net/eno1/operstate up}${font Monospace:style=Bold:pixelsize=11}${color}ETHERNET:${font Monospace:size=7}
+#${color}SSID: ${alignr} ${color}${wireless_essid eno1}
+${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual eno1}%
+#${color}WLAN IP: ${alignr} ${color}${addr eno1}
+#${color}MAC: ${alignr} ${color}${wireless_ap eno1}
+
+
+${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed eno1} kb/s 
+${alignr}${color BBCCDD}${downspeedgraph eno1 20,290 EF5A29 EF5A29}
+${color}TOTAL DOWN ${alignr}${totaldown eno1} 
+
+${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed eno1} kb/s 
+${alignr}${color BBCCDD}${upspeedgraph eno1 20,290 77B753 77B753}
+${color}TOTAL UP ${alignr}${totalup eno1}
+${endif}

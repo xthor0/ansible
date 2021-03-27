@@ -43,6 +43,7 @@
       - python3-distutils-extra
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
+      - redhat-lsb-core
     state: present
     update_cache: yes
   become: true

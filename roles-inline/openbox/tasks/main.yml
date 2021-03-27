@@ -153,7 +153,7 @@
     creates: ~/.themes
 
 - name: install oblogout-py3
-  shell: sudo ./setup.py install
+  shell: sudo python3 ./setup.py install
   args:
     chdir: ~/git/github/oblogout-py3
     creates: /etc/oblogout.conf

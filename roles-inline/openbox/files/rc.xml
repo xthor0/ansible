@@ -328,13 +328,13 @@
       </action>
     </keybind>
     <!-- Keybindings for running applications -->
-    <keybind key="A-F2">
+    <keybind key="W-r">
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
           <name>Run Program</name>
         </startupnotify>
-        <command>lxterminal -t "Run Program"</command>
+        <command>xfce4-appfinder -c</command>
       </action>
     </keybind>
     <keybind key="W-f">
