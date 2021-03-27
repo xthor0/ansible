@@ -145,6 +145,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/trizen/oblogout-py3.git'
     dest: ~/git/github/oblogout-py3
+    force: true
 
 - name: Copy the themes from oblogout-py3 to themes dir
   shell: cp -var ~/git/github/oblogout-py3/data/themes ~/.themes

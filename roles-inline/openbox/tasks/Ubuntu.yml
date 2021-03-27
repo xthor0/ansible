@@ -52,6 +52,8 @@
       - imagemagick
       - fonts-liberation
       - pavucontrol
+      - python3-distutils-extra
+      - xfce4-power-manager
     state: present
     update_cache: yes
   become: true
