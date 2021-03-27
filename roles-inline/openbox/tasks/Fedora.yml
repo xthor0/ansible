@@ -43,8 +43,10 @@
     update_cache: yes
   become: true
 
-- name: remove pcmanfm (defaults with lxde)
+- name: remove unnecessary packages that come with Fedora's LXDE spin
   dnf:
-    name: pcmanfm
+    name:
+      - pcmanfm
+      - xscreensaver-base
     state: absent
   become: true

@@ -113,4 +113,23 @@
     dest: ~/.screenlocker/text.png
     mode: '0660'
 
+- name: checkout oblogout-py3 repo
+  ansible.builtin.git:
+    repo: 'https://github.com/trizen/oblogout-py3.git'
+    dest: ~/git/github/oblogout-py3
+
+- name: Copy the themes from oblogout-py3 to themes dir
+  ansible.posix.synchronize:
+    src: ~/git/github/oblogout-py3/data/themes
+    dest: ~/.themes
+    rsync_opts:
+      - "--no-motd"
+      - "--exclude=.git"
+
+- name: install oblogout-py3
+  shell: ./setup.py install
+  chdir: ~/git/github/oblogout-py3
+  creates: /etc/oblogout.conf
+  become: true
+
 # TODO: need to set lxdm as default DE, and set a nice theme there, that's dark
