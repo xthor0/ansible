@@ -51,7 +51,6 @@
     name:
       - pcmanfm
       - xscreensaver-base
-      - lxdm
     state: absent
   become: true
 
