@@ -34,14 +34,14 @@
     src: files/conkyrc
     dest: ~/.conkyrc
     mode: '0660'
-  force: no
+    force: no
 
 - name: template compton conf file
   copy:
     src: files/compton.conf
     dest: ~/.config/compton.conf
     mode: '0660'
-  force: no
+    force: no
 
 - name: copy tint2 config file
   copy:
