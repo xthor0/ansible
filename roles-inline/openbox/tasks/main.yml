@@ -126,8 +126,9 @@
 
 - name: install oblogout-py3
   shell: ./setup.py install
-  chdir: ~/git/github/oblogout-py3
-  creates: /etc/oblogout.conf
+  args:
+    chdir: ~/git/github/oblogout-py3
+    creates: /etc/oblogout.conf
   become: true
 
 # TODO: need to set lxdm as default DE, and set a nice theme there, that's dark
