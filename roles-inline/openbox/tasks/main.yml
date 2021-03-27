@@ -26,9 +26,6 @@
     - ~/bin
     - ~/.screenlocker
 
-# TODO: only copy these files if THEY DON'T EXIST
-# I don't want a subsequent 'ansible-pull' command screwing this up
-
 - name: template conkyrc file
   copy:
     src: files/conkyrc
@@ -48,42 +45,49 @@
     src: files/tint2rc
     dest: ~/.config/tint2/tint2rc
     mode: '0660'
+    force: no
 
 - name: copy xfce4-power-manager config file
   copy:
     src: files/xfce4-power-manager.xml
     dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     mode: '0660'
+    force: no
 
 - name: copy volumeicon config file
   copy:
     src: files/volumeicon
     dest: ~/.config/volumeicon/volumeicon
     mode: '0660'
+    force: no
 
 - name: copy openbox autostart config file
   copy:
     src: files/autostart
     dest: ~/.config/openbox/autostart
     mode: '0770'
+    force: no
 
 - name: copy openbox rc.xml config file
   copy:
     src: files/rc.xml
     dest: ~/.config/openbox/rc.xml
     mode: '0660'
+    force: no
 
 - name: copy terminator config file
   copy:
     src: files/terminator-config
     dest: ~/.config/terminator/config
     mode: '0660'
+    force: no
 
 - name: copy gtk-3.0 config file
   copy:
     src: files/gtk30settings.ini
     dest: ~/.config/gtk-3.0/settings.ini
     mode: '0660'
+    force: no
 
 - name: copy lockscreen script to ~/bin
   copy:
