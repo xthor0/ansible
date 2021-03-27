@@ -39,6 +39,7 @@
       - ImageMagick
       - liberation-fonts
       - pavucontrol
+      - python3-distutils-extra
     state: present
     update_cache: yes
   become: true
