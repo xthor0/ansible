@@ -28,7 +28,6 @@
     src: files/dotvim
     dest: ~/.vim
     mode: '0750'
-    directory: true
     force: no
 
 - name: copy dot vimrc file to home dir
