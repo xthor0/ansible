@@ -119,12 +119,10 @@
     dest: ~/git/github/oblogout-py3
 
 - name: Copy the themes from oblogout-py3 to themes dir
-  ansible.posix.synchronize:
+  copy:
     src: ~/git/github/oblogout-py3/data/themes
     dest: ~/.themes
-    rsync_opts:
-      - "--no-motd"
-      - "--exclude=.git"
+    directory_mode: yes
 
 - name: install oblogout-py3
   shell: ./setup.py install
