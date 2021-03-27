@@ -160,10 +160,11 @@
 
 - name: copy oblogout configuration file
   copy:
-    src: files/obloglout.conf
-    dest: /etc/obloglout.conf
+    src: files/oblogout.conf
+    dest: /etc/oblogout.conf
     mode: '0660'
     owner: root
     group: root
+  become: true
 
 # TODO: need to set lxdm as default DE, and set a nice theme there, that's dark
