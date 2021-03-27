@@ -25,7 +25,7 @@
 
 - name: Copy dot vim folder to home dir
   copy:
-    src: files/dotvim
+    src: files/dotvim/
     dest: ~/.vim
     mode: '0750'
     force: no
