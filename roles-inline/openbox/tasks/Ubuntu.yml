@@ -75,3 +75,4 @@
     name: "{{ lookup('env', 'USER') }}"
     groups: sudo
     append: yes
+  become: true
