@@ -119,10 +119,9 @@
     dest: ~/git/github/oblogout-py3
 
 - name: Copy the themes from oblogout-py3 to themes dir
-  copy:
-    src: ~/git/github/oblogout-py3/data/themes
-    dest: ~/.themes
-    directory_mode: yes
+  shell: cp -var ~/git/github/oblogout-py3/data/themes ~/.themes
+  args:
+    creates: ~/.themes
 
 - name: install oblogout-py3
   shell: ./setup.py install
