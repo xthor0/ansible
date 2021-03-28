@@ -11,10 +11,9 @@
   include_tasks: Fedora.yml
   when: "'Fedora' in ansible_distribution"
 
-- name: stop xscreensaver-demo process
+- name: shut down xscreensaver
   shell: pkill xscreensaver
   failed_when: false
-  log_output: false
 
 - name: create config dirs
   file:
