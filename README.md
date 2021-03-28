@@ -14,7 +14,7 @@ As I've been learning Ansible, I decided to take a stab at setting up some tasks
 - Install the base OS (I tested standard installations of both Ubuntu 20.04 and Fedora 33)
 - install `ansible` and `git`
 - Copy over my SSH keys
-- Add the SSH key to the keyring (or the Git repos won't clone): `ssh-add`
+- Add the SSH key to the keyring (or the Git repos won't clone): `eval $(ssh-agent) && ssh-add`
 - Run the playbook: `ansible-pull -U https://github.com/xthor0/ansible.git -K playbooks/workstation.yml`
 
 Also, when testing, I learned that I can use `ansible-pull` directly against a branch, which is handy:
@@ -25,14 +25,14 @@ Also, when testing, I learned that I can use `ansible-pull` directly against a b
 
 One of the nice things about Openbox is that it's extremely lightweight. While my initial playbook tests were done against the Fedora LXDE spin, or Lubuntu 20.04, I found that I had many packages that I just didn't need. Rather than trying get the playbook to remove them, it was easier to start from a completely minimal installation source, and let the playbook do the rest.
 
-The setup is similar to what's listed for GNOME workstation, e
+The setup is similar to what's listed for GNOME workstation, except for the installation source:
 
-For Ubuntu, I downloaded the mini.iso found here: 
-I chose no options, just set up my storage, hostname and user info.
-Logged in, installed ansible and git, and ran the ansible-pull command: ansible-pull -U https://github.com/xthor0/ansible.git -K playbooks/openbox-workstation.yml
-Rebooted when done
+https://getfedora.org/en/server/download/
 
-For Fedora, use the netinstall ISO found here: https://getfedora.org/en/server/download/
-Set up storage, username, hostname, etc and under Software Selection choose Minimal Install
+Ubuntu is pushing everyone to their new installer, the name of which escapes me. I really had to dig for this:
 
-let's see if this works! I think, at the very least, I'll need to put in something to install the plymouth screen so it looks nice.
+http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/legacy-images/netboot/mini.iso
+
+For Ubuntu - make no software selection choices.
+
+For Fedora - choose Minimal Install

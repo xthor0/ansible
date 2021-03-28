@@ -45,6 +45,7 @@
       - lightdm-gtk-greeter-settings
       - redhat-lsb-core
       - plymouth-theme-spinner
+      - xorg-x11-server-Xorg
     state: present
     update_cache: yes
   become: true
