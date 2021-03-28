@@ -13,10 +13,3 @@
     state: present
     update_cache: yes
   become: true
-
-- name: Add my account to libvirt group
-  ansible.builtin.user:
-    name: "{{ lookup('env', 'USER') }}"
-    groups: libvirt
-    append: yes
-  become: true

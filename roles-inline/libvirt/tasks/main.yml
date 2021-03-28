@@ -10,3 +10,17 @@
 - name: Include Fedora tasks
   include_tasks: Fedora.yml
   when: "'Fedora' in ansible_distribution"
+
+- name: start libvirtd service
+  service:
+    name: libvirtd
+    state: started
+    enabled: yes
+  become: true
+
+- name: Add my account to libvirt group
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: libvirt
+    append: yes
+  become: true
