@@ -20,4 +20,4 @@
     repo: "{{ item.value.url }}"
     dest: "~/git/github/{{ item.key }}"
   with_dict: "{{ git_repo_dict }}"
-  when: ssh_to_github.rc == 0
+  when: ssh_to_github.rc == 1
