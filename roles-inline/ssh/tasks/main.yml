@@ -1,0 +1,15 @@
+---
+- name: set up ssh config
+  copy:
+    src: files/ssh-config
+    dest: ~/.ssh/config
+    mode: '0660'
+    
+- name: populate ssh known_hosts
+  lineinfile:
+    dest: ~/.ssh/known_hosts
+    create: yes
+    line: "{{ item }}"
+    state: present
+  with_items: "{{ ssh_hosts }}"
+  # don't use the builtin Ansible known_hosts module. It will not allow host,ip address lines. Stupid.
