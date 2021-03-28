@@ -1,0 +1,28 @@
+- name: install packages for libvirt
+  apt:
+    name:
+      - cloud-utils
+      - qemu-kvm
+      - libvirt
+      - bridge-utils
+      - virt-install
+      - virt-manager
+      - libguestfs-tools
+      - virt-top
+    state: present
+    update_cache: yes
+  become: true
+
+- name: start libvirtd service
+  service:
+    name: libvirtd
+    state: started
+    enabled: yes
+  become: true
+
+- name: Add my account to libvirt group
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: libvirt
+    append: yes
+  become: true

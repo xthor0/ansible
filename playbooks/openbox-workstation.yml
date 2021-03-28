@@ -9,4 +9,4 @@
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
     - { role: gitrepos, tags: [ "gitrepos" ] }
-    # TODO: libvirt!
+    - { role: libvirt, tags: [ "libvirt" ] }

@@ -1,10 +1,12 @@
-# this needs a lot of work
-- name: install packages for libvirt
-  apt:
-    name:
-      - cloud-image-utils
+---
+- name: Include Debian tasks
+  include_tasks: Ubuntu.yml
+  when: "'Ubuntu' in ansible_distribution"
+  
+- name: Include Pop!_OS tasks (really, just ubuntu)
+  include_tasks: Ubuntu.yml
+  when: "'Pop!_OS' in ansible_distribution"
 
-# this did the job on ubuntu 20.04
-# sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager libguestfs-tools
-# sudo systemctl is-active libvirtd
-# sudo usermod -aG libvirt $USER
+- name: Include Fedora tasks
+  include_tasks: Fedora.yml
+  when: "'Fedora' in ansible_distribution"
