@@ -4,15 +4,12 @@
 #    msg: "{{item.key}}: {{item.value}}"
 #  with_dict: "{{ git_repo_dict }}"
 
-- name: seed github SSH key to known_hosts file
-  delegate_to: localhost
-  lineinfile:
-    dest: ~/.ssh/known_hosts
-    create: yes
-    state: present
-    line: "{{ lookup('pipe', 'ssh-keyscan -trsa github.com') }}"
+- name: ssh to github.com and store key
+  shell: ssh -o PasswordAuthentication=no -o PubKeyAuthentication=no -o UpdateHostKeys=yes -o StrictHostKeyChecking=accept-new git@github.com
+  failed_when: false
+  no_log: true
 
-- name: ssh to github.com
+- name: ssh to github.com and check if successful
   shell: ssh -o PasswordAuthentication=no git@github.com
   failed_when: false
   no_log: true
