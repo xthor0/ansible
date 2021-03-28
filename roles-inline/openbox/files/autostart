@@ -35,9 +35,9 @@ sleep 2 && conky &
 /usr/bin/gnome-keyring-daemon --start --daemonize --components=secrets 
 
 # fix touchpad so I can right-click with 2 fingers
-# you'll have to adjust the ID: xinput list | grep -i touchpad, find id for the one you want to tweak
-# I want to put more Bash into this, to find the right ID and set it correctly
-xinput list | grep -qi touchpad && xinput set-prop 12 "libinput Click Method Enabled" 0 1
+xinput list --id-only | while read id; do
+  xinput list-props ${id} | grep -q 'libinput Click Method Enabled' && xinput set-prop ${id} 'libinput Click Method Enabled' 0 1
+done
 
 # screen locker
 exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
@@ -60,4 +60,15 @@ flameshot &
 pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
 pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
+### first-time setup items, a reminder to use autorandr
+if [ ! -d ~/.config/autorandr ]; then
+  hostnamectl | grep -q 'Chassis: vm'
+  if [ $? -eq 0 ]; then
+    xrandr -s 1920x1080 # set the resolution to 1080p
+    autorandr -s default # this'll be the only monitor since it's a VM
+    autorandr -d default # set this as the default profile
+  else
+    notify-send -u critical -t 50000 -a Openbox "autorandr not set up" "autorandr has not been configured. Please don't forget to set up your profiles."
+  fi
+fi
 # FIN
