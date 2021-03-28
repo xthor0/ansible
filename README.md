@@ -9,10 +9,13 @@ As I've been learning Ansible, I decided to take a stab at setting up some tasks
 
 Ideally, they'll be used with `ansible-pull` so that all I need to do is:
 
-- install `ansible` and `git` (from default OS sources, tested with both Ubuntu 20.04 and Fedora 33)
+- Install either Fedora Workstation or Ubuntu (tested with both Ubuntu 20.04 and Fedora 33)
+- install `ansible` and `git`
 - Copy over my SSH keys
-- Run the playbook: `ansible-pull -U https://github.com/xthor0/ansible.git -K playbooks/openbox-workstation.yml`
+- Run the playbook: `ansible-pull -U https://github.com/xthor0/ansible.git -K playbooks/workstation.yml`
 
 Also, when testing, I learned that I can use `ansible-pull` directly against a branch, which is handy:
 
-`ansible-pull -U https://github.com/xthor0/ansible.git -K -C refactor playbooks/openbox-workstation.yml`
+`ansible-pull -U https://github.com/xthor0/ansible.git -K -C refactor playbooks/workstation.yml`
+
+For the Openbox playbook, I used the LXDE spin of both flavors.

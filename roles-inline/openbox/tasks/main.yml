@@ -30,6 +30,7 @@
     - ~/.config/gtk-3.0
     - ~/bin
     - ~/.screenlocker
+    - ~/Pictures
 
 - name: openbox menu for Fedora
   copy:
