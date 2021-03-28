@@ -9,7 +9,7 @@
       - virtinst
       - virt-manager
       - libguestfs-tools
-      - vagrant-libvirt # double-check this
+      - vagrant-libvirt
     state: present
     update_cache: yes
   become: true
