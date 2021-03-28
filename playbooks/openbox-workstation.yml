@@ -1,4 +1,13 @@
 ---
+- name: verify sudo password
+  hosts: localhost
+  gather_facts: no
+  become: yes
+  any_errors_fatal: yes
+  # doing this prevents a lot of failure messages as all the tasks below execute and fail, too
+  tasks:
+    - ping:
+
 - name: Setup personal Linux workstation with Openbox
   hosts: localhost
   roles:

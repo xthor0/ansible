@@ -1,4 +1,12 @@
 ---
+- name: verify sudo password
+  hosts: localhost
+  gather_facts: no
+  become: yes
+  any_errors_fatal: yes
+  tasks:
+    - ping:
+
 - name: Setup personal Linux workstation
   hosts: localhost
   roles:
