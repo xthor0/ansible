@@ -1,6 +1,17 @@
 ---
-- name: loop - checkout all personal git repos
+#- name: show dictionary for debugging
+#  debug:
+#    msg: "{{item.key}}: {{item.value}}"
+#  with_dict: "{{ git_repo_dict }}"
+
+- name: Check if .ssh/id_rsa exists
+  stat:
+    path: ~/.ssh/id_rsa
+  register: stat_ssh_key_result
+
+- name: checkout all personal git repos
   ansible.builtin.git:
-    repo: "{{ item.name.url }}"
-    dest: "~/git/github/{{ item.name }}"
+    repo: "{{ item.value.url }}"
+    dest: "~/git/github/{{ item.key }}"
   with_dict: "{{ git_repo_dict }}"
+  when: stat_ssh_key_result.stat.exists
