@@ -4,14 +4,23 @@
 #    msg: "{{item.key}}: {{item.value}}"
 #  with_dict: "{{ git_repo_dict }}"
 
-- name: Check if .ssh/id_rsa exists
-  stat:
-    path: ~/.ssh/id_rsa
-  register: stat_ssh_key_result
+- name: seed github SSH key to known_hosts file
+  delegate_to: localhost
+  lineinfile:
+    dest: ~/.ssh/known_hosts
+    create: yes
+    state: present
+    line: "{{ lookup('pipe', 'ssh-keyscan -trsa github.com') }}"
+
+- name: ssh to github.com
+  shell: ssh -o PasswordAuthentication=no git@github.com
+  failed_when: false
+  no_log: true
+  register: ssh_to_github
 
 - name: checkout all personal git repos
   ansible.builtin.git:
     repo: "{{ item.value.url }}"
     dest: "~/git/github/{{ item.key }}"
   with_dict: "{{ git_repo_dict }}"
-  when: stat_ssh_key_result.stat.exists
+  when: ssh_to_github.rc == 0
