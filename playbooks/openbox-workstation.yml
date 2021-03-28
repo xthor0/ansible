@@ -8,4 +8,5 @@
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
-    # TODO: git repo checkout!
+    - { role: gitrepos, tags: [ "gitrepos" ] }
+    # TODO: libvirt!

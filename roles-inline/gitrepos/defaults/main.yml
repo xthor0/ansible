@@ -1,0 +1,6 @@
+---
+git_repo_dict:
+  ansible:
+    url: git@github.com:xthor0/ansible.git
+  ripper:
+    url: git@github.com:xthor0/scripts.git

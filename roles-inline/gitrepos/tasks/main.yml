@@ -1,0 +1,6 @@
+---
+- name: loop - checkout all personal git repos
+  ansible.builtin.git:
+    repo: "{{ item.url }}"
+    dest: "~/git/github/{{ item.name }}"
+  with_dict: "{{ git_repo_dict }}"
