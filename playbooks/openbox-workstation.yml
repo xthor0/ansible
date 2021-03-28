@@ -19,3 +19,5 @@
     - { role: vim, tags: [ "vim" ] }
     - { role: gitrepos, tags: [ "gitrepos" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
+    - { role: ssh, tags: [ "ssh" ] }
+    - { role: redshift, tags: [ "redshift" ] }
