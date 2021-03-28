@@ -91,10 +91,7 @@
     name:
       - curl
       - kubectl
-      - vim
-      - vim-X11
       - code
-      - ansible
       - awscli
       - nmap
       - zsh

@@ -44,10 +44,7 @@
     name:
       - curl
       - kubectl
-      - vim
-      - vim-gtk3
       - code
-      - ansible
       - awscli
       - nmap
       - zsh
