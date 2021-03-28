@@ -179,5 +179,3 @@
     owner: root
     group: root
   become: true
-
-# TODO: need to set lxdm as default DE, and set a nice theme there, that's dark

@@ -40,6 +40,7 @@
       - flameshot
       - playerctl
       - mate-calc
+      - lightdm
       - lightdm-gtk-greeter
       - xfce4-appfinder
       - mupdf
