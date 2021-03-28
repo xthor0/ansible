@@ -71,6 +71,12 @@
     force: true
   become: true
 
+- name: set LightDM as default X11 display manager
+  lineinfile:
+    path: /etc/X11/default-display-manager
+    regexp: .*
+    line: /usr/sbin/lightdm
+
 # in order for pkexec to work correctly, my account MUST be a member of the sudo group on Ubuntu
 - name: Add my account to sudo group
   ansible.builtin.user:

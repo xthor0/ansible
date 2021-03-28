@@ -54,6 +54,7 @@
     src: /usr/lib/systemd/system/graphical.target
     dest: /etc/systemd/system/default.target
     state: link
+  become: true
 
 - name: set LightDM as display manager
   file:
