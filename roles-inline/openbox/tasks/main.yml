@@ -1,0 +1,182 @@
+---
+- name: Include Ubuntu tasks
+  include_tasks: Ubuntu.yml
+  when: "'Ubuntu' in ansible_distribution"
+  
+- name: Include Pop!_OS tasks (really, just ubuntu)
+  include_tasks: Ubuntu.yml
+  when: "'Pop!_OS' in ansible_distribution"
+
+- name: Include Fedora tasks
+  include_tasks: Fedora.yml
+  when: "'Fedora' in ansible_distribution"
+
+- name: shut down xscreensaver
+  shell: pkill xscreensaver
+  failed_when: false
+
+- name: create config dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0750'
+  with_items:
+    - ~/.config/xfce4/xfconf/xfce-perchannel-xml
+    - ~/.config/tint2
+    - ~/.config/terminator
+    - ~/.config/volumeicon
+    - ~/.config/openbox
+    - ~/.config/dunst
+    - ~/.config/gtk-3.0
+    - ~/bin
+    - ~/.screenlocker
+    - ~/Pictures
+
+- name: openbox menu for Fedora
+  copy:
+    src: files/openbox.menu.xml.fedora
+    dest: ~/.config/openbox/menu.xml
+    force: no
+  when: "'Fedora' in ansible_distribution"
+
+- name: openbox menu for Debian and derivatives
+  copy:
+    src: files/openbox.menu.xml.debian
+    dest: ~/.config/openbox/menu.xml
+    force: no
+  when: ansible_os_family == "Debian"
+
+- name: template conkyrc file
+  copy:
+    src: files/conkyrc
+    dest: ~/.conkyrc
+    mode: '0660'
+    force: no
+
+- name: copy compton conf file
+  copy:
+    src: files/compton.conf
+    dest: ~/.config/compton.conf
+    mode: '0660'
+    force: no
+
+- name: copy tint2 config file
+  copy:
+    src: files/tint2rc
+    dest: ~/.config/tint2/tint2rc
+    mode: '0660'
+    force: no
+
+- name: copy xfce4-power-manager config file
+  copy:
+    src: files/xfce4-power-manager.xml
+    dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+    mode: '0660'
+    force: no
+
+- name: copy volumeicon config file
+  copy:
+    src: files/volumeicon
+    dest: ~/.config/volumeicon/volumeicon
+    mode: '0660'
+    force: no
+
+- name: copy openbox autostart config file
+  copy:
+    src: files/autostart
+    dest: ~/.config/openbox/autostart
+    mode: '0770'
+    force: no
+
+- name: copy openbox rc.xml config file
+  copy:
+    src: files/rc.xml
+    dest: ~/.config/openbox/rc.xml
+    mode: '0660'
+    force: no
+
+- name: copy terminator config file
+  copy:
+    src: files/terminator-config
+    dest: ~/.config/terminator/config
+    mode: '0660'
+    force: no
+
+- name: copy gtk-3.0 config file
+  copy:
+    src: files/gtk30settings.ini
+    dest: ~/.config/gtk-3.0/settings.ini
+    mode: '0660'
+    force: no
+
+- name: copy dunstrc file
+  copy:
+    src: files/dunstrc
+    dest: ~/.config/dunst/dunstrc
+    mode: '0660'
+    force: no
+
+- name: copy lockscreen script to ~/bin
+  copy:
+    src: files/lockscreen.sh
+    dest: ~/bin/lockscreen.sh
+    mode: '0750'
+
+- name: copy screenlocker script to ~/.screenlocker
+  copy:
+    src: files/lock
+    dest: ~/.screenlocker/lock
+    mode: '0770'
+
+- name: copy lock png to ~/.screenlocker
+  copy:
+    src: files/lock.png
+    dest: ~/.screenlocker/lock.png
+    mode: '0660'
+
+- name: copy text png to ~/.screenlocker
+  copy:
+    src: files/text.png
+    dest: ~/.screenlocker/text.png
+    mode: '0660'
+
+- name: copy background to ~/Pictures
+  copy:
+    src: files/background.jpg
+    dest: ~/Pictures/background.jpg
+    mode: '0660'
+
+- name: checkout oblogout-py3 repo
+  ansible.builtin.git:
+    repo: 'https://github.com/trizen/oblogout-py3.git'
+    dest: ~/git/github/oblogout-py3
+    force: true
+
+- name: Copy the themes from oblogout-py3 to themes dir
+  shell: cp -var ~/git/github/oblogout-py3/data/themes ~/.themes
+  args:
+    creates: ~/.themes
+
+- name: install oblogout-py3
+  shell: sudo python3 ./setup.py install
+  args:
+    chdir: ~/git/github/oblogout-py3
+    creates: /etc/oblogout.conf
+
+- name: copy oblogout configuration file
+  copy:
+    src: files/oblogout.conf
+    dest: /etc/oblogout.conf
+    mode: '0664'
+    owner: root
+    group: root
+  become: true
+
+- name: template lightdm-gtk-greeter.conf
+  template:
+    src: templates/lightdm-gtk-greeter.conf.j2
+    dest: /etc/lightdm/lightdm-gtk-greeter.conf
+    mode: '0664'
+    owner: root
+    group: root
+  become: true

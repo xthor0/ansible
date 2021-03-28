@@ -1,0 +1,23 @@
+---
+#- name: show dictionary for debugging
+#  debug:
+#    msg: "{{item.key}}: {{item.value}}"
+#  with_dict: "{{ git_repo_dict }}"
+
+- name: ssh to github.com and store key
+  shell: ssh -o PasswordAuthentication=no -o PubKeyAuthentication=no -o UpdateHostKeys=yes -o StrictHostKeyChecking=accept-new git@github.com
+  failed_when: false
+  no_log: true
+
+- name: ssh to github.com and check if successful
+  shell: ssh -o PasswordAuthentication=no git@github.com
+  failed_when: false
+  no_log: true
+  register: ssh_to_github
+
+- name: checkout all personal git repos
+  ansible.builtin.git:
+    repo: "{{ item.value.url }}"
+    dest: "~/git/{{ item.value.basedir }}/{{ item.key }}"
+  with_dict: "{{ git_repo_dict }}"
+  when: ssh_to_github.rc == 1

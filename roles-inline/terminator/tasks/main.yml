@@ -1,0 +1,24 @@
+- name: install terminator package
+  package:
+    name:
+      - terminator
+  become: true
+
+- name: create config dir for terminator
+  file:
+    path: ~/.config/terminator
+    state: directory
+    mode: '0750'
+
+- name: copy terminator config file
+  copy:
+    src: files/terminator-config
+    dest: ~/.config/terminator/config
+    mode: '0660'
+
+- name: install font MesloLGS Regular
+  get_url:
+    url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    dest: ~/.fonts/MesloLGS_NF_Regular.ttf
+    mode: '0640'
+  notify: refresh font cache

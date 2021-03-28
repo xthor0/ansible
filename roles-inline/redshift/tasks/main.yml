@@ -1,0 +1,13 @@
+---
+- name: install redshift and dependencies
+  package:
+    name: redshift-gtk
+    state: present
+  become: true
+
+- name: enable redshift-gtk service
+  systemd:
+    name: redshift-gtk
+    scope: user
+    state: started
+    enabled: yes

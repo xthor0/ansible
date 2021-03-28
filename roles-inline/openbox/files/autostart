@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# d-bus
+if which dbus-launch >/dev/null && test -z "${DBUS_SESSION_BUS_ADDRESS}"; then
+  eval $(dbus-launch --sh-syntax --exit-with-session)
+fi
+
+# without this, I get errors using lxsession-logout
+lxpolkit &
+
+# necessary if we want notifications from libnotify
+dunst &
+
+# restore background
+#nitrogen --restore &
+test -f ~/Pictures/background.jpg && nitrogen --set-tiled --head=-1 ~/Pictures/background.jpg
+
+# launch pcmanfm in daemon mode
+thunar --daemon &
+
+# compositor for tear-free windows and some basic effects
+# running this on a virtual machine causes problems
+hostnamectl | grep -q 'Chassis: vm' || compton -b
+
+# a status bar with icons/time
+tint2 &
+
+# launch conky, but with a delay to give the screens some time to come up
+sleep 2 && conky &
+
+# prompt for SSH passphrase, if key exists
+(test -f $HOME/.ssh/id_rsa && ssh-add) &
+
+# unlock gnome keyring so that network-manager will store secrets
+/usr/bin/gnome-keyring-daemon --start --daemonize --components=secrets 
+
+# fix touchpad so I can right-click with 2 fingers
+xinput list --id-only | while read id; do
+  xinput list-props ${id} | grep -q 'libinput Click Method Enabled' && xinput set-prop ${id} 'libinput Click Method Enabled' 0 1
+done
+
+# screen locker
+exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
+
+# power management, which really just gives us battery status
+xfce4-power-manager &
+
+# bluetooth icon
+# already autostarted in /etc/xdg/autostart
+# /usr/bin/blueman-applet &
+
+# screen shot tool
+flameshot &
+
+# volume control
+# already autostarted in /etc/xdg/autostart
+# volumeicon &
+
+# Make things like 'ping -a' work, woo!
+pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
+pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
+
+### first-time setup items, a reminder to use autorandr
+if [ ! -d ~/.config/autorandr ]; then
+  hostnamectl | grep -q 'Chassis: vm'
+  if [ $? -eq 0 ]; then
+    xrandr -s 1920x1080 # set the resolution to 1080p
+    autorandr -s default # this'll be the only monitor since it's a VM
+    autorandr -d default # set this as the default profile
+  else
+    notify-send -u critical -t 50000 -a Openbox "autorandr not set up" "autorandr has not been configured. Please don't forget to set up your profiles."
+  fi
+fi
+# FIN

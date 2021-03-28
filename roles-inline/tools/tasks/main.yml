@@ -1,0 +1,64 @@
+---
+- name: Include Ubuntu tasks
+  include_tasks: Ubuntu.yml
+  when: "'Ubuntu' in ansible_distribution"
+  
+- name: Include Pop!_OS tasks (really, just ubuntu)
+  include_tasks: Ubuntu.yml
+  when: "'Pop!_OS' in ansible_distribution"
+
+- name: Include Fedora tasks
+  include_tasks: Fedora.yml
+  when: "'Fedora' in ansible_distribution"
+
+- name: create bin directory in users home dir
+  file:
+    path: ~/bin
+    state: directory
+    mode: '0750'
+
+# disabling this because ansible-pull waits to run until you close the browser, I guess?
+# I wish pCloud had a better way of distributing their app, but here we are
+#- name: Open download link for pCloud in a browser window
+#  shell: xdg-open https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64
+
+# flatpak should be the same on Ubuntu or Fedora, so...
+- name: Add the flathub flatpak repository remote to the user installation
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+# I tried this all as a list. It always failed. :man_shrugging:
+- name: Install spotify from flatpak
+  flatpak:
+    name: com.spotify.Client
+    state: present
+    method: user
+
+- name: Install simplenote from flatpak
+  flatpak:
+    name: com.simplenote.Simplenote
+    state: present
+    method: user
+
+- name: Install todoist from flatpak
+  flatpak:
+    name: com.todoist.Todoist
+    state: present
+    method: user
+
+- name: Install telegram from flatpak
+  flatpak:
+    name: org.telegram
+    state: present
+    method: user
+
+
+# TODO:
+
+# store SSH key in ansible-vault? Or use 1password CLI to extract it? That's an interesting idea...
+
+# plus I should really template out my dotfiles and store them here
+# - for openbox, but also vim and stuffs. and ~/tmp, because vim uses that

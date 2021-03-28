@@ -1,0 +1,66 @@
+- name: Enable Fedora Copr for Autorandr
+  command:
+      cmd: dnf copr enable -y tofik/autorandr 
+      creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:tofik:autorandr.repo
+  become: true
+
+- name: install packages for Openbox
+  dnf:
+    name:
+      - lxqt-openssh-askpass
+      - lxpolkit
+      - firefox
+      - blueman
+      - arc-theme
+      - tint2
+      - openbox
+      - obconf
+      - compton
+      - volumeicon
+      - nitrogen
+      - conky
+      - arandr
+      - mousepad
+      - lxappearance
+      - lxterminal
+      - xbacklight
+      - flameshot
+      - playerctl
+      - mate-calc
+      - lxdm
+      - xfce4-appfinder
+      - mupdf
+      - numix-icon-theme
+      - thunar
+      - dunst
+      - autorandr
+      - xautolock
+      - maim
+      - i3lock
+      - ImageMagick
+      - liberation-fonts
+      - pavucontrol
+      - python3-distutils-extra
+      - xfce4-power-manager
+      - lightdm-gtk-greeter-settings
+      - redhat-lsb-core
+      - plymouth-theme-spinner
+      - xorg-x11-server-Xorg
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Change default target to graphical.target
+  file:
+    src: /usr/lib/systemd/system/graphical.target
+    dest: /etc/systemd/system/default.target
+    state: link
+  become: true
+
+- name: set LightDM as display manager
+  file:
+    path: /etc/systemd/system/display-manager.service
+    src: /usr/lib/systemd/system/lightdm.service
+    state: link
+    force: true
+  become: true
