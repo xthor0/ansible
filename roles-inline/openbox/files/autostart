@@ -13,7 +13,7 @@ dunst &
 
 # restore background
 #nitrogen --restore &
-(test -f ~/Pictures/background.jpg && nitrogen --set-tiled --head=-1 ~/Pictures/background.jpg) &
+test -f ~/Pictures/background.jpg && nitrogen --set-tiled --head=-1 ~/Pictures/background.jpg
 
 # launch pcmanfm in daemon mode
 thunar --daemon &
