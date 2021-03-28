@@ -1,5 +1,5 @@
 - name: install packages for libvirt
-  apt:
+  dnf:
     name:
       - cloud-utils
       - qemu-kvm
