@@ -18,6 +18,6 @@
 - name: checkout all personal git repos
   ansible.builtin.git:
     repo: "{{ item.value.url }}"
-    dest: "~/git/github/{{ item.key }}"
+    dest: "~/git/{{ item.value.basedir }}/{{ item.key }}"
   with_dict: "{{ git_repo_dict }}"
   when: ssh_to_github.rc == 1
