@@ -36,3 +36,7 @@ http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/legacy
 For Ubuntu - make no software selection choices.
 
 For Fedora - choose Minimal Install
+
+Then simply run the playbook:
+
+`ansible-pull -U https://github.com/xthor0/ansible.git -K playbooks/openbox-workstation.yml`
