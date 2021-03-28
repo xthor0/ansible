@@ -50,7 +50,7 @@
     description: Pritunl Stable Repository
     baseurl: https://repo.pritunl.com/stable/yum/fedora/33/
     gpgcheck: yes
-    gpgkey: gpgkey=file:///etc/pki/rpm-gpg/pritunl-rpm-gpg-key.asc
+    gpgkey: file:///etc/pki/rpm-gpg/pritunl-rpm-gpg-key.asc
     enabled: yes
   become: true
 

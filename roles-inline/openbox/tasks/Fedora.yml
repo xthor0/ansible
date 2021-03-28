@@ -44,17 +44,16 @@
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
       - redhat-lsb-core
+      - plymouth-theme-spinner
     state: present
     update_cache: yes
   become: true
 
-- name: remove unnecessary packages that come with Fedora's LXDE spin
-  dnf:
-    name:
-      - pcmanfm
-      - xscreensaver-base
-    state: absent
-  become: true
+- name: Change default target to graphical.target
+  file:
+    src: /usr/lib/systemd/system/graphical.target
+    dest: /etc/systemd/system/default.target
+    state: link
 
 - name: set LightDM as display manager
   file:
