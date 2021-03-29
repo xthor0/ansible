@@ -47,6 +47,8 @@
       - plymouth-theme-spinner
       - xorg-x11-server-Xorg
       - python3-pillow
+      - dnfdragora-updater
+      - network-manager-applet
     state: present
     update_cache: yes
   become: true

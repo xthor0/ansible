@@ -4,6 +4,12 @@
 #    msg: "{{item.key}}: {{item.value}}"
 #  with_dict: "{{ git_repo_dict }}"
 
+- name: copy .gitconfig file to home dir
+  copy:
+    src: files/gitconfig
+    dest: ~/.gitconfig
+    mode: '0644'
+
 - name: ssh to github.com and store key
   shell: ssh -o PasswordAuthentication=no -o PubKeyAuthentication=no -o UpdateHostKeys=yes -o StrictHostKeyChecking=accept-new git@github.com
   failed_when: false
