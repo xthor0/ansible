@@ -3,7 +3,7 @@
   copy:
     src: files/ssh-config
     dest: ~/.ssh/config
-    mode: '0660'
+    mode: '0600'
     
 - name: populate ssh known_hosts
   lineinfile:
