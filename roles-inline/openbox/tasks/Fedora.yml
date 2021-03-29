@@ -46,6 +46,7 @@
       - redhat-lsb-core
       - plymouth-theme-spinner
       - xorg-x11-server-Xorg
+      - python3-pillow
     state: present
     update_cache: yes
   become: true
