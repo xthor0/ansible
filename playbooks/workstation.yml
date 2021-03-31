@@ -14,3 +14,8 @@
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: gnome-settings, tags: [ "gnome-settings" ] }
     - { role: terminator, tags: [ "terminator" ] }
+    - { role: power-management, tags: [ "power-management" ] }
+    - { role: vim, tags: [ "vim" ] }
+    - { role: git, tags: [ "git" ] }
+    - { role: libvirt, tags: [ "libvirt" ] }
+    - { role: ssh, tags: [ "ssh" ] }

@@ -3,7 +3,6 @@ ssh_hosts:
   - "ragno.xthorsworld.com,10.200.1.16 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM+8TgJ6W4sgRbrx7B03iKBXGx2uwZflzyPTUOhypPkRf7Z2UV00UZve6F5n9uW6dH7HyTeZKpF9nTW+dR3lz/w="
   - "aranya.xthorsworld.com,10.200.50.14 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKqOaYhywKD/IzUdRvkdjPtyjmKupp2brcDyNP3UNrP537WTyssgRo2QmI8rthGvzgUaruSgdXqqE+eMzaYc2eE="
   - "prycop.xthorsworld.com,159.89.139.164 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBO8G3Ze+ta7QLDgXjFijp8SrQpDMJnALlkLaIg3lAjivUAylfkw/y/6/jRwfRg46VifllN9pPNssFl5nqXI8G4o="
-  - "spin.xthorsworld.com,10.200.1.12 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJfxSkQTiZDX3O5KWUfC9lRQNkhJ7WT5VnTJ6IX41qbgHVG9zWoXmetbHkVX0f7MqPq4eCoWliJNRbJxlVrxhoI="
   - "pajak.xthorsworld.com,10.200.50.20 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBFo0dVIAZff/InsOsd9jnUCOO2/Vx5TweTjBBijK4nUnm7wgJlUIf4B/eICdP9enXIpK2u3RKvXY0UmVUGCidQ="
   - "etterkop.xthorsworld.com,10.200.1.10 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIp/378hTU4QHNBKGSAlguPqZ93hNeqXhia/SUit4yFOApw2yvw++Xe/ELVkxuUSytxBaggPnCB1hXhJLKwUcHg="
   - "router.xthorsworld.com,10.200.50.1 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBPd4TMYeifKUDQ+I809IbQMg2G/APkEoybZQwpm91MrkX8NyfREmDOnaT++siQxUQUBOWe7wIp1TxDu/CtW9ZU="
