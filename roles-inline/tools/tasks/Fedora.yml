@@ -116,6 +116,7 @@
       - python3-pip
       - whois
       - flatpak
+      - transmission-gtk
     state: present
     update_cache: yes
   become: true 
