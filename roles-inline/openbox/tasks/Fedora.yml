@@ -49,6 +49,7 @@
       - python3-pillow
       - dnfdragora-updater
       - network-manager-applet
+      - mirage
     state: present
     update_cache: yes
   become: true

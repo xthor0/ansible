@@ -59,6 +59,7 @@
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
       - plymouth-theme-spinner
+      - mirage
     state: present
     update_cache: yes
   become: true

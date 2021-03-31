@@ -116,6 +116,13 @@
     mode: '0660'
     force: no
 
+- name: mimeapps.list so xdg-open works right
+  copy:
+    src: files/mimeapps.list
+    dest: ~/.config/mimeapps.list
+    mode: '0660'
+    force: no
+
 - name: copy lockscreen script to ~/bin
   copy:
     src: files/lockscreen.sh
