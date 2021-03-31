@@ -117,6 +117,7 @@
       - whois
       - flatpak
       - transmission-gtk
+      - calibre
     state: present
     update_cache: yes
   become: true 
