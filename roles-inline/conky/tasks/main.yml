@@ -6,7 +6,6 @@
       - conky
   when: "'Fedora' in ansible_distribution"
 
----
 - name: install Conky - Ubuntu
   become: true
   package:
