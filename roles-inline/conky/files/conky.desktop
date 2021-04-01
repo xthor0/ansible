@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=pcloud
+Comment=conky startup script
+Exec=/usr/bin/conky
+StartupNotify=false
+Terminal=false

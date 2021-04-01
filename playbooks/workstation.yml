@@ -19,3 +19,4 @@
     - { role: git, tags: [ "git" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
     - { role: ssh, tags: [ "ssh" ] }
+    - { role: conky, tags: [ "ssh" ] }

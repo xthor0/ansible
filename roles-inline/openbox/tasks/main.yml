@@ -46,13 +46,6 @@
     force: no
   when: ansible_os_family == "Debian"
 
-- name: template conkyrc file
-  copy:
-    src: files/conkyrc
-    dest: ~/.conkyrc
-    mode: '0660'
-    force: no
-
 - name: copy compton conf file
   copy:
     src: files/compton.conf

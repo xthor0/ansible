@@ -1,0 +1,29 @@
+---
+---
+- name: install Conky - Fedora
+  become: true
+  package:
+    name:
+      - conky
+  when: "'Fedora' in ansible_distribution"
+
+---
+- name: install Conky - Ubuntu
+  become: true
+  package:
+    name:
+      - conky-all
+  when: "'Ubuntu' in ansible_distribution"
+
+- name: create autostart config dir
+  file:
+    path: ~/.config/autostart
+    state: directory
+    mode: '0750'
+
+- name: copy conkyrc file
+  copy:
+    src: files/conkyrc
+    dest: ~/.conkyrc
+    mode: '0660'
+    force: no
