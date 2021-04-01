@@ -25,3 +25,9 @@
     dest: ~/.conkyrc
     mode: '0660'
     force: no
+
+- name: copy conkyrc autostart file
+  copy:
+    src: files/conky.desktop
+    dest: ~/.config/autostart/conky.desktop
+    mode: '0660'
