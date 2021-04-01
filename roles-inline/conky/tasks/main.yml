@@ -1,5 +1,4 @@
 ---
----
 - name: install Conky - Fedora
   become: true
   package:
