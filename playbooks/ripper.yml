@@ -8,17 +8,14 @@
   tasks:
     - ping:
 
-- name: Setup personal Linux workstation with Openbox
+- name: Setup a machine to do Handbrake ripping
   hosts: localhost
   roles:
-    - { role: tools, tags: [ "tools" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: openbox, tags: [ "openbox" ] }
     - { role: terminator, tags: [ "terminator" ] }
-    - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
     - { role: git, tags: [ "git" ] }
-    - { role: libvirt, tags: [ "libvirt" ] }
-    - { role: ssh, tags: [ "ssh" ] }
     - { role: conky, tags: [ "conky" ] }
-    - { role: redshift, tags: [ "redshift" ] }
+    - { role: handbrake, tags: [ "handbrake" ] }
+    - { role: makemkv, tags: [ "makemkv" ] }

@@ -1,5 +1,6 @@
 ---
 - name: enable power management
+  become: true
   service:
     name: "{{ item }}"
     state: started
