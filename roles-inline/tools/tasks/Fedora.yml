@@ -118,6 +118,7 @@
       - flatpak
       - transmission-gtk
       - calibre
+      - sysstat
     state: present
     update_cache: yes
   become: true 

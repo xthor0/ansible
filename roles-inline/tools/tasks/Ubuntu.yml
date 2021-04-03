@@ -70,6 +70,7 @@
       - python3-pip
       - whois
       - flatpak
+      - sysstat
     state: present
     update_cache: yes
   become: true 
