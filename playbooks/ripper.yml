@@ -12,10 +12,10 @@
   hosts: localhost
   roles:
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
-    - { role: openbox, tags: [ "openbox" ] }
+    - { role: gnome-settings, tags: [ "gnome-settings" ] }
     - { role: terminator, tags: [ "terminator" ] }
     - { role: vim, tags: [ "vim" ] }
-    - { role: git, tags: [ "git" ] }
+    - { role: git, tags: [ "git" ] } # TODO: make this check out via HTTPS if the SSH key is not present
     - { role: conky, tags: [ "conky" ] }
     - { role: handbrake, tags: [ "handbrake" ] }
     - { role: makemkv, tags: [ "makemkv" ] }

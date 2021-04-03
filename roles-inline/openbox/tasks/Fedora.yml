@@ -49,7 +49,7 @@
       - python3-pillow
       - dnfdragora-updater
       - network-manager-applet
-      - mirage
+      - feh
     state: present
     update_cache: yes
   become: true
