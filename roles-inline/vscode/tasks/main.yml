@@ -1,0 +1,38 @@
+---
+- name: Add vscode yum repository
+  yum_repository:
+    name: code
+    description: Visual Studio Code
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgcheck: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    enabled: yes
+  become: true
+  when: "'Fedora' in ansible_distribution"
+
+- name: add yum GPG key for vscode
+  rpm_key:
+    key: "https://packages.microsoft.com/keys/microsoft.asc"
+    state: present
+  become: true 
+  when: "'Fedora' in ansible_distribution"
+
+- name: add apt key for vscode repo
+  apt_key:
+    url: "https://packages.microsoft.com/keys/microsoft.asc"
+    state: present
+  become: true 
+  when: "'Ubuntu' in ansible_distribution"
+
+- name: add apt repositoriy for vscode
+  apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    state: present
+  become: true 
+  when: "'Ubuntu' in ansible_distribution"
+
+- name: install vscode package
+  package:
+    name: code
+    state: present
+  become: true

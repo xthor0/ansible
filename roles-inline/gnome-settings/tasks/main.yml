@@ -9,6 +9,8 @@
       - gnome-shell-extensions
       - arc-theme
       - numix-icon-theme
+      - gnome-shell-extension-top-icons-plus
+      - chrome-gnome-shell
   when: ansible_os_family == "Debian"
 
 - name: install required gnome packages - Fedora
@@ -57,7 +59,7 @@
 - name: enable gnome extensions
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'horizontal-workspaces@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com']"
+    value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'horizontal-workspaces@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net']"
 
 - name: disable ubuntu dock
   dconf:

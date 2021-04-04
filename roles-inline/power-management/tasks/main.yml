@@ -1,6 +1,7 @@
 ---
 - shell: hostnamectl status | grep Chassis
   register: chassis_type
+  changed_when: false
 
 - name: install powertop and tlp
   become: true

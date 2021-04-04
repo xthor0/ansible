@@ -1,0 +1,24 @@
+---
+- name: add yum GPG keys from urls
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+  with_items:
+    - "https://negativo17.org/repos/RPM-GPG-KEY-slaanesh" # makemkv
+
+- name: install negativo17 media repo
+  yum_repository:
+    name: fedora-multimedia
+    baseurl: https://negativo17.org/repos/multimedia/fedora-$releasever/$basearch/
+    gpgcheck: yes
+    gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
+    enabled: yes
+    skip_if_unavailable: yes
+  become: true
+
+- name: install makemkv package
+  package:
+    name:
+      - makemkv
+    state: present
+  become: true

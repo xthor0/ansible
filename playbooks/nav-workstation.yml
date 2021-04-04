@@ -5,9 +5,10 @@
   become: yes
   any_errors_fatal: yes
   tasks:
-    - ping:
+    - name: check sudo
+      ping:
 
-- name: Setup personal Linux workstation
+- name: Setup Nav Linux workstation
   hosts: localhost
   roles:
     - { role: tools, tags: [ "tools" ] }
@@ -16,12 +17,14 @@
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
-    - { role: libvirt, tags: [ "libvirt" ] }
     - { role: ssh, tags: [ "ssh" ] }
-    - { role: git, tags: [ "git" ] }
+    - { role: libvirt, tags: [ "libvirt" ] }
     - { role: conky, tags: [ "conky" ] }
+    - { role: pritunl-client, tags: [ "pritunl-client"] }
+    - { role: kubectl, tags: [ "kubectl"] }
     - { role: 1password, tags: [ "1password"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: vscode, tags: [ "vscode"] }
     - { role: keybase, tags: [ "keybase"] }
+    - { role: podman, tags: [ "podman"] }
     - { role: google-chrome, tags: [ "google-chrome"] }

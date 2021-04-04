@@ -1,0 +1,41 @@
+---
+- name: Add pritunl yum repository
+  yum_repository:
+    name: pritunl
+    description: Pritunl Stable Repository
+    baseurl: https://repo.pritunl.com/stable/yum/fedora/{{ ansible_distribution_major_version }}/
+    gpgcheck: yes
+    gpgkey: file:///etc/pki/rpm-gpg/pritunl-rpm-gpg-key.asc
+    enabled: yes
+  become: true
+  when: "'Fedora' in ansible_distribution"
+
+- name: install pritunl client gpg key
+  copy:
+    src: files/pritunl-rpm-gpg-key.asc
+    dest: /etc/pki/rpm-gpg/pritunl-rpm-gpg-key.asc
+    mode: '0664'
+    owner: root
+    group: root
+  become: true
+  when: "'Fedora' in ansible_distribution"
+
+- name: add apt key for pritunl-client repo
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+  become: true 
+  when: "'Ubuntu' in ansible_distribution"
+
+- name: add apt repositoriy for pritunl-client
+  apt_repository:
+    repo: "deb https://repo.pritunl.com/stable/apt {{ ansible_distribution_release }} main"
+    state: present
+  become: true 
+  when: "'Ubuntu' in ansible_distribution"
+
+- name: install pritunl-client-electron package
+  package:
+    name: pritunl-client-electron
+    state: present
+  become: true

@@ -59,6 +59,7 @@
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
       - plymouth-theme-spinner
+      - feh
     state: present
     update_cache: yes
   become: true
@@ -76,6 +77,7 @@
     path: /etc/X11/default-display-manager
     regexp: .*
     line: /usr/sbin/lightdm
+  become: true
 
 # in order for pkexec to work correctly, my account MUST be a member of the sudo group on Ubuntu
 - name: Add my account to sudo group

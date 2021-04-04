@@ -1,60 +1,18 @@
-# add GPG keys for repositories
-- name: add apt keys from urls
-  apt_key:
-    url: "{{ item }}"
-    state: present
-  with_items:
-    - "https://packages.microsoft.com/keys/microsoft.asc" # vscode
-    - "https://packages.cloud.google.com/apt/doc/apt-key.gpg" # kubectl
-    - "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/Release.key" # podman
-  become: true 
-
-- name: add apt keys from ubuntu keyserver
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: "{{ item }}"
-  with_items:
-    - 3FEF9748469ADBE15DA7CA80AC2D62742012EA22 # 1password
-  become: true 
-
-# add apt repositories
-- name: add apt repositories
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-  with_items:
-    - "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-    - "deb https://apt.kubernetes.io/ kubernetes-xenial main"
-    - "deb [arch=amd64] https://downloads.1password.com/linux/debian edge main"
-    - "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/ /"
-  become: true 
-
-- name: install deb packages from URLs
-  apt:
-    deb: "{{ item }}"
-  with_items:
-    - "https://prerelease.keybase.io/keybase_amd64.deb"
-    - "https://zoom.us/client/latest/zoom_amd64.deb"
-    - "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.13.0-amd64.deb"
-  become: true 
-
-# install apps with apt
+# TODO: remove everything in this task EXCEPT what comes with the OS!
+# make the list of apps a default instead of a built-in list, and put it in the main.yml so it can be called with package instead
 - name: install necessary packages
   apt:
     name:
       - curl
-      - kubectl
-      - code
       - awscli
       - nmap
       - zsh
-      - 1password
       - ncdu
       - pwgen
       - htop
       - putty-tools
       - axel
-      - remmina-plugin-rdp # todo: move this to flatpak
+      - remmina-plugin-rdp
       - freerdp2-x11
       - mpv
       - network-manager-openvpn-gnome
@@ -62,7 +20,6 @@
       - screen
       - p7zip-full
       - iperf3
-      - podman
       - xorriso
       - jq
       - golang
@@ -70,6 +27,8 @@
       - python3-pip
       - whois
       - flatpak
+      - sysstat
+      - smartmontools
     state: present
     update_cache: yes
   become: true 

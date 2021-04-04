@@ -46,13 +46,6 @@
     force: no
   when: ansible_os_family == "Debian"
 
-- name: template conkyrc file
-  copy:
-    src: files/conkyrc
-    dest: ~/.conkyrc
-    mode: '0660'
-    force: no
-
 - name: copy compton conf file
   copy:
     src: files/compton.conf
@@ -113,6 +106,13 @@
   copy:
     src: files/dunstrc
     dest: ~/.config/dunst/dunstrc
+    mode: '0660'
+    force: no
+
+- name: mimeapps.list so xdg-open works right
+  copy:
+    src: files/mimeapps.list
+    dest: ~/.config/mimeapps.list
     mode: '0660'
     force: no
 

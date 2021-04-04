@@ -17,7 +17,8 @@
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
-    - { role: gitrepos, tags: [ "gitrepos" ] }
+    - { role: git, tags: [ "git" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
     - { role: ssh, tags: [ "ssh" ] }
+    - { role: conky, tags: [ "conky" ] }
     - { role: redshift, tags: [ "redshift" ] }

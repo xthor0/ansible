@@ -58,6 +58,9 @@ own_window_argb_value 0
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 own_window_class Conky
 
+# put conky on the second monitor
+# xinerama_head 1
+
 # Text alignment, other possible values are commented
 #alignment top_left
 alignment top_right
