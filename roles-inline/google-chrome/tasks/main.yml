@@ -2,6 +2,7 @@
 - name: add Google Chrome DNF repo
   yum_repository:
     name: google-chrome
+    description: Google Chrome Repository
     baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
     gpgcheck: yes
     gpgkey: https://dl.google.com/linux/linux_signing_key.pub
