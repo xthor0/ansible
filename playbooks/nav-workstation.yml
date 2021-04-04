@@ -5,7 +5,8 @@
   become: yes
   any_errors_fatal: yes
   tasks:
-    - ping:
+    - name: check sudo
+      ping:
 
 - name: Setup Nav Linux workstation
   hosts: localhost

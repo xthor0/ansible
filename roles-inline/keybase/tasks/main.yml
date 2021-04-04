@@ -7,8 +7,8 @@
   when: "'Fedora' in ansible_distribution"
 
 - name: install keybase RPM
-    yum:
-      name: https://prerelease.keybase.io/keybase_amd64.rpm
+  yum:
+    name: https://prerelease.keybase.io/keybase_amd64.rpm
   become: true 
   when: "'Fedora' in ansible_distribution"
 
