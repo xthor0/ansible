@@ -15,6 +15,11 @@
   become: true 
   when: "'Ubuntu' in ansible_distribution"
 
+- name: refresh apt cache after adding podman repos
+  apt:
+    update_cache: yes
+  become: true
+
 - name: install podman package
   package:
     name:
