@@ -11,14 +11,13 @@
     mode: '0644'
 
 - name: ssh to github.com and store key
-  shell: ssh -o PasswordAuthentication=no -o PubKeyAuthentication=no -o UpdateHostKeys=yes -o StrictHostKeyChecking=accept-new git@github.com
-  failed_when: false
-  no_log: true
+  shell: grep -q ^github.com .ssh/known_hosts || ssh -o PasswordAuthentication=no -o PubKeyAuthentication=no -o UpdateHostKeys=yes -o StrictHostKeyChecking=accept-new git@github.com
 
 - name: ssh to github.com and check if successful
   shell: ssh -o PasswordAuthentication=no git@github.com
   failed_when: false
   no_log: true
+  changed_when: false
   register: ssh_to_github
 
 - name: checkout all personal git repos
