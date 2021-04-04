@@ -15,6 +15,6 @@
 - name: install zoom RPM package
   yum:
     name: 
-      "https://zoom.us/client/latest/zoom_x86_64.rpm"
+      - "https://zoom.us/client/latest/zoom_x86_64.rpm"
   become: true
   when: "'Fedora' in ansible_distribution"
