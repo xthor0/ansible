@@ -1,0 +1,38 @@
+---
+- name: Add kubectl yum repository
+  yum_repository:
+    name: kubernetes
+    description: k8s repo
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    gpgcheck: yes
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    enabled: yes
+  become: true
+  when: "'Fedora' in ansible_distribution"
+
+- name: add yum GPG key for kubectl
+  rpm_key:
+    key: "https://packages.cloud.google.com/yum/doc/yum-key.gpg"
+    state: present
+  become: true 
+  when: "'Fedora' in ansible_distribution"
+
+- name: add apt key for kubectl repo
+  apt_key:
+    url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    state: present
+  become: true 
+  when: "'Ubuntu' in ansible_distribution"
+
+- name: add apt repositoriy for vscode
+  apt_repository:
+    repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+    state: present
+  become: true 
+  when: "'Ubuntu' in ansible_distribution"
+
+- name: install kubectl package
+  package:
+    name: kubectl
+    state: present
+  become: true

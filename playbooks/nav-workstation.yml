@@ -7,7 +7,7 @@
   tasks:
     - ping:
 
-- name: Setup personal Linux workstation
+- name: Setup Nav Linux workstation
   hosts: localhost
   roles:
     - { role: tools, tags: [ "tools" ] }
@@ -20,7 +20,10 @@
     - { role: libvirt, tags: [ "libvirt" ] }
     - { role: ssh, tags: [ "ssh" ] }
     - { role: conky, tags: [ "conky" ] }
+    - { role: pritunl-client, tags: [ "pritunl-client"] }
+    - { role: kubectl, tags: [ "kubectl"] }
     - { role: 1password, tags: [ "1password"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: vscode, tags: [ "vscode"] }
     - { role: keybase, tags: [ "keybase"] }
+    - { role: podman, tags: [ "podman"] }

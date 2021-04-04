@@ -1,67 +1,11 @@
-# add GPG keys for repositories
-- name: add yum GPG keys from urls
+- name: add yum GPG keys for rpmfusion
   rpm_key:
     key: "{{ item }}"
     state: present
   with_items:
-    - "https://packages.microsoft.com/keys/microsoft.asc" # vscode
-    - "https://packages.cloud.google.com/yum/doc/yum-key.gpg" # kubectl
-    - "https://downloads.1password.com/linux/keys/1password.asc" # 1password
-    - "https://zoom.us/linux/download/pubkey" # zoom
-    - "https://keybase.io/docs/server_security/code_signing_key.asc" # keybase
     - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" # rpmfusion free
     - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020" # rpmfusion non-free
   become: true 
-
-# add yum/dnf repositories
-- name: Add vscode yum repository
-  yum_repository:
-    name: code
-    description: Visual Studio Code
-    baseurl: https://packages.microsoft.com/yumrepos/vscode
-    gpgcheck: yes
-    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-    enabled: yes
-  become: true
-
-- name: Add kubectl yum repository
-  yum_repository:
-    name: kubernetes
-    description: k8s repo
-    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-    gpgcheck: yes
-    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-    enabled: yes
-  become: true
-
-- name: Add 1password yum repository
-  yum_repository:
-    name: 1password
-    description: 1password repo
-    baseurl: https://downloads.1password.com/linux/rpm
-    gpgcheck: yes
-    gpgkey: https://downloads.1password.com/linux/keys/1password.asc
-    enabled: yes
-  become: true
-
-- name: Add pritunl yum repository
-  yum_repository:
-    name: pritunl
-    description: Pritunl Stable Repository
-    baseurl: https://repo.pritunl.com/stable/yum/fedora/33/
-    gpgcheck: yes
-    gpgkey: file:///etc/pki/rpm-gpg/pritunl-rpm-gpg-key.asc
-    enabled: yes
-  become: true
-
-- name: install pritunl client gpg key
-  copy:
-    src: files/pritunl-rpm-gpg-key.asc
-    dest: /etc/pki/rpm-gpg/pritunl-rpm-gpg-key.asc
-    mode: '0664'
-    owner: root
-    group: root
-  become: true
 
 - name: install the rpmfusion repo packages
   dnf:
@@ -72,30 +16,13 @@
     - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm
   become: true
 
-- name: Enable Fedora Copr for Slack
-  command:
-      cmd: dnf copr enable -y jdoss/slack-repo
-      creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:jdoss:slack-repo.repo
-  become: true
-
-- name: install RPM packages from URLs
-  yum: name="{{ item }}"
-  with_items:
-    - "https://prerelease.keybase.io/keybase_amd64.rpm"
-    - "https://zoom.us/client/latest/zoom_x86_64.rpm"
-  become: true 
-
-# install apps with apt
 - name: install necessary packages
   dnf:
     name:
       - curl
-      - kubectl
-      - code
       - awscli
       - nmap
       - zsh
-      - 1password
       - ncdu
       - pwgen
       - htop
@@ -108,7 +35,6 @@
       - screen
       - p7zip-plugins
       - iperf3
-      - podman
       - xorriso
       - jq
       - golang
@@ -119,6 +45,7 @@
       - transmission-gtk
       - calibre
       - sysstat
+      - smartmontools
     state: present
     update_cache: yes
   become: true 
