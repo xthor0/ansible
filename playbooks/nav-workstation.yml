@@ -18,7 +18,6 @@
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
     - { role: ssh, tags: [ "ssh" ] }
-    - { role: git, tags: [ "git" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
     - { role: conky, tags: [ "conky" ] }
     - { role: pritunl-client, tags: [ "pritunl-client"] }
