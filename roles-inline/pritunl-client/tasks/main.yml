@@ -29,7 +29,7 @@
 
 - name: add apt repositoriy for pritunl-client
   apt_repository:
-    repo: "deb https://repo.pritunl.com/stable/apt {{ ansible_distribution_version }} main"
+    repo: "deb https://repo.pritunl.com/stable/apt {{ ansible_distribution_release }} main"
     state: present
   become: true 
   when: "'Ubuntu' in ansible_distribution"
