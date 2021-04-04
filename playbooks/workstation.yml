@@ -24,3 +24,4 @@
     - { role: zoom, tags: [ "zoom"] }
     - { role: vscode, tags: [ "vscode"] }
     - { role: keybase, tags: [ "keybase"] }
+    - { role: google-chrome, tags: [ "google-chrome"] }
