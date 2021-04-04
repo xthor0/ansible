@@ -17,9 +17,9 @@
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
+    - { role: ssh, tags: [ "ssh" ] } # make sure this runs before git on ubuntu, otherwise, github ssh check fails
     - { role: git, tags: [ "git" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
-    - { role: ssh, tags: [ "ssh" ] }
     - { role: conky, tags: [ "conky" ] }
     - { role: pritunl-client, tags: [ "pritunl-client"] }
     - { role: kubectl, tags: [ "kubectl"] }

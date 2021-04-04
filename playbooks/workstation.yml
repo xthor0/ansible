@@ -16,9 +16,9 @@
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
-    - { role: git, tags: [ "git" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
-    - { role: ssh, tags: [ "ssh" ] }
+    - { role: ssh, tags: [ "ssh" ] } # if ssh runs after git, github check fails
+    - { role: git, tags: [ "git" ] }
     - { role: conky, tags: [ "conky" ] }
     - { role: 1password, tags: [ "1password"] }
     - { role: zoom, tags: [ "zoom"] }
