@@ -20,7 +20,6 @@
       - screen
       - p7zip-full
       - iperf3
-      - podman
       - xorriso
       - jq
       - golang
