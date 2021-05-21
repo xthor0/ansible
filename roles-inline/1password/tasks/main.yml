@@ -10,7 +10,7 @@
   yum_repository:
     name: 1password
     description: 1password repo
-    baseurl: https://downloads.1password.com/linux/rpm
+    baseurl: https://downloads.1password.com/linux/rpm/stable/$basearch/
     gpgcheck: yes
     gpgkey: https://downloads.1password.com/linux/keys/1password.asc
     enabled: yes
@@ -26,7 +26,7 @@
 
 - name: add apt repository for 1password
   apt_repository:
-    repo: "deb [arch=amd64] https://downloads.1password.com/linux/debian edge main"
+    repo: "deb [arch=amd64] https://downloads.1password.com/linux/debian/amd64 stable main"
     state: present
   become: true
   when: "'Ubuntu' in ansible_distribution"
