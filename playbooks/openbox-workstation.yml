@@ -21,4 +21,4 @@
     - { role: libvirt, tags: [ "libvirt" ] }
     - { role: ssh, tags: [ "ssh" ] }
     - { role: conky, tags: [ "conky" ] }
-    - { role: redshift, tags: [ "redshift" ] }
+    - { role: vscode, tags: [ "vscode"] }
