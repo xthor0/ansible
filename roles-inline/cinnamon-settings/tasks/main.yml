@@ -23,12 +23,12 @@
 
 - name: clock show date
   dconf:
-    key: "org/cinnamon/desktop/interface/clock-show-date"
+    key: "/org/cinnamon/desktop/interface/clock-show-date"
     value: "true"
 
 - name: clock to 12h format
   dconf:
-    key: "org/cinnamon/desktop/interface/clock-use-24h"
+    key: "/org/cinnamon/desktop/interface/clock-use-24h"
     value: "false"
 
 - name: gtk theme
