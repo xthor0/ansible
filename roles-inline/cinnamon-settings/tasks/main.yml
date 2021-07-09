@@ -31,6 +31,11 @@
     key: "/org/cinnamon/desktop/interface/clock-use-24h"
     value: "false"
 
+- name: cinnamon theme
+  dconf:
+    key: "/org/cinnamon/theme"
+    value: "'Arc-Dark'"
+
 - name: gtk theme
   dconf:
     key: "/org/cinnamon/desktop/interface/gtk-theme"
@@ -65,6 +70,11 @@
   dconf:
     key: "/org/cinnamon/desktop/interface/text-scaling-factor"
     value: "1.0"
+
+- name: set hotcorner to show all workspaces
+  dconf:
+    key: "/org/cinnamon/hotcorner-layout"
+    value: "['expo:true:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']"
 
 # power settings
 
@@ -140,6 +150,11 @@
   dconf:
     key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/palette"
     value: "['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(0,0,205)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(250,235,215)', 'rgb(64,64,64)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']"
+
+- name: terminal font
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font"
+    value: "'Monospace 10'"
 
 # these get in the way of terminator's hotkeys
 - name: ibus disable hotkey
