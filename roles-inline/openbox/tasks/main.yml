@@ -35,6 +35,7 @@
     - ~/bin
     - ~/.screenlocker
     - ~/Pictures
+    - ~/.themes
 
 - name: openbox menu for Fedora
   copy:
@@ -159,8 +160,10 @@
 - name: Copy the themes from oblogout-py3 to themes dir
   shell: cp -var ~/git/github/oblogout-py3/data/themes ~/.themes
   args:
-    creates: ~/.themes
-
+    creates:
+      - ~/.themes/foom
+      - ~/.themes/oxygen
+    
 - name: install oblogout-py3
   shell: sudo python3 ./setup.py install
   args:
@@ -184,3 +187,17 @@
     owner: root
     group: root
   become: true
+
+- name: checkout arc-dark repo for theme
+  ansible.builtin.git:
+    repo: 'https://github.com/dglava/arc-openbox.git'
+    dest: ~/git/github/arc-openbox
+    force: true
+
+- name: Copy the Arc themes to themes directory
+  shell: cp -var ~/git/github/arc-openbox/Arc* ~/.themes
+  args:
+    creates:
+      - ~/.themes/Arc
+
+
