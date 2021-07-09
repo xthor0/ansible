@@ -1,0 +1,176 @@
+- name: install required Cinnamon packages - Ubuntu/Debian
+  become: true
+  apt:
+    name:
+      - python3-psutil
+      - dconf-cli
+      - arc-theme
+      - numix-icon-theme
+      - chrome-gnome-shell
+  when: ansible_os_family == "Debian"
+
+- name: install required gnome packages - Fedora
+  become: true
+  package:
+    name:
+      - python3-psutil
+      - chrome-gnome-shell
+      - arc-theme
+      - numix-icon-theme
+  when: "'Fedora' in ansible_distribution"
+
+# interface settings
+
+- name: clock show date
+  dconf:
+    key: "org/cinnamon/desktop/interface/clock-show-date"
+    value: "true"
+
+- name: clock to 12h format
+  dconf:
+    key: "org/cinnamon/desktop/interface/clock-use-24h"
+    value: "false"
+
+- name: gtk theme
+  dconf:
+    key: "/org/cinnamon/desktop/interface/gtk-theme"
+    value: "'Arc-Dark'"
+
+- name: icon theme
+  dconf:
+    key: "/org/cinnamon/desktop/interface/icon-theme"
+    value: "'Numix'"
+
+- name: full LCD hinting
+  dconf:
+    key: "/org/cinnamon/settings-daemon/plugins/xsettings/hinting"
+    value: "'full'"
+
+- name: set user theme to Arc-Dark
+  dconf:
+    key: "/org/cinnamon/theme"
+    value: "'Arc-Dark'"
+
+- name: set window manager theme
+  dconf:
+    key: "/org/cinnamon/desktop/wm/preferences/theme"
+    value: "'Arc-Dark'"
+
+- name: set cursor size
+  dconf:
+    key: "/org/cinnamon/desktop/interface/cursor-size"
+    value: "24"
+
+- name: set scaling factor
+  dconf:
+    key: "/org/cinnamon/desktop/interface/text-scaling-factor"
+    value: "1.0"
+
+# power settings
+
+# will have to test this one on a laptop
+#- name: show battery percentage
+#  dconf:
+#    key: "/org/cinnamon/desktop/interface/show-battery-percentage"
+#    value: "true"
+
+- name: engage screensaver after 15 minutes
+  dconf:
+    key: "/org/cinnamon/desktop/screensaver/lock-delay"
+    value: "uint32 15"
+
+- name: turn off screen after 20 minutes
+  dconf:
+    key: "/org/cinnamon/settings-daemon/plugins/power/sleep-display-ac"
+    value: "1200"
+
+# terminal settings
+
+- name: terminal transparency enabled
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background"
+    value: "true"
+
+- name: terminal background transparency percent
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent"
+    value: "13"
+
+- name: terminal default rows
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows"
+    value: "30"
+
+- name: terminal unlimited scrollback
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollback-unlimited"
+    value: "true"
+
+- name: terminal disable scrollbar
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollbar-policy"
+    value: "'never'"
+
+- name: terminal disable using system font
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-system-font"
+    value: "false"
+
+- name: terminal disable using theme colors
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors"
+    value: "false"
+
+- name: terminal disable using theme transparency
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-transparency"
+    value: "false"
+
+- name: terminal foreground color
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color"
+    value: "'rgb(255,255,255)'"
+
+- name: terminal background color
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color"
+    value: "'rgb(0,0,0)'"
+
+- name: terminal color palette
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/palette"
+    value: "['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(0,0,205)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(250,235,215)', 'rgb(64,64,64)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']"
+
+# these get in the way of terminator's hotkeys
+- name: ibus disable hotkey
+  dconf:
+    key: "/desktop/ibus/panel/emoji/hotkey"
+    value: "@as []"
+
+- name: ibus disable unicode hotkey
+  dconf:
+    key: "/desktop/ibus/panel/emoji/unicode-hotkey"
+    value: "@as []"
+
+# touchpad settings
+
+- name: disable touchpad natural scrolling
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/natural-scroll"
+    value: "false"
+
+- name: disable touchpad tap-to-click
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/tap-to-click"
+    value: "false"
+
+- name: two-finger right-click (instead of corner)
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/clickpad-click"
+    value: "2"
+
+- name: two-finger scrolling
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/scrolling-method"
+    value: "1"
+

@@ -12,7 +12,7 @@
   roles:
     - { role: tools, tags: [ "tools" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
-#   - { role: gnome-settings, tags: [ "gnome-settings" ] } -- eventually, replace with cinnamon-settings, when you figure out what
+    - { role: cinnamon-settings, tags: [ "cinnamon-settings" ] }
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
