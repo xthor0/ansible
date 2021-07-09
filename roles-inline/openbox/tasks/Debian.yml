@@ -39,7 +39,7 @@
       - python3-distutils-extra
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
-      - plymouth-theme-spinner
+      - plymouth-theme-hamara
       - feh
       - autorandr
     state: present
