@@ -62,16 +62,16 @@
   become: true
 
 # in order for pkexec to work correctly, my account MUST be a member of the sudo group on Ubuntu
-- name: Add my account to sudo group
-  ansible.builtin.user:
-    name: "{{ lookup('env', 'USER') }}"
-    groups: sudo
-    append: yes
-  become: true
+#- name: Add my account to sudo group
+#  ansible.builtin.user:
+#    name: "{{ lookup('env', 'USER') }}"
+#    groups: sudo
+#    append: yes
+#  become: true
 
 # if we don't do this last and apart from previous packages, autorandr won't install?
-- name: make python3 the default python interpreter
-  package:
-    name: python-is-python3
-    state: present
-  become: true
+#- name: make python3 the default python interpreter
+#  package:
+#    name: python-is-python3
+#    state: present
+#  become: true
