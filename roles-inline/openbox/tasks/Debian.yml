@@ -1,0 +1,78 @@
+- name: install packages for Openbox
+  apt:
+    name:
+      - lxqt-openssh-askpass
+      - lxpolkit
+      - firefox
+      - blueman
+      - arc-theme
+      - tint2
+      - ssh-askpass
+      - openbox
+      - obconf
+      - compton
+      - volumeicon-alsa
+      - nitrogen
+      - conky-all
+      - arandr
+      - mousepad
+      - lxappearance
+      - lxterminal
+      - xbacklight
+      - flameshot
+      - playerctl
+      - mate-calc
+      - lightdm
+      - lightdm-gtk-greeter
+      - xfce4-appfinder
+      - mupdf
+      - numix-icon-theme
+      - thunar
+      - dunst
+      - autorandr
+      - xautolock
+      - maim
+      - i3lock
+      - imagemagick
+      - fonts-liberation
+      - pavucontrol
+      - python3-distutils-extra
+      - python-distutils-extra
+      - xfce4-power-manager
+      - lightdm-gtk-greeter-settings
+      - plymouth-theme-spinner
+      - feh
+      - autorandr
+    state: present
+    update_cache: yes
+  become: true
+
+- name: set LightDM as display manager
+  file:
+    path: /etc/systemd/system/display-manager.service
+    src: /lib/systemd/system/lightdm.service
+    state: link
+    force: true
+  become: true
+
+- name: set LightDM as default X11 display manager
+  lineinfile:
+    path: /etc/X11/default-display-manager
+    regexp: .*
+    line: /usr/sbin/lightdm
+  become: true
+
+# in order for pkexec to work correctly, my account MUST be a member of the sudo group on Ubuntu
+- name: Add my account to sudo group
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: sudo
+    append: yes
+  become: true
+
+# if we don't do this last and apart from previous packages, autorandr won't install?
+- name: make python3 the default python interpreter
+  package:
+    name: python-is-python3
+    state: present
+  become: true
