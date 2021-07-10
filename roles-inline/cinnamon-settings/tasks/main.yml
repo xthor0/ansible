@@ -89,7 +89,9 @@
     key: "/org/cinnamon/desktop/screensaver/lock-delay"
     value: "uint32 15"
 
-- name: turn off screen after 20 minutes
+# the only values that are accepted here: 5m, 10m, 15m, 30m, 45m, 1h, 2h, 3h, Never
+# convert to seconds, for never, set to 0
+- name: turn off screen after 30 minutes
   dconf:
     key: "/org/cinnamon/settings-daemon/plugins/power/sleep-display-ac"
     value: "1800"
