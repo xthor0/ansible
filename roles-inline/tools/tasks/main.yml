@@ -11,6 +11,10 @@
   include_tasks: Ubuntu.yml
   when: "'Pop!_OS' in ansible_distribution"
 
+- name: Include Linux Mint tasks (really, just ubuntu)
+  include_tasks: Ubuntu.yml
+  when: "'Linux Mint' in ansible_distribution"
+
 - name: Include Fedora tasks
   include_tasks: Fedora.yml
   when: "'Fedora' in ansible_distribution"
