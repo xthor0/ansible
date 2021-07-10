@@ -92,7 +92,7 @@
 - name: turn off screen after 20 minutes
   dconf:
     key: "/org/cinnamon/settings-daemon/plugins/power/sleep-display-ac"
-    value: "1200"
+    value: "1800"
 
 # terminal settings
 
