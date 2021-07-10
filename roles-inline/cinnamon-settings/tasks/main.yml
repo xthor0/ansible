@@ -156,16 +156,62 @@
     key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font"
     value: "'Monospace 10'"
 
-# these get in the way of terminator's hotkeys
-- name: ibus disable hotkey
+- name: disable menubar by default in new terminals
   dconf:
-    key: "/desktop/ibus/panel/emoji/hotkey"
-    value: "@as []"
+    key: "/org/gnome/terminal/legacy/default-show-menubar"
+    value: "false"
 
-- name: ibus disable unicode hotkey
+# disable the super annoying Cinnamon default sounds
+# ### CHECK after RESTORE on this one
+- name: disable Cinnamon desktop event sounds
   dconf:
-    key: "/desktop/ibus/panel/emoji/unicode-hotkey"
-    value: "@as []"
+    key: "/org/cinnamon/desktop/sound/event-sounds"
+    value: "false"
+
+- name: disable Cinnamon sound when closing window
+  dconf:
+    key: "/org/cinnamon/sounds/close-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when logging in
+  dconf:
+    key: "/org/cinnamon/sounds/login-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when logging out
+  dconf:
+    key: "/org/cinnamon/sounds/logout-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when switching workspaces
+  dconf:
+    key: "/org/cinnamon/sounds/switch-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when minimizing windows
+  dconf:
+    key: "/org/cinnamon/sounds/minimize-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when maximizing windows
+  dconf:
+    key: "/org/cinnamon/sounds/maximize-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when opening new windows
+  dconf:
+    key: "/org/cinnamon/sounds/map-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when unmaximizing windows
+  dconf:
+    key: "/org/cinnamon/sounds/unmaximize-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when tiling and snapping windows
+  dconf:
+    key: "/org/cinnamon/sounds/tile-enabled"
+    value: "false"
 
 # touchpad settings
 
