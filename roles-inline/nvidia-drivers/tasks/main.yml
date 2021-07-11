@@ -1,0 +1,17 @@
+---
+- name: Check if RPMFusion installed
+  shell: rpm -qa | grep ^rpmfusion
+  register: rpmfusion
+  changed_when: false
+
+- name: Get VGA from lspci
+  shell: lspci | grep VGA
+  register: videocard
+  changed_when: false
+
+- name: install required xfce packages - Fedora
+  become: true
+  package:
+    name:
+      - akmod-nvidia
+  when: "'Fedora' in ansible_distribution and 'NVIDIA' in videocard.stdout and 'rpmfusion' in rpmfusion.stdout"
