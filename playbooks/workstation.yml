@@ -6,13 +6,29 @@
   any_errors_fatal: yes
   tasks:
     - ping:
+    - include_role:
+        name: gnome-settings
+        tags: [ "gnome-settings" ]
+      when: "'gnome' in DESKTOP_SETTINGS"
+    - include_role:
+        name: cinnamon-settings
+        tags: [ "cinnamon-settings" ]
+      when: "'cinnamon' in DESKTOP_SETTINGS"
+    - include_role:
+        name: xfce-settings
+        tags: [ "xfce-settings" ]
+      when: "'xfce' in DESKTOP_SETTINGS"
+    - include_role:
+        name: openbox
+        tags: [ "openbox" ]
+      when: "'openbox' in DESKTOP_SETTINGS"
+      
 
 - name: Setup personal Linux workstation
   hosts: localhost
   roles:
     - { role: tools, tags: [ "tools" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
-    - { role: gnome-settings, tags: [ "gnome-settings" ] }
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
