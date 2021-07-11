@@ -74,3 +74,9 @@
     name: org.remmina.Remmina
     state: present
     method: user
+
+- name: Install Arc-Theme from flatpak so apps look consistent
+  flatpak:
+    name: org.gtk.Gtk3theme.Arc-Dark
+    state: present
+    method: user
