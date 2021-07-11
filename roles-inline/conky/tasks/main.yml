@@ -20,11 +20,11 @@
     state: directory
     mode: '0750'
 
-- name: get active network interface information
-  set_fact:
-    interface_module: "{{ 'ansible_%s'.module | format(item) }}"
-  with_items:
-    "{{ ansible_default_ipv4.alias }}"
+#- name: get active network interface information
+#  set_fact:
+#    interface_module: "{{ 'ansible_%s'.module | format(item) }}"
+#  with_items:
+#    "{{ ansible_default_ipv4.alias }}"
 
 - name: template conkyrc file
   template:
@@ -41,4 +41,4 @@
 
 - name: find interface facts
   debug:
-    msg: "{{ interface_module }}"
+    msg: vars['ansible_'~ansible_default_ipv4.alias].module
