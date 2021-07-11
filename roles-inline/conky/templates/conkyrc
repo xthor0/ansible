@@ -1,3 +1,4 @@
+# managed by ansible
 #==============================================================================
 #                               conky Simple
 # Date    : 07/08/2016
@@ -160,33 +161,32 @@ ${color4}${font Monospace:style=Bold:pixelsize=12}NETWORK ${color6}${hr 2 }
 
 ${font Monospace:style=Bold:pixelsize=11}${color}WAN IP:${font Monospace:size=7}${font Monospace:size=7} ${alignr}${execi 14400 curl ifconfig.co}
 
-${if_existing /sys/class/net/wlp0s20f3/operstate up}${font Monospace:style=Bold:pixelsize=11}${color}WIRELESS:${font Monospace:size=7}
-${color}SSID: ${alignr} ${color}${wireless_essid wlp0s20f3}
-${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual wlp0s20f3}%
-${color}WLAN IP: ${alignr} ${color}${addr wlp0s20f3}
-${color}MAC: ${alignr} ${color}${wireless_ap wlp0s20f3}
+{% if interface_module == "iwlwifi" %}
+${if_existing /sys/class/net/{{ ansible_default_ipv4.alias }}/operstate up}${font Monospace:style=Bold:pixelsize=11}${color}WIRELESS:${font Monospace:size=7}
+${color}SSID: ${alignr} ${color}${wireless_essid {{ ansible_default_ipv4.alias }}}
+${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual {{ ansible_default_ipv4.alias }}}%
+${color}WLAN IP: ${alignr} ${color}${addr {{ ansible_default_ipv4.alias }}}
+${color}MAC: ${alignr} ${color}${wireless_ap {{ ansible_default_ipv4.alias }}}
 
 
-${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed wlp0s20f3} kb/s 
-${alignr}${color BBCCDD}${downspeedgraph wlp0s20f3 20,290 EF5A29 EF5A29}
-${color}TOTAL DOWN ${alignr}${totaldown wlp0s20f3} 
+${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed {{ ansible_default_ipv4.alias }}} kb/s 
+${alignr}${color BBCCDD}${downspeedgraph {{ ansible_default_ipv4.alias }} 20,290 EF5A29 EF5A29}
+${color}TOTAL DOWN ${alignr}${totaldown {{ ansible_default_ipv4.alias }}} 
 
-${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed wlp0s20f3} kb/s 
-${alignr}${color BBCCDD}${upspeedgraph wlp0s20f3 20,290 77B753 77B753}
-${color}TOTAL UP ${alignr}${totalup wlp0s20f3}
+${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed {{ ansible_default_ipv4.alias }}} kb/s 
+${alignr}${color BBCCDD}${upspeedgraph {{ ansible_default_ipv4.alias }} 20,290 77B753 77B753}
+${color}TOTAL UP ${alignr}${totalup {{ ansible_default_ipv4.alias }}}
 ${endif}
-${if_existing /sys/class/net/eno1/operstate up}${font Monospace:style=Bold:pixelsize=11}${color}ETHERNET:${font Monospace:size=7}
-#${color}SSID: ${alignr} ${color}${wireless_essid eno1}
+{% else %}
+${if_existing /sys/class/net/{{ ansible_default_ipv4.alias }}/operstate up}${font Monospace:style=Bold:pixelsize=11}${color}ETHERNET:${font Monospace:size=7}
 ${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual eno1}%
-#${color}WLAN IP: ${alignr} ${color}${addr eno1}
-#${color}MAC: ${alignr} ${color}${wireless_ap eno1}
 
+${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed {{ ansible_default_ipv4.alias }}} kb/s 
+${alignr}${color BBCCDD}${downspeedgraph {{ ansible_default_ipv4.alias }} 20,290 EF5A29 EF5A29}
+${color}TOTAL DOWN ${alignr}${totaldown {{ ansible_default_ipv4.alias }}} 
 
-${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed eno1} kb/s 
-${alignr}${color BBCCDD}${downspeedgraph eno1 20,290 EF5A29 EF5A29}
-${color}TOTAL DOWN ${alignr}${totaldown eno1} 
-
-${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed eno1} kb/s 
-${alignr}${color BBCCDD}${upspeedgraph eno1 20,290 77B753 77B753}
-${color}TOTAL UP ${alignr}${totalup eno1}
+${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed {{ ansible_default_ipv4.alias }}} kb/s 
+${alignr}${color BBCCDD}${upspeedgraph {{ ansible_default_ipv4.alias }} 20,290 77B753 77B753}
+${color}TOTAL UP ${alignr}${totalup {{ ansible_default_ipv4.alias }}}
 ${endif}
+{% endif %}

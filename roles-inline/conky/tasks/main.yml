@@ -12,7 +12,7 @@
   package:
     name:
       - conky-all
-  when: "'Ubuntu' in ansible_distribution"
+  when: ansible_os_family == "Debian"
 
 - name: create autostart config dir
   file:
@@ -20,11 +20,9 @@
     state: directory
     mode: '0750'
 
-#- name: get active network interface information
-#  set_fact:
-#    interface_module: "{{ 'ansible_%s'.module | format(item) }}"
-#  with_items:
-#    "{{ ansible_default_ipv4.alias }}"
+- name: get active network interface information
+  set_fact:
+    interface_module: "{{ vars['ansible_'~ansible_default_ipv4.alias].module }}"
 
 - name: template conkyrc file
   template:
@@ -38,7 +36,3 @@
     src: files/conky.desktop
     dest: ~/.config/autostart/conky.desktop
     mode: '0660'
-
-- name: find interface facts
-  debug:
-    msg: "{{ ansible_facts.['ansible_'~ansible_default_ipv4.alias].module }}"

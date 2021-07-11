@@ -1,14 +1,12 @@
 ---
-- name: Check if pcloud has already been downloaded
+- name: Check if pcloud has already been downloaded or installed
   stat:
-    path: ~/Downloads/pcloud
+    path: "{{ item }}"
   register: pcloud_download_result
-
-- name: Check if pcloud has already been installed
-  stat:
-    path: ~/bin/pcloud
-  register: pcloud_installed_result
+  with_items:
+    - ~/Downloads/pcloud
+    - ~/bin/pcloud
 
 - name: Open download link for pCloud in a browser window
   shell: nohup xdg-open https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64 </dev/null >/dev/null 2>&1 &
-  when: not pcloud_download_result.exists or not pcloud_installed_result.exists
+  when: not pcloud_download_result.exists
