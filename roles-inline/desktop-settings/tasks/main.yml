@@ -7,7 +7,7 @@
   include_role:
     name: gnome-settings
   when: desktop_env == "gnome"
-  nclude_role:
+  include_role:
     name: cinnamon-settings
   when: desktop_env == "cinnamon"
   include_role:
