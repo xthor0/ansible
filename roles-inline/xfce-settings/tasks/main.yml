@@ -73,6 +73,14 @@
     value_type: "string"
     value: "%a %_d %b, %l:%M %p"
 
+# make the cursor size smaller
+- name: Change XFCE mouse cursor size
+  xfconf:
+    channel: "xsettings"
+    property: "/Gtk/CursorThemeSize"
+    value_type: "int"
+    value: "16"
+
 # keyboard shortcuts, ugly stuff
 - name: Change XFCE keyboard shortcut - tile down
   xfconf:
