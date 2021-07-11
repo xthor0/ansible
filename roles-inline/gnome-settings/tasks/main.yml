@@ -1,4 +1,10 @@
-# only tested on Ubuntu 20.04. Probably won't work on distros with different versions of Gnome, but... :man-shrugging:
+---
+- name: Install better_fonts COPR on Fedora
+  command:
+    cmd: dnf -y copr enable dawid/better_fonts
+    creates: _copr:copr.fedorainfracloud.org:dawid:better_fonts.repo
+  become: true
+
 - name: install required gnome packages - Ubuntu
   become: true
   apt:
@@ -27,6 +33,8 @@
       - chrome-gnome-shell
       - arc-theme
       - numix-icon-theme
+      - fontconfig-enhanced-defaults
+      - fontconfig-font-replacements
   when: "'Fedora' in ansible_distribution"
 
 # gnome interface settings

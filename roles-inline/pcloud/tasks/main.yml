@@ -7,6 +7,11 @@
     - ~/Downloads/pcloud
     - ~/bin/pcloud
 
+- name: set pcloud_files_exist fact
+  set_fact:
+    pcloud_files_exist: "{{ (pcloud_files_exist | default([])) + [item.stat.exists] }}"
+  with_items: "{{ pcloud_download_result.results }}"
+
 - name: Open download link for pCloud in a browser window
   shell: nohup xdg-open https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64 </dev/null >/dev/null 2>&1 &
-  when: not pcloud_download_result.stat.exists
+  when: false not in pcloud_files_exist
