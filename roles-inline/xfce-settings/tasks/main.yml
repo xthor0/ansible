@@ -29,7 +29,7 @@
     channel: "xsettings"
     property: "/Net/IconThemeName"
     value_type: "string"
-    value: "Numix-Icon"
+    value: "Numix"
 
 - name: Change XFCE subpixel hint style to full
   xfconf:
