@@ -6,19 +6,25 @@
   any_errors_fatal: yes
   tasks:
     - ping:
+
+- name: set fact for desktop environment
+- set_fact:
+    desktop_env: "{{ lookup('env', 'DESKTOP_SESSION' ) | ternary (lookup('env', 'DESKTOP_SESSION' ), omit) }}"
+
+- name: Include role for desktop environment currently running
+  tasks:
     - include_role:
         name: gnome-settings
-      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "gnome"
+      when: desktop_env == "gnome"
     - include_role:
         name: cinnamon-settings
-      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "cinnamon"
+      when: desktop_env == "cinnamon"
     - include_role:
         name: xfce-settings
-      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "xfce"
+      when: desktop_env == "xfce"
     - include_role:
         name: openbox
-      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "openbox"
-      
+      when: desktop_env == "openbox"
 
 - name: Setup personal Linux workstation
   hosts: localhost
