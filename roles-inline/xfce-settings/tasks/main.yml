@@ -188,16 +188,10 @@
     dest:  ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
     mode: '0660'
 
-- name: create compton config directory
-  file:
-    path: ~/.config/compton
-    state: directory
-    mode: '0770'
-
-- name: copy compton.conf to config
+- name: copy compton.conf to config directory
   copy:
     src: files/compton.conf
-    dest: ~/.config/compton/compton.conf
+    dest: ~/.config/compton.conf
     mode: '0660'
 
 # create a startup app for compton
