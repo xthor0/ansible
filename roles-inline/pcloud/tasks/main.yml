@@ -9,4 +9,4 @@
 
 - name: Open download link for pCloud in a browser window
   shell: nohup xdg-open https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64 </dev/null >/dev/null 2>&1 &
-  when: not pcloud_download_result.exists
+  when: not pcloud_download_result.stat.exists
