@@ -5,6 +5,7 @@
       - arc-theme
       - numix-icon-theme
       - chrome-gnome-shell
+      - ssh-askpass
   when: ansible_os_family == "Debian"
 
 - name: install required xfce packages - Fedora
@@ -14,6 +15,7 @@
       - chrome-gnome-shell
       - arc-theme
       - numix-icon-theme
+      - ssh-askpass
   when: "'Fedora' in ansible_distribution"
 
 # xfce interface settings
