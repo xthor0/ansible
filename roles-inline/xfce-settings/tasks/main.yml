@@ -21,21 +21,21 @@
   xfconf:
     channel: "xsettings"
     property: "/Net/ThemeName"
-    value_type: "str"
+    value_type: "string"
     value: "Arc-Dark"
 
 - name: Change XFCE icon theme to Numix
   xfconf:
     channel: "xsettings"
     property: "/Net/IconThemeName"
-    value_type: "str"
+    value_type: "string"
     value: "Numix-Icon"
 
 - name: Change XFCE subpixel hint style to full
   xfconf:
     channel: "xsettings"
     property: "/Xft/HintStyle"
-    value_type: "str"
+    value_type: "string"
     value: "hintfull"
 
 - name: Change XFCE subpixel to enable hinting
@@ -49,28 +49,28 @@
   xfconf:
     channel: "xfwm4"
     property: "/general/activate_action"
-    value_type: "str"
+    value_type: "string"
     value: "switch"
 
 - name: Change XFCE panel clock format
   xfconf:
     channel: "xfce4-panel"
     property: "/plugins/plugin-13/digital-format"
-    value_type: "str"
+    value_type: "string"
     value: "%a %_d %b, %l:%M %p"
 
 - name: Change XFCE panel clock format digital tooltip
   xfconf:
     channel: "xfce4-panel"
     property: "/plugins/plugin-13/tooltip-format"
-    value_type: "str"
+    value_type: "string"
     value: "%c"
 
 - name: Change XFCE panel workspace switcher 
   xfconf:
     channel: "xfce4-panel"
     property: "/plugins/plugin-13/digital-format"
-    value_type: "str"
+    value_type: "string"
     value: "%a %_d %b, %l:%M %p"
 
 # keyboard shortcuts, ugly stuff
@@ -78,70 +78,70 @@
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Primary><Shift><Alt>Down"
-    value_type: "str"
+    value_type: "string"
     value: "tile_down_key"
 
 - name: Change XFCE keyboard shortcut - tile down left
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Primary><Shift><Alt>End"
-    value_type: "str"
+    value_type: "string"
     value: "tile_down_left_key"
 
 - name: Change XFCE keyboard shortcut - tile down right
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Primary><Shift><Alt>Page_Down"
-    value_type: "str"
+    value_type: "string"
     value: "tile_down_right_key"
 
 - name: Change XFCE keyboard shortcut - tile up
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Primary><Shift><Alt>Up"
-    value_type: "str"
+    value_type: "string"
     value: "tile_up_key"
 
 - name: Change XFCE keyboard shortcut - tile up left
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Primary><Shift><Alt>Home"
-    value_type: "str"
+    value_type: "string"
     value: "tile_up_left_key"
 
 - name: Change XFCE keyboard shortcut - tile up right
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Primary><Shift><Alt>Page_Up"
-    value_type: "str"
+    value_type: "string"
     value: "tile_up_right_key"
 
 - name: Change XFCE keyboard shortcut - move window up workspace
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Shift><Alt>Up"
-    value_type: "str"
+    value_type: "string"
     value: "move_window_up_workspace_key"
 
 - name: Change XFCE keyboard shortcut - move window up workspace
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Shift><Alt>Down"
-    value_type: "str"
+    value_type: "string"
     value: "move_window_down_workspace_key"
 
 - name: Change XFCE keyboard shortcut - move window left workspace
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Shift><Alt>Left"
-    value_type: "str"
+    value_type: "string"
     value: "move_window_left_workspace_key"
 
 - name: Change XFCE keyboard shortcut - move window right workspace
   xfconf:
     channel: "xfce4-keyboard-shortcuts"
     property: "/xfwm4/custom/<Shift><Alt>Right"
-    value_type: "str"
+    value_type: "string"
     value: "move_window_right_workspace_key"
 
 # xfce terminal settings - these come from a file
