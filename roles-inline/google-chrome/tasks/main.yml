@@ -22,14 +22,14 @@
     url: https://dl.google.com/linux/linux_signing_key.pub
     state: present
   become: true 
-  when: "'Ubuntu' in ansible_distribution"
+  when: ansible_os_family == "Debian"
 
 - name: add apt repositoriy for vscode
   apt_repository:
     repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
     state: present
   become: true 
-  when: "'Ubuntu' in ansible_distribution"
+  when: ansible_os_family == "Debian"
 
 - name: install Google Chrome package
   package:
