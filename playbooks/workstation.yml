@@ -8,16 +8,16 @@
     - ping:
     - include_role:
         name: gnome-settings
-      when: ansible_env['DESKTOP_SESSION'] == "gnome"
+      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "gnome"
     - include_role:
         name: cinnamon-settings
-      when: ansible_env['DESKTOP_SESSION'] == "cinnamon"
+      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "cinnamon"
     - include_role:
         name: xfce-settings
-      when: ansible_env['DESKTOP_SESSION'] == "xfce"
+      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "xfce"
     - include_role:
         name: openbox
-      when: ansible_env['DESKTOP_SESSION'] == "openbox"
+      when: "{{ lookup('env', 'DESKTOP_SESSION') }}" == "openbox"
       
 
 - name: Setup personal Linux workstation
