@@ -1,0 +1,18 @@
+---
+- name: set fact for desktop environment
+  set_fact:
+    desktop_env: "{{ lookup('env', 'DESKTOP_SESSION' ) | ternary (lookup('env', 'DESKTOP_SESSION' ), omit) }}"
+
+- name: Include role for desktop environment currently running
+  include_role:
+    name: gnome-settings
+  when: desktop_env == "gnome"
+  nclude_role:
+    name: cinnamon-settings
+  when: desktop_env == "cinnamon"
+  include_role:
+    name: xfce-settings
+  when: desktop_env == "xfce"
+  include_role:
+    name: openbox
+  when: desktop_env == "openbox"

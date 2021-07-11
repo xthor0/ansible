@@ -7,28 +7,6 @@
   tasks:
     - ping:
 
-- name: set fact for desktop environment
-  hosts: localhost
-  tasks:
-  - set_fact:
-     desktop_env: "{{ lookup('env', 'DESKTOP_SESSION' ) | ternary (lookup('env', 'DESKTOP_SESSION' ), omit) }}"
-
-- name: Include role for desktop environment currently running
-  hosts: localhost
-  tasks:
-    - include_role:
-        name: gnome-settings
-      when: desktop_env == "gnome"
-    - include_role:
-        name: cinnamon-settings
-      when: desktop_env == "cinnamon"
-    - include_role:
-        name: xfce-settings
-      when: desktop_env == "xfce"
-    - include_role:
-        name: openbox
-      when: desktop_env == "openbox"
-
 - name: Setup personal Linux workstation
   hosts: localhost
   roles:
@@ -46,3 +24,5 @@
     - { role: vscode, tags: [ "vscode"] }
     - { role: keybase, tags: [ "keybase"] }
     - { role: google-chrome, tags: [ "google-chrome"] }
+    - { role: pcloud, tags: [ "pcloud"] }
+    - { role: desktop-settings, tags: [ "desktop-settings"] }
