@@ -68,3 +68,9 @@
     name: com.slack.Slack
     state: present
     method: user
+
+- name: Install Remmina from flatpak
+  flatpak:
+    name: org.remmina.Remmina
+    state: present
+    method: user

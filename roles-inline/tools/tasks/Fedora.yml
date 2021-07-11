@@ -28,7 +28,6 @@
       - htop
       - putty
       - axel
-      - remmina-plugins-rdp
       - mpv
       - NetworkManager-openvpn-gnome
       - f3
