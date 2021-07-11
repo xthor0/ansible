@@ -42,7 +42,7 @@
   package:
     name:
       - gnome-shell-extension-horizontal-workspaces
-  when: "'Fedora' in ansible_distribution and ansible_distribution_release == '33'"
+  when: "ansible_distribution == 'Fedora' and ansible_distribution_version == '33'"
 
 # gnome interface settings
 
