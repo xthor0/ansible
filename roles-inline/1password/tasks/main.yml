@@ -17,6 +17,11 @@
   become: true
   when: "'Fedora' in ansible_distribution"
 
+- name: import GPG key for 1password to filesystem
+  command:
+    cmd: curl -sS https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+    creates: /usr/share/keyrings/1password-archive-keyring.gpg
+
 - name: add apt keys for 1password
   apt_key:
     keyserver: keyserver.ubuntu.com
@@ -26,7 +31,7 @@
 
 - name: add apt repository for 1password
   apt_repository:
-    repo: "deb [arch=amd64] https://downloads.1password.com/linux/debian/amd64 stable main"
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main"
     state: present
   become: true
   when: ansible_os_family == "Debian"
