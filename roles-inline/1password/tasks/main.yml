@@ -18,8 +18,8 @@
   when: "'Fedora' in ansible_distribution"
 
 - name: import GPG key for 1password to filesystem
-  command:
-    shell: curl -sS https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+  shell: curl -sS https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+  args:
     creates: /usr/share/keyrings/1password-archive-keyring.gpg
   when: ansible_os_family == "Debian"
 
