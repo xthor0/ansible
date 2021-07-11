@@ -8,19 +8,15 @@
     - ping:
     - include_role:
         name: gnome-settings
-        tags: [ "gnome-settings" ]
       when: "'gnome' in DESKTOP_SETTINGS"
     - include_role:
         name: cinnamon-settings
-        tags: [ "cinnamon-settings" ]
       when: "'cinnamon' in DESKTOP_SETTINGS"
     - include_role:
         name: xfce-settings
-        tags: [ "xfce-settings" ]
       when: "'xfce' in DESKTOP_SETTINGS"
     - include_role:
         name: openbox
-        tags: [ "openbox" ]
       when: "'openbox' in DESKTOP_SETTINGS"
       
 
