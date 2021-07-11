@@ -22,7 +22,7 @@
 
 - name: get active network interface information
   set_fact:
-    interface_module: "{{ 'ansible_%s'.module | format(item)] }}"
+    interface_module: "{{ 'ansible_%s'.module | format(item) }}"
   with_items:
     "{{ ansible_default_ipv4.alias }}"
 
