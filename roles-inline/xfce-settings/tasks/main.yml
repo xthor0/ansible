@@ -81,12 +81,27 @@
     value: "%a %_d %b, %l:%M %p"
 
 # make the cursor size smaller
+- name: Change XFCE mouse cursor theme
+  xfconf:
+    channel: "xsettings"
+    property: "/Gtk/CursorThemeName"
+    value_type: "string"
+    value: "Adwaita"
+
 - name: Change XFCE mouse cursor size
   xfconf:
     channel: "xsettings"
     property: "/Gtk/CursorThemeSize"
     value_type: "int"
     value: "16"
+
+# turn off compositing because we're gonna use compton instead
+- name: Disable XFCE compositor
+  xfconf:
+    channel: "xfwm4"
+    property: "/general/use_compositing"
+    value_type: "string"
+    value: "false"
 
 # keyboard shortcuts, ugly stuff
 - name: Change XFCE keyboard shortcut - tile down
@@ -173,3 +188,33 @@
     dest:  ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
     mode: '0660'
 
+# create a startup app for compton
+- name: copy compton.desktop to startup
+  copy:
+    src: files/compton.desktop
+    dest: ~/.config/autostart/compton.desktop
+    mode: '0660'
+
+# create a startup app for ssh key, too
+- name: copy ssh-add.desktop to startup
+  copy:
+    src: files/ssh-add.desktop
+    dest: ~/.config/autostart/ssh-add.desktop
+    mode: '0660'
+
+# set intel to TearFree (only if running Intel graphics, tho)
+- shell: lspci | grep VGA
+  register: videocard
+  changed_when: false
+
+- name: copy Intel xorg settings
+  copy:
+    src: files/20-intel.conf
+    dest: /etc/X11/xorg.conf.d/20-intel.conf
+    mode: '0660'
+  become: true
+
+  when: "'Intel' in videocard.stdout"
+
+## TODO:
+# panel settings didn't work
