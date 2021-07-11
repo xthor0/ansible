@@ -41,4 +41,4 @@
 
 - name: find interface facts
   debug:
-    msg: "{{ ['ansible_'~ansible_default_ipv4.alias].module }}"
+    msg: "{{ ansible_facts.['ansible_'~ansible_default_ipv4.alias].module }}"
