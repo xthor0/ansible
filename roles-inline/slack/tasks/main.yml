@@ -7,10 +7,10 @@
 
 - name: add gpg yum keys for slack
   rpm_key:
-    key: https://slack.com/gpg/slack_pubkey.gpg
+    key: https://slack.com/gpg/slack_pubkey_2019.gpg
     state: present
   become: true
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 - name: install Slack RPM
   yum:
