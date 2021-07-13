@@ -65,4 +65,4 @@
     name: pulseaudio
     allowerasing: true
   become: true
-  when: ansible_distribution == 'Fedora' and ansible_distribution_major_version|int < 33
+  when: ansible_distribution == 'Fedora' and ansible_distribution_major_version|int > 33
