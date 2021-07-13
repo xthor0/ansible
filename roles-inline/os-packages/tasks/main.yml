@@ -65,9 +65,9 @@
 - name: Check if pulseaudio RPM is installed
   shell: rpm -q pulseaudio
   register: pulseaudio_installed
-  failed_when: never
+  ignore_errors: true
   when: ansible_distribution == 'Fedora' and ansible_distribution_major_version|int > 33
-  
+
 - name: Replace Pipewire with PulseAudio (Fedora 34+ Only)
   shell: dnf install -y pulseaudio --allowerasing
   become: true
