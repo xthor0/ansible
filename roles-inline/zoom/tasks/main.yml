@@ -5,7 +5,14 @@
   become: true 
   when: ansible_os_family == "Debian"
 
-- name: Download and install Zoom DEB
+- name: Install Zoom RPM GPG key
+  rpm_key:
+    key: https://zoom.us/linux/download/pubkey
+    state: present
+  become: true
+  when: ansible_os_family == "RedHat"
+
+- name: Download and install Zoom RPM
   yum:
     name: https://zoom.us/client/latest/zoom_x86_64.rpm
   become: true
