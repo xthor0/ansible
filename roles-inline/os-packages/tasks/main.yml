@@ -8,15 +8,16 @@
     name: rpmfusion
   when: "ansible_distribution == 'Fedora'"
 
+# I used package, but damn, it's slow. 
 - name: Install common packages
-  package:
+  yum:
     name: "{{ item }}"
     state: present
   become: true
   with_items: "{{ common_packages }}"
 
 - name: Install OS-specific packages
-  package:
+  yum:
     name: "{{ item }}"
     state: present
   become: true
