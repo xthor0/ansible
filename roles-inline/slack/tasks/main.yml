@@ -5,6 +5,13 @@
   become: true 
   when: ansible_os_family == "Debian"
 
+- name: add gpg yum keys for slack
+  rpm_key:
+    key: https://slack.com/gpg/slack_pubkey.gpg
+    state: present
+  become: true
+  when: "'Fedora' in ansible_distribution"
+
 - name: install Slack RPM
   yum:
     name: https://downloads.slack-edge.com/linux_releases/slack-4.17.0-0.1.fc21.x86_64.rpm
