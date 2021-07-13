@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Keybase
+Comment=keybase startup script
+Exec=/usr/bin/keybase
+StartupNotify=false
+Terminal=false

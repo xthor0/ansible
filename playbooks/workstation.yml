@@ -29,5 +29,6 @@
     - { role: slack, tags: [ "slack"] }
     - { role: telegram, tags: [ "telegram"] }
     - { role: google-chrome, tags: [ "google-chrome"] }
+    - { role: hashicorp, tags: [ "hashicorp"] }
     - { role: pcloud, tags: [ "pcloud"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }

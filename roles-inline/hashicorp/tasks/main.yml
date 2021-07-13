@@ -1,0 +1,48 @@
+---
+- name: Add hashicorp apt GPG key
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+  become: true
+  when: ansible_os_family == "Debian"
+
+- name: Add hashicorp apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    state: present
+  become: true 
+  when: ansible_os_family == "Debian"
+
+- name: Install vault and vagrant packages - Debian
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vagrant
+    - vault
+  become: true
+  when: ansible_os_family == "Debian"
+
+- name: Install dnf-plugins-core package
+  dnf:
+    name: dnf-plugins-core
+    state: present
+  become: true
+  when: ansible_distribution == 'Fedora'
+
+- name: Install hashicorp DNF repo
+  command:
+      cmd: dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+      creates: /etc/yum.repos.d/hashicorp.repo
+  become: true
+  when: ansible_distribution == 'Fedora'
+
+- name: Install vault and vagrant packages - Fedora
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vagrant
+    - vault
+  become: true
+  when: ansible_distribution == 'Fedora'
