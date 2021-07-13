@@ -8,13 +8,14 @@
     name: rpmfusion
   when: "ansible_distribution == 'Fedora'"
 
-# I used package, but damn, it's slow. 
+# I had to switch from `package` to each respective package manager command. Otherwise, `package` runs the package manager once per item. Yuck.
 - name: Install common packages
   yum:
     name: "{{ item }}"
     state: present
   become: true
   with_items: "{{ common_packages }}"
+  when: "ansible_distribution == 'Fedora'"
 
 - name: Install OS-specific packages
   yum:
@@ -22,6 +23,23 @@
     state: present
   become: true
   with_items: "{{ os_packages }}"
+  when: "ansible_distribution == 'Fedora'"
+
+- name: Install common packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install OS-specific packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ os_packages }}"
+  when: ansible_os_family == "Debian"
 
 - name: Remove snapd from Ubuntu
   apt:
@@ -47,4 +65,4 @@
     name: pulseaudio
     allowerasing: true
   become: true
-  when: "ansible_distribution == 'Fedora' and ansible_distribution_version > 33"
+  when: "ansible_distribution == 'Fedora'" and "ansible_distribution_version > 33"
