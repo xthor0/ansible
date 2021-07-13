@@ -18,5 +18,6 @@
 - name: Install SimpleNote - RedHat (and family)
   yum:
     name: "https://github.com/Automattic/simplenote-electron/releases/download/{{ github_release }}/Simplenote-linux-{{ github_release | regex_replace('^v') }}-amd64.rpm"
+    disable_gpg_check: true
   become: true
   when: ansible_os_family == "RedHat"
