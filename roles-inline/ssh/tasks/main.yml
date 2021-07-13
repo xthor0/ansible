@@ -26,4 +26,4 @@
 
 - name: run script to create ~/.ssh/id_rsa.pub
   shell: nohup x-terminal-emulator -x "echo 'Creating ~/.ssh/id_rsa.pub -- you will be prompted for your password!'; ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub; read -p 'Press enter to exit'" </dev/null >/dev/null 2>&1 &
-  when: id_rsa_exist.stat.exist and id_rsa_pub_exist.stat.exist
+  when: id_rsa_exist.stat.exists and not id_rsa_pub_exist.stat.exists
