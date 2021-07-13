@@ -61,7 +61,14 @@
   when: "ansible_distribution == 'Ubuntu'"
 
 # Yes, I know the dnf module has allowerasing in 2.10, but Fedora 34 ships with 2.9
+# so here's this ugly-ass hack
+- name: Check if pulseaudio RPM is installed
+  shell: rpm -q pulseaudio
+  register: pulseaudio_installed
+  failed_when: never
+  when: ansible_distribution == 'Fedora' and ansible_distribution_major_version|int > 33
+  
 - name: Replace Pipewire with PulseAudio (Fedora 34+ Only)
   shell: dnf install -y pulseaudio --allowerasing
   become: true
-  when: ansible_distribution == 'Fedora' and ansible_distribution_major_version|int > 33
+  when: ansible_distribution == 'Fedora' and ansible_distribution_major_version|int > 33 and pulseaudio_installed.rc == 1
