@@ -23,12 +23,19 @@
     state: directory
     mode: '0750'
 
+- name: Check if .vim folder exists
+  stat:
+    path: ~/.vim
+  register: dotvim_exists
+
+# this runs REALLY slow. So, if .vim already exists, skip it.
 - name: Copy dot vim folder to home dir
   copy:
     src: files/dotvim/
     dest: ~/.vim
     mode: '0750'
     force: no
+  when: not dotvim_exists.stat.exists
 
 - name: copy dot vimrc file to home dir
   copy:

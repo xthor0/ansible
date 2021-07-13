@@ -17,6 +17,13 @@
   become: true 
   when: "'Fedora' in ansible_distribution"
 
+- name: install google-chrome-stable package
+  package:
+    name: google-chrome-stable
+    state: present
+  become: true
+  when: "'Fedora' in ansible_distribution"
+
 # for debian-based distros, all we really need to do is install the deb file. The repo will be added by a script
 # that installs with the package.
 - name: install Google Chrome DEB

@@ -1,0 +1,49 @@
+---
+- name: Set fact - OS-specific packages
+  set_fact:
+    os_packages: "{{ lookup('vars', ansible_os_family + '_packages') }}"
+
+- name: Install RPMFusion (Fedora only)
+  include_role:
+    name: rpmfusion
+  when: "ansible_distribution == 'Fedora'"
+
+- name: Install common packages
+  package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages }}"
+
+- name: Install OS-specific packages
+  package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ os_packages }}"
+
+- name: Remove snapd from Ubuntu
+  apt:
+    name: snapd
+    state: absent
+    purge: yes
+  become: true
+  when: "ansible_distribution == 'Ubuntu'"
+
+- name: Remove snapd-related directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /snap
+    - /var/snap
+    - /var/lib/snapd
+  become: true
+  when: "ansible_distribution == 'Ubuntu'"
+
+- name: Replace Pipewire with PulseAudio (Fedora 34+ Only)
+  dnf:
+    name: pulseaudio
+    allowerasing: true
+  become: true
+  when: "ansible_distribution == 'Fedora' and ansible_distribution_version > 33"

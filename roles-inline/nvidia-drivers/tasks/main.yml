@@ -3,13 +3,14 @@
   shell: rpm -qa | grep ^rpmfusion
   register: rpmfusion
   changed_when: false
+  when: "'Fedora' in ansible_distribution"
 
 - name: Get VGA from lspci
   shell: lspci | grep VGA
   register: videocard
   changed_when: false
 
-- name: install required xfce packages - Fedora
+- name: install NVIDIA driver from rpmfusion - Fedora
   become: true
   package:
     name:

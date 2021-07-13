@@ -1,0 +1,12 @@
+---
+- name: Download and install Zoom DEB
+  apt:
+    deb: "https://zoom.us/client/latest/zoom_amd64.deb"
+  become: true 
+  when: ansible_os_family == "Debian"
+
+- name: Download and install Zoom DEB
+  yum:
+    name: https://zoom.us/client/latest/zoom_x86_64.rpm
+  become: true
+  when: ansible_os_family == "RedHat"

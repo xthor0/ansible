@@ -1,0 +1,37 @@
+---
+# all packages should be available in the default repos (or, with RPMfusion, in the case of Fedora)
+common_packages:
+  - curl
+  - awscli
+  - nmap
+  - zsh
+  - ncdu
+  - pwgen
+  - htop
+  - axel
+  - mpv
+  - f3
+  - screen
+  - iperf3
+  - xorriso
+  - jq
+  - golang
+  - python3-boto
+  - python3-pip
+  - whois
+  - sysstat
+  - smartmontools
+  - transmission-gtk
+  - calibre
+
+# make sure these vars are named specifically after {{ ansible_os_family }}
+Debian_packages:
+  - freerdp2-x11
+  - network-manager-openvpn-gnome
+  - p7zip-full
+  - putty-tools
+
+RedHat_packages:
+  - NetworkManager-openvpn-gnome
+  - p7zip-plugins
+  - putty

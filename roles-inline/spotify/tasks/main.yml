@@ -1,0 +1,29 @@
+---
+# Debian/Ubuntu
+- name: add apt keys for podman
+  apt_key:
+    url: https://download.spotify.com/debian/pubkey_0D811D58.gpg
+    state: present
+  become: true
+  when: ansible_os_family == "Debian"
+
+- name: add apt repository for spotify
+  apt_repository:
+    repo: "deb http://repository.spotify.com stable non-free"
+    state: present
+  become: true 
+  when: ansible_os_family == "Debian"
+
+# Fedora
+- name: Enable Negativo17.org DNF repo (Fedora)
+  command:
+      cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
+      creates: /etc/yum.repos.d/fedora-spotify.repo
+  become: true
+  when: "'Fedora' in ansible_distribution"
+
+- name: install spotify package
+  package:
+    name: spotify-client
+    state: present
+  become: true

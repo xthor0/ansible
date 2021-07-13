@@ -1,0 +1,22 @@
+---
+- name: Get SimpleNote release info from api.github.com
+  uri:
+    url: "https://api.github.com/repos/Automattic/simplenote-electron/releases/latest"
+    return_content: yes
+  register: github_api
+
+- name: Set fact - latest SimpleNote release
+  set_fact:
+    github_release: "{{ github_api.json.tag_name }}"
+
+- name: Install SimpleNote - Debian (and family)
+  apt:
+    deb: "https://github.com/Automattic/simplenote-electron/releases/download/{{ github_release }}/Simplenote-linux-{{ github_release | regex_replace('^v') }}-amd64.deb"
+  become: true 
+  when: ansible_os_family == "Debian"
+
+- name: Install SimpleNote - RedHat (and family)
+  yum:
+    name: "https://github.com/Automattic/simplenote-electron/releases/download/{{ github_release }}/Simplenote-linux-{{ github_release | regex_replace('^v') }}-amd64.rpm"
+  become: true
+  when: ansible_os_family == "RedHat"

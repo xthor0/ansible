@@ -1,17 +1,56 @@
 ---
-- name: Check if pcloud has already been downloaded or installed
+- name: Install Curl package
+  package:
+    name: curl
+    state: present
+  become: true
+
+- name: create bin directory in users home dir
+  file:
+    path: ~/bin
+    state: directory
+    mode: '0750'
+
+- name: Check if pcloud has already been installed
   stat:
-    path: "{{ item }}"
-  register: pcloud_download_result
-  with_items:
-    - ~/Downloads/pcloud
-    - ~/bin/pcloud
+    path: ~/bin/pcloud
+  register: pcloud_bin_installed
 
-- name: set pcloud_files_exist fact
+# Thank you tomgross! https://gist.github.com/tomgross/bae4f30023272d8c8c0d920b62720c6b
+- name: Get pCloud download API key
+  shell: curl -s https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64 | grep "'Electron':" | sed "s/[ ,:']*//g;s/Electron//g" | tr -d '\t'
+  register: pcloud_api_key
+  when: not pcloud_bin_installed.stat.exists
+
+- name: Get pCloud Download URL from api.pcloud.com
+  uri:
+    url: "https://api.pcloud.com/getpublinkdownload?code={{ pcloud_api_key.stdout }}"
+    return_content: yes
+  register: pcloud_api
+  when: not pcloud_bin_installed.stat.exists
+
+- name: Set fact - pCloud bin download path
   set_fact:
-    pcloud_files_exist: "{{ (pcloud_files_exist | default([])) + [item.stat.exists] }}"
-  with_items: "{{ pcloud_download_result.results }}"
+    pcloud_download_path: "{{ pcloud_api.json.path }}"
+  when: not pcloud_bin_installed.stat.exists
 
-- name: Open download link for pCloud in a browser window
-  shell: nohup xdg-open https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64 </dev/null >/dev/null 2>&1 &
-  when: false not in pcloud_files_exist
+- name: Set fact - pCloud bin download host
+  set_fact:
+    pcloud_download_host: "{{ pcloud_api.json.hosts[0] }}"
+  when: not pcloud_bin_installed.stat.exists
+
+- name: Download pCloud binary
+  get_url:
+    url: "https://{{ pcloud_download_host }}{{ pcloud_download_path }}"
+    dest: ~/bin/pcloud
+    mode: '0750'
+  when: not pcloud_bin_installed.stat.exists
+
+- name: Check if pcloud directory has already been created
+  stat:
+    path: ~/pCloudDrive
+  register: pclouddrive_dir_exist
+
+- name: Open pCloud app so user can login
+  shell: nohup ~/bin/pcloud </dev/null >/dev/null 2>&1 &
+  when: not pclouddrive_dir_exist.stat.exists and pcloud_bin_installed.stat.exists
