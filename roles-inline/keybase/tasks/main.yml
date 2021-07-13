@@ -17,3 +17,9 @@
     deb: "https://prerelease.keybase.io/keybase_amd64.deb"
   become: true 
   when: ansible_os_family == "Debian"
+
+- name: copy keybase autostart file
+  copy:
+    src: files/keybase.desktop
+    dest: ~/.config/autostart/keybase.desktop
+    mode: '0660'
