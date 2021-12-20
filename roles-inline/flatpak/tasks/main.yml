@@ -17,4 +17,4 @@
     name: "{{ item }}"
     state: present
     method: user
-  with_items: "{{ Flathub_packages: }}"
+  with_items: "{{ Flathub_packages }}"
