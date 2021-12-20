@@ -1,7 +1,7 @@
 ---
-#- name: Set fact - OS-specific packages
-#  set_fact:
-#    os_packages: "{{ lookup('vars', 'Flatpak_packages') }}"
+- name: Set fact - OS-specific packages
+  set_fact:
+    flatpak_packages: "{{ lookup('vars', 'Flatpak_packages') }}"
 
 - name: install flatpak
   package:
@@ -21,4 +21,4 @@
     name: "{{ item }}"
     state: present
     method: user
-  with_items: "{{ Flatpak_packages }}"
+  with_items: "{{ flatpak_packages }}"
