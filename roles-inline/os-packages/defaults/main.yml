@@ -30,6 +30,8 @@ Debian_packages:
   - network-manager-openvpn-gnome
   - p7zip-full
   - putty-tools
+  - flatpak
+  - gnome-software-plugin-flatpak
 
 RedHat_packages:
   - NetworkManager-openvpn-gnome

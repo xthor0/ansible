@@ -11,6 +11,7 @@
   hosts: localhost
   roles:
     - { role: os-packages, tags: [ "os-packages" ] }
+    - { role: flatpak, tags: [ "flatpak" ] }
     - { role: ssh, tags: [ "ssh" ] }
     - { role: nvidia-drivers, tags: [ "nvidia-drivers"] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
@@ -23,12 +24,9 @@
     - { role: 1password, tags: [ "1password"] }
     - { role: vscode, tags: [ "vscode"] }
     - { role: keybase, tags: [ "keybase"] }
-    - { role: simplenote, tags: [ "simplenote"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: spotify, tags: [ "spotify"] }
     - { role: slack, tags: [ "slack"] }
-    - { role: telegram, tags: [ "telegram"] }
     - { role: google-chrome, tags: [ "google-chrome"] }
     - { role: hashicorp, tags: [ "hashicorp"] }
-    - { role: pcloud, tags: [ "pcloud"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
