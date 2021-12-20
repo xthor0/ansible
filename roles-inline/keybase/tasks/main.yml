@@ -1,10 +1,10 @@
 ---
-- name: add yum GPG key for keybase
-  rpm_key:
-    key: "https://keybase.io/docs/server_security/code_signing_key.asc"
-    state: present
-  become: true 
-  when: "'Fedora' in ansible_distribution"
+#- name: add yum GPG key for keybase
+#  rpm_key:
+#    key: "https://keybase.io/docs/server_security/code_signing_key.asc"
+#    state: present
+#  become: true 
+#  when: "'Fedora' in ansible_distribution"
 
 - name: install keybase RPM
   yum:
