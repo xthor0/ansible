@@ -25,5 +25,4 @@
     - { role: zoom, tags: [ "zoom"] }
     - { role: spotify, tags: [ "spotify"] }
     - { role: google-chrome, tags: [ "google-chrome"] }
-    - { role: hashicorp, tags: [ "hashicorp"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
