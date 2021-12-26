@@ -10,6 +10,6 @@ ssh_hosts:
   - "kusikusi.xthorsworld.com,10.200.1.11 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJDNPVlSHN4U2icN4EEp3njGtTAeSNOusM+I5DiHUiaUj9qxCE1QjKpxvnbT2a1LDjwijXW3452o8eI3SHYk/lE="
   - "ududo.xthorsworld.com,10.200.1.18 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGNhD/BeZnFFHKvIbhSGCc8onGIW0Gr2OK4Hu/8gy+1ifsHSy3b0xjEZm1cOFaILqWWFmHqIRuBfJeAuiSvUQhU="
   - "arimarma.xthorsworld.com,10.200.1.20 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAYz3lg0Dl/gEyIG3aKYIlNmjZIGFaz9wrdqWjs40gxoFVLnf6OcQ0AXptRIatIhn0Sqhp1Q+wLVcaUsDRF1JLo="
-- "gagamba.xthorsworld.com,10.200.1.19 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG6pNF0KLC1A25ikea5726k34VWKGSn7GMlEVCB3zGhuPtTHlaFNJJcwD7G3vj5GQx6DFIAFJvSRPx1hf/dgssE="
+  - "gagamba.xthorsworld.com,10.200.1.19 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG6pNF0KLC1A25ikea5726k34VWKGSn7GMlEVCB3zGhuPtTHlaFNJJcwD7G3vj5GQx6DFIAFJvSRPx1hf/dgssE="
   - "websrv.xthorsworld.com,10.200.1.25 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBElMLe8uHO8FUrGsCD6lHftt83uSMdZH6cyHcK8dDNjgBvcpwcEKFUoyxur8HoKj+fndssNPPazZ1q2S2ojg8SY="
   - "spin.xthorsworld.com,10.200.1.12 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLt7qMpIkm+s4mefcqQ3PO/JBk0WByfUfekTC62rYUEjFabllXviqHjK5RnGRNnu3bBSLpSzC6c7DFoZ6oDBA8s="
