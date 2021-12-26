@@ -13,7 +13,6 @@
     - { role: os-packages, tags: [ "os-packages" ] }
     - { role: flatpak, tags: [ "flatpak" ] }
     - { role: ssh, tags: [ "ssh" ] }
-    - { role: nvidia-drivers, tags: [ "nvidia-drivers"] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: terminator, tags: [ "terminator" ] }
     - { role: power-management, tags: [ "power-management" ] }
@@ -23,10 +22,8 @@
     - { role: conky, tags: [ "conky" ] }
     - { role: 1password, tags: [ "1password"] }
     - { role: vscode, tags: [ "vscode"] }
-    - { role: keybase, tags: [ "keybase"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: spotify, tags: [ "spotify"] }
-    - { role: slack, tags: [ "slack"] }
     - { role: google-chrome, tags: [ "google-chrome"] }
     - { role: hashicorp, tags: [ "hashicorp"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
