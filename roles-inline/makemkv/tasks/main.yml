@@ -50,3 +50,16 @@
     - makemkv-bin
   become: true
   when: "ansible_distribution == 'Debian'"
+
+- name: create config dir for terminator
+  file:
+    path: ~/.MakeMKV
+    state: directory
+    mode: '0755'
+
+- name: copy makemkv settings file (unless it already exists)
+  copy:
+    src: files/settings.conf
+    dest: ~/.MakeMKV/settings.conf
+    mode: '0660'
+    force: no
