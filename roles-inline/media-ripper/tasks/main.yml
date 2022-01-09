@@ -70,3 +70,4 @@
   with_items:
     - { src: 'files/batch_encode.sh', dest: '/usr/local/bin/batch_encode.sh' }
     - { src: 'files/ripdisc.sh', dest: '/usr/local/bin/ripdisc.sh' }
+  become: true
