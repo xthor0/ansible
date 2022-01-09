@@ -214,8 +214,8 @@ fi
 # anything that is not 4k gets encoded qsv_264. qsv_265 used for 4k, simply because it saves disk space
 widthdigit=$(mediainfo "${newfile_name}" | grep ^Width | awk '{ print $3 }')
 case ${widthdigit} in
-    3) preset_import_file="$(dirname "$(readlink -f "$0")")/../presets/4k_qsv.json"; preset="4k_qsv"; extension="mkv" ;;
-    *) preset_import_file="$(dirname "$(readlink -f "$0")")/../presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4" ;;
+    3) preset_import_file="${HOME}/.handbrake-presets/4k_qsv.json"; preset="4k_qsv"; extension="mkv" ;;
+    *) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4" ;;
 esac
 
 output_basename=$(basename "$newfile" .mkv)
