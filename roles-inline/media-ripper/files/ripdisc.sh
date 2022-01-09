@@ -130,6 +130,7 @@ else
         _exit_err
     else
         # this should find the longest track
+        # TODO: should I do this by CHAPTERS, instead? What if the longest track has no chapters??
         titletrack=$(grep '^TINFO:.*,9,0,' "${discinfo}" | cut -b 7- | tr , ' ' | tr -d \" | awk '{ print $4 " " $1 }' | sort -rn | head -n1 | awk '{ print $2 }')
         echo "Found longest track: ${titletrack}"
     fi
