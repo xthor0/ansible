@@ -12,23 +12,13 @@
   become: true 
   when: "ansible_distribution == 'Debian'"
 
-- name: install packages from deb-multimedia for Debian
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - makemkv-oss
-    - makemkv-bin
-  become: true
-  when: "ansible_distribution == 'Debian'"
-
-- name: Update all packages to their latest version
+- name: Update all packages to their latest version (for deb-multimedia)
   apt:
     name: "*"
     state: latest
   become: true
 
-- name: install media ripper packages
+- name: install packages to manage media
   apt:
     name: "{{ item }}"
     state: present
