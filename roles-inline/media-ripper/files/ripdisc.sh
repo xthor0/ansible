@@ -244,8 +244,25 @@ else
     _exit_err
 fi
 
+# let's figure out what directory we want to put the output file in. Really, we should be dealing with 480, 1080, and 3840
+# anything else we'll just stuff in other
+width=$(mediainfo --Inform="Video;%Width%" "${newfile_name}")
+case ${width} in
+    720) suboutput="DVD";;
+    1920) suboutput="1080p";;
+    3840) suboutput="4k";;
+    *) suboutput="unknown";;
+esac
+
 # move original source to completed dir. can be deleted later, but allows a re-encode without a re-rip, which is nice.
-mv "${newfile_name}" "${completed_dir}"
+if [ ! -d "${completed_dir}/${suboutput}/" ]; then
+    mkdir -p "${completed_dir}/${suboutput}"
+    if [ $? -ne 0 ]; then
+        echo "Error: can't create ${completed_dir}/${suboutput} -- can't sort this file. It'll stay in $(pwd)/${newfile_name}."
+    fi
+else
+    mv "${newfile_name}" "${completed_dir}/${suboutput}/"
+fi
 
 # the end
 exitmsg="Movie ${title} has been successfully encoded."

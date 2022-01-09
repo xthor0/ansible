@@ -41,7 +41,7 @@
             "ChapterMarkers": true,
             "ChildrenArray": [],
             "Default": false,
-            "FileFormat": "mkv",
+            "FileFormat": "av_mp4",
             "Folder": false,
             "FolderOpen": false,
             "InlineParameterSets": false,
