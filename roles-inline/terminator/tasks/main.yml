@@ -16,6 +16,12 @@
     dest: ~/.config/terminator/config
     mode: '0660'
 
+- name: Create fonts directory
+  file:
+    path: ~/.fonts
+    state: directory
+    mode: '0750'
+
 - name: install font MesloLGS Regular
   get_url:
     url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
