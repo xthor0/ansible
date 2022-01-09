@@ -59,8 +59,8 @@
     dest: "{{ item.dest }}"
     mode: '0660'
   with_items:
-    - { src: 'files/1080p_qsv.json', dest='~/.handbrake-presets/1080p_qsv.json' }
-    - { src: 'files/4k_qsv.json', dest='~/.handbrake-presets/4k_qsv.json' }
+    - { src: 'files/1080p_qsv.json', dest: '~/.handbrake-presets/1080p_qsv.json' }
+    - { src: 'files/4k_qsv.json', dest: '~/.handbrake-presets/4k_qsv.json' }
 
 - name: install ripper scripts
   copy:
