@@ -17,3 +17,4 @@
     - { role: conky, tags: [ "conky" ] }
     - { role: handbrake, tags: [ "handbrake" ] }
     - { role: makemkv, tags: [ "makemkv" ] }
+    - { role: media-ripper, tags: [ "media-ripper" ] }
