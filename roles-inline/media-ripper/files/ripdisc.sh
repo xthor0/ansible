@@ -91,24 +91,15 @@ if [ -z "$title" ]; then
 	_exit_err
 fi
 
-# save the disc info we got from makemkv, but named so we can reference it
-discinfo_backup="${HOME}/discinfo/${title}.txt"
-if [ ! -f "${discinfo_backup}" ]; then
-	discinfo_backup="${HOME}/discinfo/${title}.txt"
-    mv ${discinfo} "${discinfo_backup}"
-    discinfo="${discinfo_backup}"
-else
-    echo "${discinfo_backup} already exists, keeping temp file ${discinfo}."
-fi
+# save the disc info we got from makemkv, but named so we can reference it (for debugging, later, if necessary)
+hash="$(date +%s%N | md5sum | cut -b -6)"
+discinfo_backup="${HOME}/discinfo/${title}-${hash}.txt"
+mv ${discinfo} "${discinfo_backup}"
+discinfo="${discinfo_backup}"
 
-# move the bdxml temp to a real file
-bdmtxml="${HOME}/discinfo/${title}.xml"
-if [ ! -f "${bdmtxml}" ]; then
-    mv ${xmltemp} "${bdmtxml}"
-    echo "BDMT XML saved to ${bdmtxml}"
-else
-    echo "BDMT XML saved to ${xmltemp}"
-fi
+# save the bdmtxml, too
+bdmtxml="${HOME}/discinfo/${title}-${hash}.xml"
+test -f ${xmltemp} && mv ${xmltemp} "${bdmtxml}"
 
 # let's see if Java was able to determine what the title track of this disc is.
 grep -q FPL_MainFeature "${discinfo}"

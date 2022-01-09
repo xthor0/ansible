@@ -17,3 +17,9 @@
     name: fr.handbrake.ghb
     state: present
     method: user
+
+- name: install Handbrake IntelMediaSDK plugin (for QSV)
+  flatpak:
+    name: fr.handbrake.ghb.Plugin.IntelMediaSDK
+    state: present
+    method: user
