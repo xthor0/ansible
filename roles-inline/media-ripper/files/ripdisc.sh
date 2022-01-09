@@ -39,7 +39,7 @@ completed_dir=/storage/videos/completed
 for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}"; do
     if [ ! -d "${directory}" ]; then
         echo "${directory} does not exist -- creating."
-        mkdir "${directory}"
+        mkdir -p "${directory}"
         if [ $? -ne 0 ]; then
             echo "Error: unable to create ${directory} -- exiting."
             exit 255
