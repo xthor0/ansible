@@ -18,3 +18,4 @@
     - { role: handbrake, tags: [ "handbrake" ] }
     - { role: makemkv, tags: [ "makemkv" ] }
     - { role: media-ripper, tags: [ "media-ripper" ] }
+    - { role: filebot, tags: [ "filebot" ] }
