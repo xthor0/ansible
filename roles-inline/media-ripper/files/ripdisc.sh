@@ -40,6 +40,10 @@ for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${com
     if [ ! -d "${directory}" ]; then
         echo "${directory} does not exist -- creating."
         mkdir "${directory}"
+        if [ $? -ne 0 ]; then
+            echo "Error: unable to create ${directory} -- exiting."
+            exit 255
+        fi
     fi
 done
 
