@@ -36,16 +36,16 @@ discinfo_output_dir="${HOME}/discinfo"
 output_dir=/storage/videos/rips
 encode_dir=/storage/videos/encoded
 completed_dir=/storage/videos/completed
-unknown_completed_dir=${completed_dir}/unknown
-dvd_completed_dir=${completed_dir}/DVD
-720p_completed_dir=${completed_dir}/720p
-1080p_completed_dir=${completed_dir}/1080p
-4k_completed_dir=${completed_dir}/4k
-unknown_encode_dir=${encode_dir}/unknown
-dvd_encode_dir=${encode_dir}/DVD
-720p_encode_dir=${encode_dir}/720p
-1080p_encode_dir=${encode_dir}/1080p
-4k_encode_dir=${encode_dir}/4k
+unknown_completed_dir="${completed_dir}/unknown"
+dvd_completed_dir="${completed_dir}/DVD"
+720p_completed_dir="${completed_dir}/720p"
+1080p_completed_dir="${completed_dir}/1080p"
+4k_completed_dir="${completed_dir}/4k"
+unknown_encode_dir="${encode_dir}/unknown"
+dvd_encode_dir="${encode_dir}/DVD"
+720p_encode_dir="${encode_dir}/720p"
+1080p_encode_dir="${encode_dir}/1080p"
+4k_encode_dir="${encode_dir}/4k"
 for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}" "${unknown_completed_dir}" "${dvd_completed_dir}" "${720p_completed_dir}" "${1080p_completed_dir}" "${4k_completed_dir}" "${unknown_encode_dir}" "${unknown_encode_dir}" "${dvd_encode_dir}" "${1080p_encode_dir}" "${4k_encode_dir}"; do
     if [ ! -d "${directory}" ]; then
         echo "${directory} does not exist -- creating."
