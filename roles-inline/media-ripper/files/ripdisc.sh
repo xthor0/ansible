@@ -36,7 +36,17 @@ discinfo_output_dir="${HOME}/discinfo"
 output_dir=/storage/videos/rips
 encode_dir=/storage/videos/encoded
 completed_dir=/storage/videos/completed
-for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}"; do
+unknown_completed_dir=${completed_dir}/unknown
+dvd_completed_dir=${completed_dir}/DVD
+720p_completed_dir=${completed_dir}/720p
+1080p_completed_dir=${completed_dir}/1080p
+4k_completed_dir=${completed_dir}/4k
+unknown_encode_dir=${encode_dir}/unknown
+dvd_encode_dir=${encode_dir}/DVD
+720p_encode_dir=${encode_dir}/720p
+1080p_encode_dir=${encode_dir}/1080p
+4k_encode_dir=${encode_dir}/4k
+for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}" "${unknown_completed_dir}" "${dvd_completed_dir}" "${720p_completed_dir}" "${1080p_completed_dir}" "${4k_completed_dir}" "${unknown_encode_dir}" "${unknown_encode_dir}" "${dvd_encode_dir}" "${1080p_encode_dir}" "${4k_encode_dir}"; do
     if [ ! -d "${directory}" ]; then
         echo "${directory} does not exist -- creating."
         mkdir -p "${directory}"
@@ -250,13 +260,15 @@ case ${width} in
 esac
 
 # move original source to completed dir. can be deleted later, but allows a re-encode without a re-rip, which is nice.
-if [ ! -d "${completed_dir}/${suboutput}/" ]; then
-    mkdir -p "${completed_dir}/${suboutput}"
-    if [ $? -ne 0 ]; then
-        echo "Error: can't create ${completed_dir}/${suboutput} -- can't sort this file. It'll stay in $(pwd)/${newfile_name}."
-    fi
-else
-    mv "${newfile_name}" "${completed_dir}/${suboutput}/"
+mv "${newfile_name}" "${completed_dir}/${suboutput}/"
+if [ $? -ne 0 ]; then
+    echo "Error: can't move ${newfile_name} to directory ${completed_dir}/${suboutput} -- can't sort this file. It'll stay in $(pwd)/${newfile_name}."
+fi
+
+# move encoded file to completed directory
+mv "${output_file}" "${completed_dir}/${suboutput}/"
+if [ $? -ne 0 ]; then
+    echo "Error: can't move ${output_file} to directory ${encode_dir}/${suboutput} -- can't sort this file. It'll stay in $(pwd)/${output_file}."
 fi
 
 # the end
