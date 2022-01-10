@@ -26,7 +26,7 @@ function pushover_msg() {
 }
 
 function _exit_err(){
-    # TODO: see if API keys for Pushover are set, and if so, push one over.
+    # TODO: we need a cleanup function which moves whatever is in ${output_dir} somewhere, so we can run again
     pushover_msg "Encode failed, see logs."
     exit 255
 }
@@ -47,6 +47,12 @@ for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${com
     fi
 done
 
+# ensure output_dir is empty -- otherwise, a previous run needs a cleanup
+if [ "$(ls -A ${output_dir})" ]; then
+    echo "Error: ${output_dir} is not empty. A previous run did not complete successfully."
+    _exit_err
+fi
+
 # TODO: DVD identification
 # supposedly I can make a request against metaservices.windowsmedia.com, pass in the CRC, and get the title back.
 # thing is, I'm not sure I care - almost everything I own is BDROM.
@@ -55,6 +61,7 @@ done
 echo "Scanning disc with makemkv, please wait..."
 discinfo=$(mktemp -p "${discinfo_output_dir}" discinfo.tempfile.XXXXX)
 makemkvcon --progress=-stdout -r info dev:/dev/sr0 > $discinfo
+hash="$(date +%s%N | md5sum | cut -b -6)"
 
 # if this is a BDROM, we can scrape an xml file and get a human-readable title. Neat!
 echo "Checking for BDROM XML..."
@@ -69,6 +76,8 @@ if [ $? -eq 0 ]; then
         cp /media/cdrom0/BDMV/META/DL/bdmt_eng.xml ${xmltemp}
         title=$(cat /media/cdrom0/BDMV/META/DL/bdmt_eng.xml | grep di:name | cut -d \> -f 2 | cut -d \< -f 1 | cut -d \- -f 1 | tr -d [:cntrl:])
         echo "Title retrieved from BDROM XML: ${title}"
+        bdmtxml="${discinfo_output_dir}/${title}-${hash}.xml"
+        mv ${xmltemp} "${bdmtxml}"
     else
         echo "bdmt_eng.xml does not exist."
     fi
@@ -92,14 +101,9 @@ if [ -z "$title" ]; then
 fi
 
 # save the disc info we got from makemkv, but named so we can reference it (for debugging, later, if necessary)
-hash="$(date +%s%N | md5sum | cut -b -6)"
-discinfo_backup="${HOME}/discinfo/${title}-${hash}.txt"
+discinfo_backup="${discinfo_output_dir}/${title}-${hash}.txt"
 mv ${discinfo} "${discinfo_backup}"
 discinfo="${discinfo_backup}"
-
-# save the bdmtxml, too
-bdmtxml="${HOME}/discinfo/${title}-${hash}.xml"
-test -f ${xmltemp} && mv ${xmltemp} "${bdmtxml}"
 
 # let's see if Java was able to determine what the title track of this disc is.
 grep -q FPL_MainFeature "${discinfo}"
