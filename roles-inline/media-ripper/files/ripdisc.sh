@@ -202,19 +202,20 @@ fi
 
 # rename the file using Filebot (makes life easier for Plex)
 echo "Renaming file with FileBot (test mode)..."
-filebot_log=$(mktemp filebot.XXXXX.log)
+filebot_log=$(mktemp /tmp/filebot.XXXXX.log)
 filebot -rename "${output_dir}/${outputfile}" --db themoviedb --q "${title}" --action test --log all --log-file ${filebot_log}
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
     # what will FileBot name this file?
     ripfile="$(grep TEST ${filebot_log} | cut -d \[ -f 4- | tr -d \])"
     filebot -rename "${output_dir}/${outputfile}" --db themoviedb --q "${title}"
+    test -f "${ripfile}"
+    if [ $? -eq 0 ]; then
+        echo "Filebot renamed ${output_dir}/${outputfile} to ${ripfile}"
+    fi
 fi
 
-# if the new file exists, we're in business
-test -f "${ripfile}"
-if [ $? -eq 0 ]; then
-    echo "Filebot renamed ${output_dir}/${outputfile} to ${ripfile}"
-else
+# make sure ripfile got set, otherwise...
+if [ -z "${ripfile}" ]; then
     ripfile="${output_dir}/${outputfile}"
     echo "Filebot was unsuccessful. You can consult the log for debugging purposes. Proceeding to encode the file as-is."
 fi
