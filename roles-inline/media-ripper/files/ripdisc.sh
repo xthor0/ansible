@@ -204,7 +204,7 @@ fi
 echo "Renaming file with FileBot (test mode)..."
 filebot_log=$(mktemp /tmp/filebot.XXXXX.log)
 filebot -rename "${output_dir}/${outputfile}" --db themoviedb --q "${title}" --action test --log all --log-file ${filebot_log}
-if [ $? -eq 0 ]; then
+if [ $? -eq 1 ]; then
     # what will FileBot name this file?
     ripfile="$(grep TEST ${filebot_log} | cut -d \[ -f 4- | tr -d \])"
     filebot -rename "${output_dir}/${outputfile}" --db themoviedb --q "${title}"
@@ -213,6 +213,7 @@ if [ $? -eq 0 ]; then
         echo "Filebot renamed ${output_dir}/${outputfile} to ${ripfile}"
     fi
 fi
+rm -f ${filebot_log}
 
 # make sure ripfile got set, otherwise...
 if [ -z "${ripfile}" ]; then
