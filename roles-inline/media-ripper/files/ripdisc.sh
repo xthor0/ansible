@@ -14,6 +14,9 @@
 # create the udev files in /etc/udev/rules.d/
 # end goal: This script kicks off automatically when I drop a disc in the drive. I feel like I'm SUPER close!
 
+# timer
+timer_start=${SECONDS}
+
 function pushover_msg() {
     test -f ${HOME}/.pushover-api-keys
     if [ $? -eq 0 ]; then
@@ -277,4 +280,13 @@ fi
 exitmsg="Movie ${title} has been successfully encoded."
 echo ${exitmsg}
 pushover_msg ${exitmsg}
+
+# timer
+timer_end=${SECONDS}
+timer_seconds=$(expr ${timer_end} - ${timer_start})
+
+ELAPSED="Elapsed: $((${timer_seconds} / 3600))hrs $(((${timer_seconds} / 60) % 60))min $((${timer_seconds} % 60))sec"
+
+
+# exit
 exit 0
