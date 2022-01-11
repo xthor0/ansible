@@ -46,7 +46,7 @@ dvd_encode_dir="${encode_dir}/DVD"
 o720p_encode_dir="${encode_dir}/720p"
 o1080p_encode_dir="${encode_dir}/1080p"
 o4k_encode_dir="${encode_dir}/4k"
-for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}" "${unknown_completed_dir}" "${dvd_completed_dir}" "${o720p_completed_dir}" "${o1080p_completed_dir}" "${o4k_completed_dir}" "${unknown_encode_dir}" "${unknown_encode_dir}" "${dvd_encode_dir}" "${o1080p_encode_dir}" "${o4k_encode_dir}"; do
+nfor directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}" "${unknown_completed_dir}" "${dvd_completed_dir}" "${o720p_completed_dir}" "${o1080p_completed_dir}" "${o4k_completed_dir}" "${unknown_encode_dir}" "${unknown_encode_dir}" "${dvd_encode_dir}" "${o1080p_encode_dir}" "${o4k_encode_dir}"; do
     if [ ! -d "${directory}" ]; then
         echo "${directory} does not exist -- creating."
         mkdir -p "${directory}"
@@ -198,26 +198,28 @@ else
 fi
 
 # rename the file using Filebot (makes life easier for Plex)
-echo "Renaming file with FileBot..."
-filebot -rename "${output_dir}/${outputfile}" --db themoviedb --q "${title}"
+echo "Renaming file with FileBot (test mode)..."
+filebot_log=$(mktemp filebot.XXXXX.log)
+filebot -rename "${output_dir}/${outputfile}" --db themoviedb --q "${title}" --action test --log all --log-file ${filebot_log}
 if [ $? -ne 0 ]; then
-    exitmsg="Failure: Something went wrong with filebot - exiting."
-    echo ${exitmsg}
-    pushover_msg ${exitmsg}
-    _exit_err
+    # what will FileBot name this file?
+    ripfile="$(grep TEST ${filebot_log} | cut -d \[ -f 4- | tr -d \])"
+    filebot -rename "${output_dir}/${outputfile}" --db themoviedb --q "${title}"
 fi
 
-# set the output file metadata title to match what we got from filebot. The metadata can be weird.
-echo "Determining how filebot named the file..."
-newfile="$(ls -Art "${output_dir}" | tail -n1)"
-newfile_name="${output_dir}/${newfile}"
+# if the new file exists, we're in business
+test -f "${ripfile}"
+if [ $? -eq 0 ]; then
+    echo "Filebot renamed ${output_dir}/${outputfile} to ${ripfile}"
+else
+    ripfile="${output_dir}/${outputfile}"
+    echo "Filebot was unsuccessful. You can consult the log for debugging purposes. Proceeding to encode the file as-is."
+fi
+
 echo "Clearing mkv metadata (which can confuse Plex)..."
-mkvpropedit "${newfile_name}" -d title
+mkvpropedit "${ripfile}" -d title
 if [ $? -ne 0 ]; then
-    exitmsg="Something went wrong with mkvpropedit - exiting."
-    echo ${exitmsg}
-    pushover_msg ${exitmsg}
-    _exit_err
+    echo "mkvpropedit was unsuccessful - proceeding, as this error is not fatal."
 fi
 
 # use mediainfo to determine resolution, and change preset accordingly. 
@@ -228,17 +230,17 @@ case ${widthdigit} in
     *) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4" ;;
 esac
 
-output_basename=$(basename "$newfile" .mkv)
-output_file="${output_dir}/${output_basename}${testfilename}.${extension}"
-if [ -f "${output_file}" ]; then
-    echo "Target already exists: ${output_file} -- skipping."
-    continue
+encodefile_basename=$(basename "${ripfile}" .mkv)
+encodefile="${encode_dir}/${encodefile_basename}${testfilename}.${extension}"
+if [ -f "${encodefile}" ]; then
+    echo "Target already exists: ${encodefile} -- script will now exit."
+    exit 255
 fi
 
 # encode the file with HandBrakeCLI
-echo "Encoding with HandBrake (using ${encoder})..."
+echo "Encoding with HandBrake (using ${preset})..."
 log=$(mktemp -t handbrake.log.XXXX)
-flatpak run --command=HandBrakeCLI fr.handbrake.ghb --preset-import-file "${preset_import_file}" --preset "${preset}" -i "${newfile_name}" -o "${output_file}" 2> ${log}
+flatpak run --command=HandBrakeCLI fr.handbrake.ghb --preset-import-file "${preset_import_file}" --preset "${preset}" -i "${ripfile}" -o "${encodefile}" 2> ${log}
 if [ $? -eq 0 ]; then
     echo "HandBrake encode successful."
     rm -f ${log}
@@ -251,7 +253,7 @@ fi
 
 # let's figure out what directory we want to put the output file in. Really, we should be dealing with 480, 1080, and 3840
 # anything else we'll just stuff in other
-width=$(mediainfo --Inform="Video;%Width%" "${newfile_name}")
+width=$(mediainfo --Inform="Video;%Width%" "${encodefile}")
 case ${width} in
     720) suboutput="DVD";;
     1920) suboutput="1080p";;
@@ -260,15 +262,15 @@ case ${width} in
 esac
 
 # move original source to completed dir. can be deleted later, but allows a re-encode without a re-rip, which is nice.
-mv "${newfile_name}" "${completed_dir}/${suboutput}/"
+mv "${ripfile}" "${completed_dir}/${suboutput}/"
 if [ $? -ne 0 ]; then
-    echo "Error: can't move ${newfile_name} to directory ${completed_dir}/${suboutput} -- can't sort this file. It'll stay in $(pwd)/${newfile_name}."
+    echo "Error: can't move ${ripfile} to directory ${completed_dir}/${suboutput}."
 fi
 
 # move encoded file to completed directory
-mv "${output_file}" "${completed_dir}/${suboutput}/"
+mv "${encodefile}" "${encode_dir}/${suboutput}/"
 if [ $? -ne 0 ]; then
-    echo "Error: can't move ${output_file} to directory ${encode_dir}/${suboutput} -- can't sort this file. It'll stay in $(pwd)/${output_file}."
+    echo "Error: can't move ${encodefile} to directory ${encode_dir}/${suboutput}."
 fi
 
 # the end
