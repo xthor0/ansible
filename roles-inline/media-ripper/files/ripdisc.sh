@@ -49,7 +49,7 @@ dvd_encode_dir="${encode_dir}/DVD"
 o720p_encode_dir="${encode_dir}/720p"
 o1080p_encode_dir="${encode_dir}/1080p"
 o4k_encode_dir="${encode_dir}/4k"
-nfor directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}" "${unknown_completed_dir}" "${dvd_completed_dir}" "${o720p_completed_dir}" "${o1080p_completed_dir}" "${o4k_completed_dir}" "${unknown_encode_dir}" "${unknown_encode_dir}" "${dvd_encode_dir}" "${o1080p_encode_dir}" "${o4k_encode_dir}"; do
+for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}" "${unknown_completed_dir}" "${dvd_completed_dir}" "${o720p_completed_dir}" "${o1080p_completed_dir}" "${o4k_completed_dir}" "${unknown_encode_dir}" "${unknown_encode_dir}" "${dvd_encode_dir}" "${o1080p_encode_dir}" "${o4k_encode_dir}"; do
     if [ ! -d "${directory}" ]; then
         echo "${directory} does not exist -- creating."
         mkdir -p "${directory}"
@@ -284,9 +284,8 @@ pushover_msg ${exitmsg}
 # timer
 timer_end=${SECONDS}
 timer_seconds=$(expr ${timer_end} - ${timer_start})
-
 ELAPSED="Elapsed: $((${timer_seconds} / 3600))hrs $(((${timer_seconds} / 60) % 60))min $((${timer_seconds} % 60))sec"
-
+echo ${ELAPSED}
 
 # exit
 exit 0
