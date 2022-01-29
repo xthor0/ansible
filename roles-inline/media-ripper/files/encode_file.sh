@@ -39,10 +39,10 @@ function _exit_err(){
 # make sure we're only encoding one file at a time
 while test -f ${run_file}; do
     echo "Waiting on encode to finish, please wait..."
-    sleep 10
+    sleep 5
+    echo "Sleeping again in case there are multiple processess sleeping..."
+    sleep $((RANDOM % 60))
 done
-echo "Sleeping again in case there are multiple processess sleeping..."
-sleep $((RANDOM % 60))
 touch ${run_file}
 
 # ensure output directories exist
