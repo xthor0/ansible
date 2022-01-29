@@ -36,29 +36,8 @@ function _exit_err(){
 
 # ensure output directories exist
 discinfo_output_dir="${HOME}/discinfo"
-output_dir=/storage/videos/rips
-encode_dir=/storage/videos/encoded
-completed_dir=/storage/videos/completed
-unknown_completed_dir="${completed_dir}/unknown"
-dvd_completed_dir="${completed_dir}/DVD"
-o720p_completed_dir="${completed_dir}/720p"
-o1080p_completed_dir="${completed_dir}/1080p"
-o4k_completed_dir="${completed_dir}/4k"
-unknown_encode_dir="${encode_dir}/unknown"
-dvd_encode_dir="${encode_dir}/DVD"
-o720p_encode_dir="${encode_dir}/720p"
-o1080p_encode_dir="${encode_dir}/1080p"
-o4k_encode_dir="${encode_dir}/4k"
-for directory in "${discinfo_output_dir}" "${output_dir}" "${encode_dir}" "${completed_dir}" "${unknown_completed_dir}" "${dvd_completed_dir}" "${o720p_completed_dir}" "${o1080p_completed_dir}" "${o4k_completed_dir}" "${unknown_encode_dir}" "${unknown_encode_dir}" "${dvd_encode_dir}" "${o1080p_encode_dir}" "${o4k_encode_dir}"; do
-    if [ ! -d "${directory}" ]; then
-        echo "${directory} does not exist -- creating."
-        mkdir -p "${directory}"
-        if [ $? -ne 0 ]; then
-            echo "Error: unable to create ${directory} -- exiting."
-            exit 255
-        fi
-    fi
-done
+output_dir=/scratch/rips
+watch_dir=/scratch/watch
 
 # ensure output_dir is empty -- otherwise, a previous run needs a cleanup
 if [ "$(ls -A ${output_dir})" ]; then
@@ -227,58 +206,14 @@ if [ $? -ne 0 ]; then
     echo "mkvpropedit was unsuccessful - proceeding, as this error is not fatal."
 fi
 
-# use mediainfo to determine resolution, and change preset accordingly. 
-# anything that is not 4k gets encoded qsv_264. qsv_265 used for 4k, simply because it saves disk space
-width=$(mediainfo --Inform="Video;%Width%" "${ripfile}")
-case ${width} in
-    3840) preset_import_file="${HOME}/.handbrake-presets/4k_qsv.json"; preset="4k_qsv"; extension="mkv" ;;
-    *) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4" ;;
-esac
-
-encodefile_basename=$(basename "${ripfile}" .mkv)
-encodefile="${encode_dir}/${encodefile_basename}${testfilename}.${extension}"
-if [ -f "${encodefile}" ]; then
-    echo "Target already exists: ${encodefile} -- script will now exit."
-    exit 255
-fi
-
-# encode the file with HandBrakeCLI
-echo "Encoding with HandBrake (using ${preset})..."
-log=$(mktemp -t handbrake.log.XXXX)
-flatpak run --command=HandBrakeCLI fr.handbrake.ghb --preset-import-file "${preset_import_file}" --preset "${preset}" -i "${ripfile}" -o "${encodefile}" 2> ${log}
-if [ $? -eq 0 ]; then
-    echo "HandBrake encode successful."
-    rm -f ${log}
-else
-    exitmsg="Error: HandBrake exited unsuccessfully. Check ${log} for more details."
-    echo ${exitmsg}
-    pushover_msg ${exitmsg}
-    _exit_err
-fi
-
-# let's figure out what directory we want to put the output file in. Really, we should be dealing with 480, 1080, and 3840
-# anything else we'll just stuff in other
-case ${width} in
-    720) suboutput="DVD";;
-    1920) suboutput="1080p";;
-    3840) suboutput="4k";;
-    *) suboutput="unknown";;
-esac
-
 # move original source to completed dir. can be deleted later, but allows a re-encode without a re-rip, which is nice.
-mv "${ripfile}" "${completed_dir}/${suboutput}/"
+mv "${ripfile}" "${watch_dir}"
 if [ $? -ne 0 ]; then
-    echo "Error: can't move ${ripfile} to directory ${completed_dir}/${suboutput}."
-fi
-
-# move encoded file to completed directory
-mv "${encodefile}" "${encode_dir}/${suboutput}/"
-if [ $? -ne 0 ]; then
-    echo "Error: can't move ${encodefile} to directory ${encode_dir}/${suboutput}."
+    echo "Error: can't move ${ripfile} to directory ${watch_dir}."
 fi
 
 # the end
-exitmsg="Movie ${title} has been successfully encoded."
+exitmsg="Movie ${title} has been successfully ripped (and passed to encoding process)."
 echo ${exitmsg}
 pushover_msg ${exitmsg}
 
@@ -289,4 +224,5 @@ ELAPSED="Elapsed: $((${timer_seconds} / 3600))hrs $(((${timer_seconds} / 60) % 6
 echo ${ELAPSED}
 
 # exit
+eject cdrom
 exit 0

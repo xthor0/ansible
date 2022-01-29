@@ -60,12 +60,6 @@ for directory in "${watch_dir}" "${encode_dir}" "${completed_dir}" "${unknown_co
     fi
 done
 
-echo "Clearing mkv metadata (which can confuse Plex)..."
-mkvpropedit "${input_file}" -d title
-if [ $? -ne 0 ]; then
-    echo "mkvpropedit was unsuccessful - proceeding, as this error is not fatal."
-fi
-
 # use mediainfo to determine resolution, and change preset accordingly. 
 # anything that is not 4k gets encoded qsv_264. qsv_265 used for 4k, simply because it saves disk space
 width=$(mediainfo --Inform="Video;%Width%" "${input_file}")

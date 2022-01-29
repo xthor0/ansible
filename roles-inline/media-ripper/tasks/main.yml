@@ -64,4 +64,5 @@
     - { src: 'files/ripdisc.sh', dest: '/usr/local/bin/ripdisc.sh' }
     - { src: 'files/encode_file.sh', dest: '/usr/local/bin/encode_file.sh' }
     - { src: 'files/watch_encode_dir.sh', dest: '/usr/local/bin/watch_encode_dir.sh' }
+    - { src: 'files/watch_for_disc.sh', dest: '/usr/local/bin/watch_for_disc.sh' }
   become: true
