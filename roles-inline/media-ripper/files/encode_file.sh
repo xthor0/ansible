@@ -108,6 +108,9 @@ if [ $? -ne 0 ]; then
     echo "Error: can't move ${encodefile} to directory ${encode_dir}/${suboutput}."
 fi
 
+# clean up run file
+rm -f ${run_file}
+
 # the end
 exitmsg="Movie ${title} has been successfully encoded."
 echo ${exitmsg}
