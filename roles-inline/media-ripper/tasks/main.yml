@@ -35,6 +35,7 @@
     - mediainfo-gui
     - mkvtoolnix
     - mkvtoolnix-gui
+    - inotify-tools
   become: true
 
 - name: make a dir for handbrake presets
@@ -61,4 +62,6 @@
   with_items:
     - { src: 'files/batch_encode.sh', dest: '/usr/local/bin/batch_encode.sh' }
     - { src: 'files/ripdisc.sh', dest: '/usr/local/bin/ripdisc.sh' }
+    - { src: 'files/encode_file.sh', dest: '/usr/local/bin/encode_file.sh' }
+    - { src: 'files/watch_encode_dir.sh', dest: '/usr/local/bin/watch_encode_dir.sh' }
   become: true
