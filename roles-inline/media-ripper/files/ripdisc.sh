@@ -229,9 +229,9 @@ fi
 
 # use mediainfo to determine resolution, and change preset accordingly. 
 # anything that is not 4k gets encoded qsv_264. qsv_265 used for 4k, simply because it saves disk space
-widthdigit=$(mediainfo "${newfile_name}" | grep ^Width | awk '{ print $3 }')
-case ${widthdigit} in
-    3) preset_import_file="${HOME}/.handbrake-presets/4k_qsv.json"; preset="4k_qsv"; extension="mkv" ;;
+width=$(mediainfo --Inform="Video;%Width%" "${ripfile}")
+case ${width} in
+    3840) preset_import_file="${HOME}/.handbrake-presets/4k_qsv.json"; preset="4k_qsv"; extension="mkv" ;;
     *) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4" ;;
 esac
 
@@ -258,7 +258,6 @@ fi
 
 # let's figure out what directory we want to put the output file in. Really, we should be dealing with 480, 1080, and 3840
 # anything else we'll just stuff in other
-width=$(mediainfo --Inform="Video;%Width%" "${encodefile}")
 case ${width} in
     720) suboutput="DVD";;
     1920) suboutput="1080p";;
