@@ -2,8 +2,8 @@
 
 run_file=/tmp/.encode_is_running
 watch_dir=/scratch/watch
-encode_dir=/storage/videos/encoded
-completed_dir=/storage/videos/completed
+encode_dir=/scratch/encoded
+completed_dir=/scratch/completed
 unknown_completed_dir="${completed_dir}/unknown"
 dvd_completed_dir="${completed_dir}/DVD"
 o720p_completed_dir="${completed_dir}/720p"
@@ -58,6 +58,8 @@ for directory in "${watch_dir}" "${encode_dir}" "${completed_dir}" "${unknown_co
     fi
 done
 
+echo "Processing ${input_file}..."
+
 echo "Clearing mkv metadata (which can confuse Plex)..."
 mkvpropedit "${input_file}" -d title
 if [ $? -ne 0 ]; then
@@ -75,8 +77,8 @@ case ${width} in
     *) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4"; suboutput="unknown";;
 esac
 
-inputfile_basename=$(basename "${input_file}" .mkv)
-output_file="${encode_dir}/${encodefile_basename}${testfilename}.${extension}"
+title=$(basename "${input_file}" .mkv)
+output_file="${encode_dir}/${suboutput}/${title}.${extension}"
 if [ -f "${output_file}" ]; then
     echo "Target already exists: ${output_file} -- script will now exit."
     exit 255
@@ -85,7 +87,7 @@ fi
 # encode the file with HandBrakeCLI
 echo "Encoding with HandBrake (using ${preset})..."
 log=$(mktemp -t handbrake.log.XXXX)
-flatpak run --command=HandBrakeCLI fr.handbrake.ghb --preset-import-file "${preset_import_file}" --preset "${preset}" -i "${ripfile}" -o "${encodefile}" 2> ${log}
+flatpak run --command=HandBrakeCLI fr.handbrake.ghb --preset-import-file "${preset_import_file}" --preset "${preset}" -i "${input_file}" -o "${output_file}" 2> ${log}
 if [ $? -eq 0 ]; then
     echo "HandBrake encode successful."
     rm -f ${log}
@@ -99,13 +101,7 @@ fi
 # move original source to completed dir. can be deleted later, but allows a re-encode without a re-rip, which is nice.
 mv "${input_file}" "${completed_dir}/${suboutput}/"
 if [ $? -ne 0 ]; then
-    echo "Error: can't move ${ripfile} to directory ${completed_dir}/${suboutput}."
-fi
-
-# move encoded file to completed directory
-mv "${encodefile}" "${encode_dir}/${suboutput}/"
-if [ $? -ne 0 ]; then
-    echo "Error: can't move ${encodefile} to directory ${encode_dir}/${suboutput}."
+    echo "Error: can't move ${input} to directory ${completed_dir}/${suboutput}."
 fi
 
 # clean up run file
