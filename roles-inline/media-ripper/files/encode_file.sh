@@ -36,6 +36,8 @@ function _exit_err(){
     exit 255
 }
 
+echo "Processing ${input_file}..."
+
 # make sure we're only encoding one file at a time
 while test -f ${run_file}; do
     echo "Waiting on encode to finish, please wait..."
@@ -57,8 +59,6 @@ for directory in "${watch_dir}" "${encode_dir}" "${completed_dir}" "${unknown_co
         fi
     fi
 done
-
-echo "Processing ${input_file}..."
 
 echo "Clearing mkv metadata (which can confuse Plex)..."
 mkvpropedit "${input_file}" -d title
