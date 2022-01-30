@@ -64,7 +64,6 @@ done
 # anything that is not 4k gets encoded qsv_264. qsv_265 used for 4k, simply because it saves disk space
 width=$(mediainfo --Inform="Video;%Width%" "${input_file}")
 case ${width} in
-    3840) preset_import_file="${HOME}/.handbrake-presets/4k_qsv.json"; preset="4k_qsv"; extension="mkv" ;;
     720) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4"; suboutput="DVD" ;;
     1920) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4"; suboutput="1080p" ;;
     3840) preset_import_file="${HOME}/.handbrake-presets/1080p_qsv.json"; preset="1080p_qsv"; extension="mp4"; suboutput="4k" ;;
