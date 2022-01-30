@@ -78,7 +78,7 @@ if [ -f "${output_file}" ]; then
 fi
 
 # encode the file with HandBrakeCLI
-echo "Encoding with HandBrake (using ${preset})..."
+echo "Encoding with HandBrake :: Preset: ${preset} :: Output file: ${output_file}"
 log=$(mktemp -t handbrake.log.XXXX)
 flatpak run --command=HandBrakeCLI fr.handbrake.ghb --preset-import-file "${preset_import_file}" --preset "${preset}" -i "${input_file}" -o "${output_file}" 2> ${log}
 if [ $? -eq 0 ]; then
