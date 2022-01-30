@@ -20,6 +20,7 @@ function discpresent() {
 while true; do
     discpresent
     ripdisc.sh
+    eject cdrom
 done
 
 # it loops. forever.

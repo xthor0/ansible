@@ -40,8 +40,8 @@ output_dir=/scratch/rips
 watch_dir=/scratch/watch
 
 # ensure output_dir is empty -- otherwise, a previous run needs a cleanup
-if [ "$(ls -A ${output_dir})" ]; then
-    echo "Error: ${output_dir} is not empty. A previous run did not complete successfully."
+if [ "$(ls -A ${watch_dir})" ]; then
+    echo "Error: ${watch_dir} is not empty. A previous run did not complete successfully."
     _exit_err
 fi
 
@@ -224,5 +224,4 @@ ELAPSED="Elapsed: $((${timer_seconds} / 3600))hrs $(((${timer_seconds} / 60) % 6
 echo ${ELAPSED}
 
 # exit
-eject cdrom
 exit 0
