@@ -16,7 +16,6 @@
       - gnome-shell-extensions
       - arc-theme
       - numix-icon-theme
-      - gnome-shell-extension-top-icons-plus
       - chrome-gnome-shell
   when: ansible_os_family == "Debian"
 
