@@ -11,7 +11,6 @@
   hosts: localhost
   roles:
     - { role: os-packages, tags: [ "os-packages" ] }
-    - { role: flatpak, tags: [ "flatpak" ] }
     - { role: ssh, tags: [ "ssh" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: terminator, tags: [ "terminator" ] }
@@ -23,6 +22,4 @@
     - { role: 1password, tags: [ "1password"] }
     - { role: vscode, tags: [ "vscode"] }
     - { role: zoom, tags: [ "zoom"] }
-    - { role: spotify, tags: [ "spotify"] }
-    - { role: google-chrome, tags: [ "google-chrome"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
