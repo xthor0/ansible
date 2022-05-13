@@ -1,11 +1,4 @@
 ---
-- name: Install better_fonts COPR on Fedora
-  command:
-    cmd: dnf -y copr enable dawid/better_fonts
-    creates: _copr:copr.fedorainfracloud.org:dawid:better_fonts.repo
-  become: true
-  when: "'Fedora' in ansible_distribution"
-
 - name: install required gnome packages - Ubuntu
   become: true
   apt:
@@ -32,8 +25,6 @@
       - chrome-gnome-shell
       - arc-theme
       - numix-icon-theme
-      - fontconfig-enhanced-defaults
-      - fontconfig-font-replacements
   when: "'Fedora' in ansible_distribution"
 
 # looks like horizontal workspaces is back in F34, so...
