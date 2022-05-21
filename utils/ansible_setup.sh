@@ -27,14 +27,19 @@ fi
 
 # make sure the SSH key exists
 if [ -f .ssh/id_rsa ]; then
-    chmod 600 .ssh/id_rsa
-    if [ -f .ssh/id_rsa.pub ]; then
-        echo "SSH public key already exists..."
+    chmod 600 ~/.ssh/id_rsa
+    if [ -f ~/.ssh/id_rsa.pub ]; then
+        echo "SSH public key already exists, will not overwrite!"
     else
-        ssh-keygen -y -f .ssh/id_rsa > .ssh/id_rsa.pub
+        echo "Creating SSH public key from private key..."
+        ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
+        if [ $? -ne 0 ]; then
+            echo "Error decrypting SSH key, exiting."
+            exit 255
+        fi
     fi
 else
-    echo "Error: .ssh/id_rsa not found"
+    echo "Error: ~/.ssh/id_rsa not found"
     exit 255
 fi
 
