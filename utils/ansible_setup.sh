@@ -28,11 +28,18 @@ fi
 # make sure the SSH key exists
 if [ -f .ssh/id_rsa ]; then
     chmod 600 .ssh/id_rsa
-    ssh-keygen -y -f .ssh/id_rsa > .ssh/id_rsa.pub
+    if [ -f .ssh/id_rsa.pub ]; then
+        echo "SSH public key already exists..."
+    else
+        ssh-keygen -y -f .ssh/id_rsa > .ssh/id_rsa.pub
+    fi
 else
     echo "Error: .ssh/id_rsa not found"
     exit 255
 fi
+
+# make sure the ssh key is loaded
+ssh-add
 
 # really should merge this to main someday, no?
 ansible-pull -U https://github.com/xthor0/ansible.git -K -C debian-openbox playbooks/workstation.yml
