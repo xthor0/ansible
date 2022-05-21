@@ -19,7 +19,7 @@
     src: https://telegram.org/dl/desktop/linux
     dest: /usr/local
     remote_src: True
-  when: not telegram_exists.stat.exists
+  when: (not telegram_exists.stat.exists) and ("'Fedora' in ansible_distribution")
 
 - name: start Telegram on login
   copy:
