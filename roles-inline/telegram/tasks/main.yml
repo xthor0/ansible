@@ -1,47 +1,8 @@
 ---
-- name: Check if Telegram binary is already installed?
-  stat:
-    path: /usr/local/Telegram
-  register: telegram_exists
-
-- name: Create Telegram directory in /usr/local
-  file:
-    path: /usr/local/Telegram
-    state: directory
-    mode: '0750'
-    owner: "{{ lookup('env', 'USER') }}"
-  become: true
+- name: Include Fedora tasks
+  include_tasks: Fedora.yml
   when: "'Fedora' in ansible_distribution"
 
-- name: Download and install Telegram
-  unarchive:
-    src: https://telegram.org/dl/desktop/linux
-    dest: /usr/local
-    remote_src: True
-  when: (not telegram_exists.stat.exists) and ("'Fedora' in ansible_distribution")
-
-- name: start Telegram on login
-  copy:
-    src: files/telegram.desktop
-    dest: ~/.config/autostart/telegram.desktop
-  when: "'Fedora' in ansible_distribution"
-
-- name: add apt key for atareao telegram PPA
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: A3D8A366869FE2DC5FFD79C36A9653F936FD5529
-  become: true 
+- name: Include Ubuntu tasks
+  include_tasks: Ubuntu.yml
   when: "'Ubuntu' in ansible_distribution"
-
-- name: add apt repositoriy for atareao telegram
-  apt_repository:
-    repo: "deb http://ppa.launchpad.net/atareao/telegram/ubuntu {{ ansible_distribution_release }} main"
-    state: present
-  become: true 
-  when: "'Ubuntu' in ansible_distribution"
-
-- name: install telegram package
-  package:
-    name: telegram
-    state: present
-  become: true
