@@ -23,3 +23,4 @@
     - { role: vscode, tags: [ "vscode"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
+    - { role: telegram, tags: [ "telegram"] }
