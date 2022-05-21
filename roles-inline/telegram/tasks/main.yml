@@ -3,7 +3,6 @@
   stat:
     path: /usr/local/Telegram
   register: telegram_exists
-  when: "'Fedora' in ansible_distribution"
 
 - name: Create Telegram directory in /usr/local
   file:
