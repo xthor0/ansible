@@ -34,3 +34,8 @@
   include_role:
     name: openbox
   when: desktop_env == "openbox"
+
+- name: Apply Budgie settings
+  include_role:
+    name: budgie-settings
+  when: desktop_env == "budgie-desktop"
