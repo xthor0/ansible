@@ -10,6 +10,7 @@
       - arc-theme
       - numix-icon-theme
       - chrome-gnome-shell
+      - breeze-icon-theme
   when: ansible_os_family == "Debian"
 
 - name: install required gnome packages - Fedora
@@ -19,12 +20,13 @@
       - python3-psutil
       - gnome-tweaks
       - gnome-shell-extension-user-theme
-      - gnome-shell-extension-topicons-plus
       - gnome-shell-extension-launch-new-instance
       - gnome-shell-extension-common
       - chrome-gnome-shell
       - arc-theme
       - numix-icon-theme
+      - breeze-icon-theme
+      - gnome-extensions-app
   when: "'Fedora' in ansible_distribution"
 
 # looks like horizontal workspaces is back in F34, so...
@@ -37,6 +39,11 @@
 
 # gnome interface settings
 
+- name: prefer dark color scheme (new in GNOME 40)
+  dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+
 - name: clock show date
   dconf:
     key: "/org/gnome/desktop/interface/clock-show-date"
@@ -47,46 +54,42 @@
     key: "/org/gnome/desktop/interface/clock-format"
     value: "'12h'"
 
-- name: gtk theme
-  dconf:
-    key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Arc-Dark'"
-
 - name: icon theme
   dconf:
     key: "/org/gnome/desktop/interface/icon-theme"
-    value: "'Numix'"
+    value: "'breeze-dark'"
 
 - name: full LCD hinting
   dconf:
-    key: "/org/gnome/settings-daemon/plugins/xsettings/hinting"
+    key: "/org/gnome/desktop/interface/font-hinting"
     value: "'full'"
+
+- name: rgba anti-aliasing
+  dconf:
+    key: "/org/gnome/desktop/interface/font-antialiasing"
+    value: "'rgba'"
 
 - name: enable gnome extensions
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'horizontal-workspaces@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'TopIcons@phocean.net']"
+    value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'window-list@gnome-shell-extensions.gcampax.github.com']"
 
 - name: disable ubuntu dock
   dconf:
     key: "/org/gnome/shell/disabled-extensions"
     value: "['ubuntu-dock@ubuntu.com']"
+  when: "ansible_distribution == 'Ubuntu'"
 
-- name: set user theme to Arc-Dark
-  dconf:
-    key: "/org/gnome/shell/extensions/user-theme/name"
-    value: "'Arc-Dark'"
+#- name: set user theme to Arc-Dark
+#  dconf:
+#    key: "/org/gnome/shell/extensions/user-theme/name"
+#    value: "'Arc-Dark'"
 
 # mutter settings
 
 - name: workspaces span displays
   dconf:
     key: "/org/gnome/mutter/workspaces-only-on-primary"
-    value: "false"
-
-- name: no dynamic workspaces
-  dconf:
-    key: "/org/gnome/mutter/dynamic-workspaces"
     value: "false"
 
 # power settings
