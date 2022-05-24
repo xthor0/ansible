@@ -1,10 +1,13 @@
 ---
-- name: add apt repositoriy for atareao telegram
-  apt_repository:
-    repo: ppa:atareao/telegram
-    state: present
-  become: true 
-  when: "'Ubuntu' in ansible_distribution"
+- name: see if /etc/apt/trusted.gpg.d/atareao-ubuntu-telegram.gpg exists
+  stat:
+    path: /etc/apt/trusted.gpg.d/atareao-ubuntu-telegram.gpg
+  register: atareao_gpg
+
+- name: install atareao telegram ubuntu ppa
+  command: add-apt-repository -y ppa:atareao/telegram
+  become: true
+  when: not atareao_gpg.stat.exists
 
 - name: install telegram package
   package:
