@@ -42,6 +42,11 @@
     key: "/org/gnome/shell/extensions/user-theme/name"
     value: "'Pocillo-slim-dark'"
 
+- name: 4 virtual workspaces
+  dconf:
+    key: "org/gnome/desktop/wm/preferences/num-workspaces"
+    value: "4"
+
 # mutter settings
 
 #- name: workspaces span displays
