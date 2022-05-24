@@ -73,15 +73,21 @@
 
 # touchpad settings
 
+- shell: xinput
+  register: xinput
+  changed_when: false
+
 - name: disable touchpad natural scrolling
   dconf:
     key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
     value: "false"
 
+# leave tap-to-click on when setting up StarLabs MKLite (that touchpad click is awful)
 - name: disable touchpad tap-to-click
   dconf:
     key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
     value: "false"
+  when: "'STAR0001' not in xinput.stdout"
 
 - name: two-finger right-click (instead of corner)
   dconf:
