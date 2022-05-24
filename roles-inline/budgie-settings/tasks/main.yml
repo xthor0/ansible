@@ -56,6 +56,8 @@
 #    key: "/org/gnome/desktop/interface/show-battery-percentage"
 #    value: "true"
 
+# screen saver
+
 - name: blank screen after 15 minutes
   dconf:
     key: "/org/gnome/desktop/session/idle-delay"

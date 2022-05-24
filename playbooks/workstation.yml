@@ -13,7 +13,7 @@
     - { role: os-packages, tags: [ "os-packages" ] }
     - { role: ssh, tags: [ "ssh" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
-    - { role: terminator, tags: [ "terminator" ] }
+    - { role: tilix, tags: [ "tilix" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
