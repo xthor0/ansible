@@ -18,7 +18,7 @@
     src: files/apt-prefs-mozilla-firefox
     dest: /etc/apt/preferences.d/mozilla-firefox
     mode: '0660'
-    user: root
+    owner: root
     group: root
   become: true
   when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
@@ -28,7 +28,7 @@
     src: files/unattended-upgrades-firefox
     dest: /etc/apt/apt.conf.d/51unattended-upgrades-firefox
     mode: '0660'
-    user: root
+    owner: root
     group: root
   become: true
   when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
