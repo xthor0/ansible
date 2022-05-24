@@ -17,7 +17,7 @@
   copy:
     src: files/apt-prefs-mozilla-firefox
     dest: /etc/apt/preferences.d/mozilla-firefox
-    mode: '0660'
+    mode: '0664'
     owner: root
     group: root
   become: true
@@ -27,7 +27,7 @@
   copy:
     src: files/unattended-upgrades-firefox
     dest: /etc/apt/apt.conf.d/51unattended-upgrades-firefox
-    mode: '0660'
+    mode: '0664'
     owner: root
     group: root
   become: true
