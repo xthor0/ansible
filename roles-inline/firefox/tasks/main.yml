@@ -1,16 +1,17 @@
 ---
 - name: add apt key for firefox ppa
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 0AB215679C571D1C8325275B9BDB3D89CE49EC21
-  become: true 
+  ansible.builtin.get_url:
+    url: https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu/dists/jaunty/Release.gpg
+    dest: /etc/apt/trusted.gpg.d/mozilla-firefox-ppa.gpg
   when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+  become: true
 
 - name: add apt repositoriy for firefox
-  apt_repository:
+  ansible.builtin.apt_repository:
+    filename: ppa_mozillateam.list
     repo: "deb https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu {{ ansible_distribution_release }} main"
-    state: present
-  become: true 
+    update_cache: yes
+  become: true
   when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
 
 - name: prefer mozillateam PPA in apt preferences
