@@ -44,7 +44,7 @@
 
 - name: 4 virtual workspaces
   dconf:
-    key: "org/gnome/desktop/wm/preferences/num-workspaces"
+    key: "/org/gnome/desktop/wm/preferences/num-workspaces"
     value: "4"
 
 # mutter settings
