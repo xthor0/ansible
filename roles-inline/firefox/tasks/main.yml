@@ -1,7 +1,7 @@
 ---
 - name: add apt key for firefox ppa
   ansible.builtin.get_url:
-    url: https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu/dists/jaunty/Release.gpg
+    url: "https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu/dists/{{ ansible_distribution_release }}/Release.gpg"
     dest: /etc/apt/trusted.gpg.d/mozilla-firefox-ppa.asc
   when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
   become: true
