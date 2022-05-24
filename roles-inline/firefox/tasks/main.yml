@@ -2,6 +2,7 @@
 - name: add apt repositoriy for firefox
   ansible.builtin.apt_repository:
     repo: ppa:mozillateam/ppa
+    state: present
   become: true
   when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
 

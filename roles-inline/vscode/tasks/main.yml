@@ -17,22 +17,29 @@
   become: true 
   when: "'Fedora' in ansible_distribution"
 
-- name: add apt key for vscode repo
-  ansible.builtin.get_url:
-    url: "https://packages.microsoft.com/repos/vscode/dists/stable/Release.gpg"
-    dest: /etc/apt/trusted.gpg.d/vscode.asc
-  become: true
-  when: "'Debian' in ansible_os_family"
-
-- name: add apt repositoriy for vscode
-  apt_repository:
-    repo: "deb [arch=amd64,signed-by=/etc/apt/trusted.gpg.d/vscode.asc] https://packages.microsoft.com/repos/vscode stable main"
-    state: present
-  become: true 
-  when: "'Debian' in ansible_os_family"
-
 - name: install vscode package
   package:
     name: code
     state: present
   become: true
+  when: "'Fedora' in ansible_distribution"
+
+- name: install deb package for vscode from https
+  apt:
+    deb: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+  become: true
+  when: "'Debian' in ansible_os_family"
+
+#- name: add apt key for vscode repo
+#  ansible.builtin.get_url:
+#    url: "https://packages.microsoft.com/repos/vscode/dists/stable/Release.gpg"
+#    dest: /etc/apt/trusted.gpg.d/vscode.asc
+#  become: true
+#  when: "'Debian' in ansible_os_family"
+
+#- name: add apt repositoriy for vscode
+#  apt_repository:
+#    repo: "deb [arch=amd64,signed-by=/etc/apt/trusted.gpg.d/vscode.asc] https://packages.microsoft.com/repos/vscode stable main"
+#    state: present
+#  become: true 
+#  when: "'Debian' in ansible_os_family"

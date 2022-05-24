@@ -1,14 +1,7 @@
 ---
-- name: add apt key for atareao telegram PPA
-  ansible.builtin.get_url:
-    url: "http://ppa.launchpad.net/atareao/telegram/ubuntu/dists/{{ ansible_distribution_release }}/Release.gpg"
-    dest: /etc/apt/trusted.gpg.d/atareao-telegram-ppa.asc
-  when: "'Ubuntu' in ansible_distribution"
-  become: true
-
 - name: add apt repositoriy for atareao telegram
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/atareao-telegram-ppa.asc] http://ppa.launchpad.net/atareao/telegram/ubuntu {{ ansible_distribution_release }} main"
+    repo: ppa:atareao/telegram
     state: present
   become: true 
   when: "'Ubuntu' in ansible_distribution"
