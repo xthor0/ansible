@@ -59,13 +59,3 @@
     - /var/lib/snapd
   become: true
   when: "ansible_distribution == 'Ubuntu'"
-
-# this decision of Ubuntu, to use so many snaps, is insane to me
-- name: Replace apps removed by snap on Ubuntu 22.04+
-  apt:
-    name: "{{ item }}"
-    state: present
-  become: true
-  with_items:
-    - firefox
-  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"

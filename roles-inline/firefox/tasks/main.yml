@@ -1,0 +1,41 @@
+---
+- name: add apt key for firefox ppa
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 0AB215679C571D1C8325275B9BDB3D89CE49EC21
+  become: true 
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: add apt repositoriy for firefox
+  apt_repository:
+    repo: "deb https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu {{ ansible_distribution_release }} main"
+    state: present
+  become: true 
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: prefer mozillateam PPA in apt preferences
+  copy:
+    src: files/apt-prefs-mozilla-firefox
+    dest: /etc/apt/preferences.d/mozilla-firefox
+    mode: '0660'
+    user: root
+    group: root
+  become: true
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: allow firefox updates to be installed automatically from ppa
+  copy:
+    src: files/unattended-upgrades-firefox
+    dest: /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+    mode: '0660'
+    user: root
+    group: root
+  become: true
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: install firefox package
+  package:
+    name: firefox
+    state: present
+  become: true
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
