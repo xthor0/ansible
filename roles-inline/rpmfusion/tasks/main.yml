@@ -16,3 +16,14 @@
     - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
     - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
   become: true
+  when: "ansible_distribution == 'Fedora'"
+
+  - name: install the rpmfusion repo packages
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+    - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+  become: true
+  when: "ansible_distribution == 'Fedora'"
