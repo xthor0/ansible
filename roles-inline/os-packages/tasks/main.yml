@@ -15,7 +15,7 @@
     state: present
   become: true
   with_items: "{{ common_packages }}"
-  when: "ansible_distribution == 'Fedora'"
+  when: "ansible_os_family == 'RedHat'"
 
 - name: Install OS-specific packages
   yum:
@@ -23,7 +23,7 @@
     state: present
   become: true
   with_items: "{{ os_packages }}"
-  when: "ansible_distribution == 'Fedora'"
+  when: "ansible_os_family == 'RedHat'"
 
 - name: Install common packages
   apt:
