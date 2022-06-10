@@ -18,7 +18,7 @@
   become: true
   when: "ansible_distribution == 'Fedora'"
 
-  - name: install the rpmfusion repo packages
+- name: install the rpmfusion repo packages
   dnf:
     name: "{{ item }}"
     state: present
