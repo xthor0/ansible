@@ -1,0 +1,8 @@
+---
+- name: Include Fedora tasks
+  include_tasks: Fedora.yml
+  when: "'Fedora' in ansible_distribution"
+
+- name: Include Ubuntu tasks
+  include_tasks: Ubuntu.yml
+  when: "'Ubuntu' in ansible_distribution"

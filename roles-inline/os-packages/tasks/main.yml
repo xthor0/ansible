@@ -1,0 +1,61 @@
+---
+- name: Set fact - OS-specific packages
+  set_fact:
+    os_packages: "{{ lookup('vars', ansible_os_family + '_packages') }}"
+
+- name: Install RPMFusion (Fedora only)
+  include_role:
+    name: rpmfusion
+  when: "ansible_distribution == 'Fedora'"
+
+# I had to switch from `package` to each respective package manager command. Otherwise, `package` runs the package manager once per item. Yuck.
+- name: Install common packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages }}"
+  when: "ansible_distribution == 'Fedora'"
+
+- name: Install OS-specific packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ os_packages }}"
+  when: "ansible_distribution == 'Fedora'"
+
+- name: Install common packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install OS-specific packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ os_packages }}"
+  when: ansible_os_family == "Debian"
+
+- name: Remove snapd from Ubuntu
+  apt:
+    name: snapd
+    state: absent
+    purge: yes
+  become: true
+  when: "ansible_distribution == 'Ubuntu'"
+
+- name: Remove snapd-related directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /snap
+    - /var/snap
+    - /var/lib/snapd
+  become: true
+  when: "ansible_distribution == 'Ubuntu'"

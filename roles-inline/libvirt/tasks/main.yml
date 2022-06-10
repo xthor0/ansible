@@ -1,15 +1,39 @@
 ---
-- name: Include Ubuntu tasks
-  include_tasks: Ubuntu.yml
-  when: "'Ubuntu' in ansible_distribution"
-  
-- name: Include Pop!_OS tasks (really, just ubuntu)
-  include_tasks: Ubuntu.yml
-  when: "'Pop!_OS' in ansible_distribution"
+- name: Set fact - OS-specific packages
+  set_fact:
+    os_packages: "{{ lookup('vars', ansible_os_family + '_packages') }}"
 
-- name: Include Fedora tasks
-  include_tasks: Fedora.yml
-  when: "'Fedora' in ansible_distribution"
+- name: Install common libvirt packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages }}"
+  when: "ansible_distribution == 'Fedora'"
+
+- name: Install OS-specific libvirt packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ os_packages }}"
+  when: "ansible_distribution == 'Fedora'"
+
+- name: Install common libvirt packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install OS-specific libvirt packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ os_packages }}"
+  when: ansible_os_family == "Debian"
 
 - name: start libvirtd service
   service:

@@ -1,0 +1,28 @@
+---
+- name: verify sudo password
+  hosts: localhost
+  gather_facts: no
+  become: yes
+  any_errors_fatal: yes
+  tasks:
+    - ping:
+
+- name: Setup personal Linux workstation
+  hosts: localhost
+  roles:
+    - { role: os-packages, tags: [ "os-packages" ] }
+    - { role: flatpak, tags: [ "flatpak" ] }
+    - { role: ssh, tags: [ "ssh" ] }
+    - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
+    - { role: terminator, tags: [ "terminator" ] }
+    - { role: power-management, tags: [ "power-management" ] }
+    - { role: vim, tags: [ "vim" ] }
+    - { role: libvirt, tags: [ "libvirt" ] }
+    - { role: git, tags: [ "git" ] }
+    - { role: conky, tags: [ "conky" ] }
+    - { role: 1password, tags: [ "1password"] }
+    - { role: vscode, tags: [ "vscode"] }
+    - { role: keybase, tags: [ "keybase"] }
+    - { role: zoom, tags: [ "zoom"] }
+    - { role: spotify, tags: [ "spotify"] }
+    - { role: google-chrome, tags: [ "google-chrome"] }

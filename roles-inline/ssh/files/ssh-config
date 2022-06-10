@@ -5,3 +5,15 @@ Host *
   ServerAliveCountMax 2
   StrictHostKeyChecking accept-new
   HashKnownHosts no
+
+# we don't need to remember lab hosts...
+Host 10.200.54.*
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel QUIET
+
+Host *.xthorsworld.lab
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel QUIET
+

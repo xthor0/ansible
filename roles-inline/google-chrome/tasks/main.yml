@@ -17,22 +17,17 @@
   become: true 
   when: "'Fedora' in ansible_distribution"
 
-- name: add apt key for Google Chrome repo
-  apt_key:
-    url: https://dl.google.com/linux/linux_signing_key.pub
-    state: present
-  become: true 
-  when: "'Ubuntu' in ansible_distribution"
-
-- name: add apt repositoriy for vscode
-  apt_repository:
-    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-    state: present
-  become: true 
-  when: "'Ubuntu' in ansible_distribution"
-
-- name: install Google Chrome package
+- name: install google-chrome-stable package
   package:
     name: google-chrome-stable
     state: present
   become: true
+  when: "'Fedora' in ansible_distribution"
+
+# for debian-based distros, all we really need to do is install the deb file. The repo will be added by a script
+# that installs with the package.
+- name: install Google Chrome DEB
+  apt:
+    deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+  become: true 
+  when: ansible_os_family == "Debian"

@@ -1,0 +1,109 @@
+---
+- name: install required gnome packages - Ubuntu
+  become: true
+  apt:
+    name:
+      - python3-psutil
+      - dconf-cli
+  when: ansible_os_family == "Debian"
+
+- name: install required gnome packages - Fedora
+  become: true
+  package:
+    name:
+      - python3-psutil
+  when: "'Fedora' in ansible_distribution"
+
+
+# gnome interface settings
+
+- name: dark theme for budgie-panel
+  dconf:
+    key: "/com/solus-project/budgie-panel/dark-theme"
+    value: "true"
+
+- name: clock format
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-format"
+    value: "'12h'"
+
+- name: full LCD hinting
+  dconf:
+    key: "/org/gnome/desktop/interface/font-hinting"
+    value: "'full'"
+
+- name: rgba anti-aliasing
+  dconf:
+    key: "/org/gnome/desktop/interface/font-antialiasing"
+    value: "'rgba'"
+
+- name: set gtk theme to Pocilla-slim-dark
+  dconf:
+    key: "/org/gnome/shell/extensions/user-theme/name"
+    value: "'Pocillo-slim-dark'"
+
+- name: 4 virtual workspaces
+  dconf:
+    key: "/org/gnome/desktop/wm/preferences/num-workspaces"
+    value: "4"
+
+# mutter settings
+
+#- name: workspaces span displays
+#  dconf:
+#    key: "/org/gnome/mutter/workspaces-only-on-primary"
+#    value: "false"
+
+# power settings
+
+#- name: show battery percentage
+#  dconf:
+#    key: "/org/gnome/desktop/interface/show-battery-percentage"
+#    value: "true"
+
+# screen saver
+
+- name: blank screen after 15 minutes
+  dconf:
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: "uint32 900"
+
+- name: give me 30 seconds to wake the machine up before locking after displays sleep
+  dconf:
+    key: "/org/gnome/desktop/session/lock-delay"
+    value: "uint32 30"
+
+- name: do not put machine to sleep automatically
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
+    value: "'nothing'"
+
+# touchpad settings
+
+- shell: xinput
+  register: xinput
+  changed_when: false
+
+- name: disable touchpad natural scrolling
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
+    value: "false"
+
+# leave tap-to-click on when setting up StarLabs MKLite (that touchpad click is awful)
+- name: disable touchpad tap-to-click
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
+    value: "false"
+  when: "'STAR0001' not in xinput.stdout"
+
+- name: two-finger right-click (instead of corner)
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+    value: "'fingers'"
+
+# gedit
+
+- name: set gedit theme to solarized dark
+  dconf:
+    key: "/org/gnome/gedit/preferences/editor/scheme"
+    value: "'solarized-dark'"

@@ -1,10 +1,10 @@
 ---
-- name: add yum GPG key for keybase
-  rpm_key:
-    key: "https://keybase.io/docs/server_security/code_signing_key.asc"
-    state: present
-  become: true 
-  when: "'Fedora' in ansible_distribution"
+#- name: add yum GPG key for keybase
+#  rpm_key:
+#    key: "https://keybase.io/docs/server_security/code_signing_key.asc"
+#    state: present
+#  become: true 
+#  when: "'Fedora' in ansible_distribution"
 
 - name: install keybase RPM
   yum:
@@ -16,4 +16,10 @@
   apt:
     deb: "https://prerelease.keybase.io/keybase_amd64.deb"
   become: true 
-  when: "'Ubuntu' in ansible_distribution"
+  when: ansible_os_family == "Debian"
+
+- name: copy keybase autostart file
+  copy:
+    src: files/keybase.desktop
+    dest: ~/.config/autostart/keybase.desktop
+    mode: '0660'

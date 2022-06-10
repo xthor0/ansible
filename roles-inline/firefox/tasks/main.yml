@@ -1,0 +1,38 @@
+---
+- name: see if /etc/apt/trusted.gpg.d/mozillateam-ubuntu-ppa.gpg exists
+  stat:
+    path: /etc/apt/trusted.gpg.d/mozillateam-ubuntu-ppa.gpg
+  register: mozillateam_gpg
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: install mozillateam ubuntu ppa
+  command: add-apt-repository -y ppa:mozillateam/ppa
+  become: true
+  when: not mozillateam_gpg.stat.exists and "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: prefer mozillateam PPA in apt preferences
+  copy:
+    src: files/apt-prefs-mozilla-firefox
+    dest: /etc/apt/preferences.d/mozilla-firefox
+    mode: '0664'
+    owner: root
+    group: root
+  become: true
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: allow firefox updates to be installed automatically from ppa
+  copy:
+    src: files/unattended-upgrades-firefox
+    dest: /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+    mode: '0664'
+    owner: root
+    group: root
+  become: true
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"
+
+- name: install firefox package
+  package:
+    name: firefox
+    state: present
+  become: true
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '22'"

@@ -10,18 +10,18 @@
 - name: Setup personal Linux workstation
   hosts: localhost
   roles:
-    - { role: tools, tags: [ "tools" ] }
+    - { role: os-packages, tags: [ "os-packages" ] }
+    - { role: ssh, tags: [ "ssh" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
-    - { role: gnome-settings, tags: [ "gnome-settings" ] }
-    - { role: terminator, tags: [ "terminator" ] }
+    - { role: tilix, tags: [ "tilix" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
     - { role: libvirt, tags: [ "libvirt" ] }
-    - { role: ssh, tags: [ "ssh" ] }
     - { role: git, tags: [ "git" ] }
     - { role: conky, tags: [ "conky" ] }
     - { role: 1password, tags: [ "1password"] }
-    - { role: zoom, tags: [ "zoom"] }
     - { role: vscode, tags: [ "vscode"] }
-    - { role: keybase, tags: [ "keybase"] }
-    - { role: google-chrome, tags: [ "google-chrome"] }
+    - { role: zoom, tags: [ "zoom"] }
+    - { role: desktop-settings, tags: [ "desktop-settings"] }
+    - { role: telegram, tags: [ "telegram"] }
+    - { role: firefox, tags: [ "firefox"] }

@@ -3,7 +3,8 @@
       cmd: dnf copr enable -y tofik/autorandr 
       creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:tofik:autorandr.repo
   become: true
-
+  when: "'Fedora' in ansible_distribution"
+  
 - name: install packages for Openbox
   dnf:
     name:

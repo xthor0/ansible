@@ -12,7 +12,7 @@
   package:
     name:
       - conky-all
-  when: "'Ubuntu' in ansible_distribution"
+  when: ansible_os_family == "Debian"
 
 - name: create autostart config dir
   file:
@@ -20,9 +20,13 @@
     state: directory
     mode: '0750'
 
-- name: copy conkyrc file
-  copy:
-    src: files/conkyrc
+- name: get active network interface information
+  set_fact:
+    interface_module: "{{ vars['ansible_'~ansible_default_ipv4.alias].module }}"
+
+- name: template conkyrc file
+  template:
+    src: templates/conkyrc
     dest: ~/.conkyrc
     mode: '0660'
     force: no

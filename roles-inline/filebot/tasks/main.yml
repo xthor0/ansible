@@ -1,0 +1,20 @@
+- name: add apt GPG key for filebot repo
+  apt_key:
+    url: https://get.filebot.net/filebot/KEYS
+    state: present
+  become: true 
+  when: "ansible_distribution == 'Debian'"
+
+- name: add filebot repo to Debian system
+  apt_repository:
+    repo: "deb [arch=all] https://get.filebot.net/deb/ universal main"
+    state: present
+  become: true 
+  when: "ansible_distribution == 'Debian'"
+
+- name: install filebot package for Debian
+  apt:
+    name: filebot
+    state: present
+  become: true
+  when: "ansible_distribution == 'Debian'"

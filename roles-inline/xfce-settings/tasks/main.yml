@@ -1,0 +1,227 @@
+- name: install required xfce packages - Ubuntu/Debian
+  become: true
+  apt:
+    name:
+      - arc-theme
+      - numix-icon-theme
+      - chrome-gnome-shell
+      - ssh-askpass
+  when: ansible_os_family == "Debian"
+
+- name: install required xfce packages - Fedora
+  become: true
+  package:
+    name:
+      - chrome-gnome-shell
+      - arc-theme
+      - numix-icon-theme
+      - ssh-askpass
+  when: "'Fedora' in ansible_distribution"
+
+# xfce interface settings
+- name: Change XFCE theme to Arc-Dark
+  xfconf:
+    channel: "xsettings"
+    property: "/Net/ThemeName"
+    value_type: "string"
+    value: "Arc-Dark"
+
+- name: Change XFCE window manager theme to Arc-Dark
+  xfconf:
+    channel: "xfwm4"
+    property: "/general/theme"
+    value_type: "string"
+    value: "Arc-Dark"
+
+- name: Change XFCE icon theme to Numix
+  xfconf:
+    channel: "xsettings"
+    property: "/Net/IconThemeName"
+    value_type: "string"
+    value: "Numix"
+
+- name: Change XFCE subpixel hint style to full
+  xfconf:
+    channel: "xsettings"
+    property: "/Xft/HintStyle"
+    value_type: "string"
+    value: "hintfull"
+
+- name: Change XFCE subpixel to enable hinting
+  xfconf:
+    channel: "xsettings"
+    property: "/Xft/Hinting"
+    value_type: "int"
+    value: "1"
+
+- name: Change XFCE window manager to switch to active window (instead of bringing)
+  xfconf:
+    channel: "xfwm4"
+    property: "/general/activate_action"
+    value_type: "string"
+    value: "switch"
+
+- name: Change XFCE panel clock format
+  xfconf:
+    channel: "xfce4-panel"
+    property: "/plugins/plugin-13/digital-format"
+    value_type: "string"
+    value: "%a %_d %b, %l:%M %p"
+
+- name: Change XFCE panel clock format digital tooltip
+  xfconf:
+    channel: "xfce4-panel"
+    property: "/plugins/plugin-13/tooltip-format"
+    value_type: "string"
+    value: "%c"
+
+- name: Change XFCE panel workspace switcher 
+  xfconf:
+    channel: "xfce4-panel"
+    property: "/plugins/plugin-13/digital-format"
+    value_type: "string"
+    value: "%a %_d %b, %l:%M %p"
+
+# make the cursor size smaller
+- name: Change XFCE mouse cursor theme
+  xfconf:
+    channel: "xsettings"
+    property: "/Gtk/CursorThemeName"
+    value_type: "string"
+    value: "Adwaita"
+
+- name: Change XFCE mouse cursor size
+  xfconf:
+    channel: "xsettings"
+    property: "/Gtk/CursorThemeSize"
+    value_type: "int"
+    value: "16"
+
+# turn off compositing because we're gonna use compton instead
+- name: Disable XFCE compositor
+  xfconf:
+    channel: "xfwm4"
+    property: "/general/use_compositing"
+    value_type: "string"
+    value: "false"
+
+# keyboard shortcuts, ugly stuff
+- name: Change XFCE keyboard shortcut - tile down
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Primary><Shift><Alt>Down"
+    value_type: "string"
+    value: "tile_down_key"
+
+- name: Change XFCE keyboard shortcut - tile down left
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Primary><Shift><Alt>End"
+    value_type: "string"
+    value: "tile_down_left_key"
+
+- name: Change XFCE keyboard shortcut - tile down right
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Primary><Shift><Alt>Page_Down"
+    value_type: "string"
+    value: "tile_down_right_key"
+
+- name: Change XFCE keyboard shortcut - tile up
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Primary><Shift><Alt>Up"
+    value_type: "string"
+    value: "tile_up_key"
+
+- name: Change XFCE keyboard shortcut - tile up left
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Primary><Shift><Alt>Home"
+    value_type: "string"
+    value: "tile_up_left_key"
+
+- name: Change XFCE keyboard shortcut - tile up right
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Primary><Shift><Alt>Page_Up"
+    value_type: "string"
+    value: "tile_up_right_key"
+
+- name: Change XFCE keyboard shortcut - move window up workspace
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Shift><Alt>Up"
+    value_type: "string"
+    value: "move_window_up_workspace_key"
+
+- name: Change XFCE keyboard shortcut - move window up workspace
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Shift><Alt>Down"
+    value_type: "string"
+    value: "move_window_down_workspace_key"
+
+- name: Change XFCE keyboard shortcut - move window left workspace
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Shift><Alt>Left"
+    value_type: "string"
+    value: "move_window_left_workspace_key"
+
+- name: Change XFCE keyboard shortcut - move window right workspace
+  xfconf:
+    channel: "xfce4-keyboard-shortcuts"
+    property: "/xfwm4/custom/<Shift><Alt>Right"
+    value_type: "string"
+    value: "move_window_right_workspace_key"
+
+# xfce terminal settings - these come from a file
+- name: copy terminalrc file
+  copy:
+    src: files/terminalrc
+    dest: ~/.config/xfce4/terminal/terminalrc
+    mode: '0660'
+
+# don't forget to manage in ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml after setting the stuff above, or the pager won't be in the right place
+- name: copy xfce4-panel.xml file
+  copy:
+    src: files/xfce4-panel.xml
+    dest:  ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+    mode: '0660'
+
+- name: copy compton.conf to config directory
+  copy:
+    src: files/compton.conf
+    dest: ~/.config/compton.conf
+    mode: '0660'
+
+# create a startup app for compton
+- name: copy compton.desktop to startup
+  copy:
+    src: files/compton.desktop
+    dest: ~/.config/autostart/compton.desktop
+    mode: '0660'
+
+# create a startup app for ssh key, too
+- name: copy ssh-add.desktop to startup
+  copy:
+    src: files/ssh-add.desktop
+    dest: ~/.config/autostart/ssh-add.desktop
+    mode: '0660'
+
+# set intel to TearFree (only if running Intel graphics, tho)
+- shell: lspci | grep VGA
+  register: videocard
+  changed_when: false
+
+- name: copy Intel xorg settings
+  copy:
+    src: files/20-intel.conf
+    dest: /usr/share/X11/xorg.conf.d/20-intel.conf
+    mode: '0660'
+  become: true
+  when: "'Intel' in videocard.stdout"
+
+## TODO:
+# panel settings didn't work

@@ -4,7 +4,9 @@
     key: "{{ item }}"
     state: present
   with_items:
-    - "https://negativo17.org/repos/RPM-GPG-KEY-slaanesh" # makemkv
+    - "https://negativo17.org/repos/RPM-GPG-KEY-slaanesh"
+  become: true
+  when: "ansible_distribution == 'Fedora'"
 
 - name: install negativo17 media repo
   yum_repository:
@@ -15,6 +17,7 @@
     enabled: yes
     skip_if_unavailable: yes
   become: true
+  when: "ansible_distribution == 'Fedora'"
 
 - name: install makemkv package
   package:
@@ -22,3 +25,41 @@
       - makemkv
     state: present
   become: true
+  when: "ansible_distribution == 'Fedora'"
+
+- name: add apt GPG key for hjramses.com makemkv repo
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 9E5738E866C5E6B2
+  become: true 
+  when: "ansible_distribution == 'Debian'"
+
+- name: add jdramses.com makemkv repo to Debian system
+  apt_repository:
+    repo: "deb https://ramses.hjramses.com/deb/makemkv {{ ansible_distribution_release }} main"
+    state: present
+  become: true 
+  when: "ansible_distribution == 'Debian'"
+
+- name: install makemkv packages for Debian
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - makemkv-oss
+    - makemkv-bin
+  become: true
+  when: "ansible_distribution == 'Debian'"
+
+- name: create config dir for terminator
+  file:
+    path: ~/.MakeMKV
+    state: directory
+    mode: '0755'
+
+- name: copy makemkv settings file (unless it already exists)
+  copy:
+    src: files/settings.conf
+    dest: ~/.MakeMKV/settings.conf
+    mode: '0660'
+    force: no

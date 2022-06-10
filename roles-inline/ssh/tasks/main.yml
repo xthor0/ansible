@@ -13,3 +13,17 @@
     state: present
   with_items: "{{ ssh_hosts }}"
   # don't use the builtin Ansible known_hosts module. It will not allow host,ip address lines. Stupid.
+
+- name: does ~/.ssh/id_rsa exist?
+  stat:
+    path: ~/.ssh/id_rsa
+  register: id_rsa_exist
+
+- name: does ~/.ssh/id_rsa.pub exist?
+  stat:
+    path: ~/.ssh/id_rsa.pub
+  register: id_rsa_pub_exist
+
+- name: run script to create ~/.ssh/id_rsa.pub
+  shell: nohup x-terminal-emulator -x "echo 'Creating ~/.ssh/id_rsa.pub -- you will be prompted for your password!'; ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub; echo 'will exit in 30 seconds...'; sleep 30" </dev/null >/dev/null 2>&1 &
+  when: id_rsa_exist.stat.exists and not id_rsa_pub_exist.stat.exists

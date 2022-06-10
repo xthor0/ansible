@@ -1,0 +1,16 @@
+---
+- name: see if /etc/apt/trusted.gpg.d/atareao-ubuntu-telegram.gpg exists
+  stat:
+    path: /etc/apt/trusted.gpg.d/atareao-ubuntu-telegram.gpg
+  register: atareao_gpg
+
+- name: install atareao telegram ubuntu ppa
+  command: add-apt-repository -y ppa:atareao/telegram
+  become: true
+  when: not atareao_gpg.stat.exists
+
+- name: install telegram package
+  package:
+    name: telegram
+    state: present
+  become: true

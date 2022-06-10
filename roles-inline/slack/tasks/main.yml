@@ -1,0 +1,24 @@
+---
+- name: install Slack DEB
+  apt:
+    deb: "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.17.0-amd64.deb"
+  become: true 
+  when: ansible_os_family == "Debian"
+
+- name: add gpg yum keys for slack
+  rpm_key:
+    key: https://slack.com/gpg/slack_pubkey_2019.gpg
+    state: present
+  become: true
+  when: ansible_os_family == "RedHat"
+
+- name: install Slack RPM
+  yum:
+    name: https://downloads.slack-edge.com/linux_releases/slack-4.17.0-0.1.fc21.x86_64.rpm
+  become: true
+  when: ansible_os_family == "RedHat"
+
+- name: start Slack on login
+  copy:
+    src: files/slack.desktop
+    dest: ~/.config/autostart/slack.desktop

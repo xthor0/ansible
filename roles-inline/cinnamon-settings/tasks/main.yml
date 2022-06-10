@@ -1,0 +1,239 @@
+- name: install required Cinnamon packages - Ubuntu/Debian
+  become: true
+  apt:
+    name:
+      - python3-psutil
+      - dconf-cli
+      - arc-theme
+      - numix-icon-theme
+      - chrome-gnome-shell
+  when: ansible_os_family == "Debian"
+
+- name: install required gnome packages - Fedora
+  become: true
+  package:
+    name:
+      - python3-psutil
+      - chrome-gnome-shell
+      - arc-theme
+      - numix-icon-theme
+  when: "'Fedora' in ansible_distribution"
+
+# interface settings
+
+- name: clock show date
+  dconf:
+    key: "/org/cinnamon/desktop/interface/clock-show-date"
+    value: "true"
+
+- name: clock to 12h format
+  dconf:
+    key: "/org/cinnamon/desktop/interface/clock-use-24h"
+    value: "false"
+
+- name: cinnamon theme
+  dconf:
+    key: "/org/cinnamon/theme"
+    value: "'Arc-Dark'"
+
+- name: gtk theme
+  dconf:
+    key: "/org/cinnamon/desktop/interface/gtk-theme"
+    value: "'Arc-Dark'"
+
+- name: icon theme
+  dconf:
+    key: "/org/cinnamon/desktop/interface/icon-theme"
+    value: "'Numix'"
+
+- name: full LCD hinting
+  dconf:
+    key: "/org/cinnamon/settings-daemon/plugins/xsettings/hinting"
+    value: "'full'"
+
+- name: set user theme to Arc-Dark
+  dconf:
+    key: "/org/cinnamon/theme"
+    value: "'Arc-Dark'"
+
+- name: set window manager theme
+  dconf:
+    key: "/org/cinnamon/desktop/wm/preferences/theme"
+    value: "'Arc-Dark'"
+
+- name: set cursor size
+  dconf:
+    key: "/org/cinnamon/desktop/interface/cursor-size"
+    value: "24"
+
+- name: set scaling factor
+  dconf:
+    key: "/org/cinnamon/desktop/interface/text-scaling-factor"
+    value: "1.0"
+
+- name: set hotcorner to show all workspaces
+  dconf:
+    key: "/org/cinnamon/hotcorner-layout"
+    value: "['expo:true:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']"
+
+# power settings
+
+# will have to test this one on a laptop
+#- name: show battery percentage
+#  dconf:
+#    key: "/org/cinnamon/desktop/interface/show-battery-percentage"
+#    value: "true"
+
+- name: engage screensaver after 15 minutes
+  dconf:
+    key: "/org/cinnamon/desktop/screensaver/lock-delay"
+    value: "uint32 15"
+
+# the only values that are accepted here: 5m, 10m, 15m, 30m, 45m, 1h, 2h, 3h, Never
+# convert to seconds, for never, set to 0
+- name: turn off screen after 30 minutes
+  dconf:
+    key: "/org/cinnamon/settings-daemon/plugins/power/sleep-display-ac"
+    value: "1800"
+
+# terminal settings
+
+- name: terminal transparency enabled
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background"
+    value: "true"
+
+- name: terminal background transparency percent
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent"
+    value: "13"
+
+- name: terminal default rows
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows"
+    value: "30"
+
+- name: terminal unlimited scrollback
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollback-unlimited"
+    value: "true"
+
+- name: terminal disable scrollbar
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollbar-policy"
+    value: "'never'"
+
+- name: terminal disable using system font
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-system-font"
+    value: "false"
+
+- name: terminal disable using theme colors
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors"
+    value: "false"
+
+- name: terminal disable using theme transparency
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-transparency"
+    value: "false"
+
+- name: terminal foreground color
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color"
+    value: "'rgb(255,255,255)'"
+
+- name: terminal background color
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color"
+    value: "'rgb(0,0,0)'"
+
+- name: terminal color palette
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/palette"
+    value: "['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(0,0,205)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(250,235,215)', 'rgb(64,64,64)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']"
+
+- name: terminal font
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font"
+    value: "'Monospace 10'"
+
+- name: disable menubar by default in new terminals
+  dconf:
+    key: "/org/gnome/terminal/legacy/default-show-menubar"
+    value: "false"
+
+# disable the super annoying Cinnamon default sounds
+# ### CHECK after RESTORE on this one
+- name: disable Cinnamon desktop event sounds
+  dconf:
+    key: "/org/cinnamon/desktop/sound/event-sounds"
+    value: "false"
+
+- name: disable Cinnamon sound when closing window
+  dconf:
+    key: "/org/cinnamon/sounds/close-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when logging in
+  dconf:
+    key: "/org/cinnamon/sounds/login-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when logging out
+  dconf:
+    key: "/org/cinnamon/sounds/logout-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when switching workspaces
+  dconf:
+    key: "/org/cinnamon/sounds/switch-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when minimizing windows
+  dconf:
+    key: "/org/cinnamon/sounds/minimize-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when maximizing windows
+  dconf:
+    key: "/org/cinnamon/sounds/maximize-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when opening new windows
+  dconf:
+    key: "/org/cinnamon/sounds/map-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when unmaximizing windows
+  dconf:
+    key: "/org/cinnamon/sounds/unmaximize-enabled"
+    value: "false"
+
+- name: disable Cinnamon sound when tiling and snapping windows
+  dconf:
+    key: "/org/cinnamon/sounds/tile-enabled"
+    value: "false"
+
+# touchpad settings
+
+- name: disable touchpad natural scrolling
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/natural-scroll"
+    value: "false"
+
+- name: disable touchpad tap-to-click
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/tap-to-click"
+    value: "false"
+
+- name: two-finger right-click (instead of corner)
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/clickpad-click"
+    value: "2"
+
+- name: two-finger scrolling
+  dconf:
+    key: "/org/cinnamon/settings-daemon/peripherals/touchpad/scrolling-method"
+    value: "1"
+
