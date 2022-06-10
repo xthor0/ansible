@@ -6,7 +6,7 @@
 - name: Install RPMFusion (Fedora only)
   include_role:
     name: rpmfusion
-  when: "ansible_distribution == 'Fedora'"
+  when: "ansible_os_family == 'RedHat'"
 
 # I had to switch from `package` to each respective package manager command. Otherwise, `package` runs the package manager once per item. Yuck.
 - name: Install common packages
