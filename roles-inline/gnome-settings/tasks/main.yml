@@ -206,25 +206,25 @@
 
 - name: set keybindings for moving between workspaces - down
   dconf:
-    key: "org/gnome/desktop/wm/keybindings/move-to-workspace-down"
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-down"
     value: "['<Primary><Shift><Super>Down', '<Primary><Shift><Alt>Down']"
   when: "ansible_distribution == 'Pop!_OS'"
 
 - name: set keybindings for moving between workspaces - up
   dconf:
-    key: "org/gnome/desktop/wm/keybindings/move-to-workspace-up"
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-up"
     value: "['<Primary><Shift><Super>Up', '<Primary><Shift><Alt>Up']"
   when: "ansible_distribution == 'Pop!_OS'"
 
 - name: set keybindings for moving windows between workspaces - up
   dconf:
-    key: "org/gnome/desktop/wm/keybindings/switch-to-workspace-up"
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-up"
     value: "['<Primary><Super>Up', '<Primary><Super>KP_Up', '<Primary><Super>k', '<Primary><Alt>Up']"
   when: "ansible_distribution == 'Pop!_OS'"
 
 - name: set keybindings for moving windows between workspaces - down
   dconf:
-    key: "org/gnome/desktop/wm/keybindings/switch-to-workspace-down"
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-down"
     value: "['<Primary><Super>Down', '<Primary><Super>KP_Down', '<Primary><Super>j', '<Primary><Alt>Down']"
   when: "ansible_distribution == 'Pop!_OS'"
 
