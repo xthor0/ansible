@@ -5,4 +5,4 @@
 
 - name: Include Ubuntu tasks
   include_tasks: Ubuntu.yml
-  when: "'Ubuntu' in ansible_distribution"
+  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution"
