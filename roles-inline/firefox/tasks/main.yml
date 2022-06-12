@@ -3,7 +3,6 @@
   stat:
     path: /etc/apt/trusted.gpg.d/mozillateam-ubuntu-ppa.gpg
   register: mozillateam_gpg
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_major_version >= '22')
 
 - name: install mozillateam ubuntu ppa
   command: add-apt-repository -y ppa:mozillateam/ppa
