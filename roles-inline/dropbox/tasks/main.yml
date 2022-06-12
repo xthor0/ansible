@@ -1,0 +1,13 @@
+---
+- name: install dropbox-1 package from rpmfusion
+  yum:
+    name: dropbox-1
+    state: present
+  become: true 
+  when: "'RedHat' in ansible_os_family"
+
+- name: install deb for dropbox
+  apt:
+    deb: "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb"
+  become: true
+  when: "'Debian' in ansible_os_family"
