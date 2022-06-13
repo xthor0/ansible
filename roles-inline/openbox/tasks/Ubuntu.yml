@@ -38,7 +38,6 @@
       - fonts-liberation
       - pavucontrol
       - python3-distutils-extra
-      - python-distutils-extra
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
       - plymouth-theme-spinner
@@ -46,6 +45,13 @@
     state: present
     update_cache: yes
   become: true
+
+- name: install python-distutils-extra
+  apt:
+    name: python-distutils-extra
+    state: present
+  become: true
+  when: "major_release == 20"
 
 - name: set LightDM as display manager
   file:
