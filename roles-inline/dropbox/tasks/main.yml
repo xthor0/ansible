@@ -11,3 +11,10 @@
     deb: "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb"
   become: true
   when: "'Debian' in ansible_os_family"
+
+- name: install python3-gpg on debian-based systems for dropbox
+  apt:
+    name: python3-gpg
+    state: present
+  become: true
+  when: "'Debian' in ansible_os_family"
