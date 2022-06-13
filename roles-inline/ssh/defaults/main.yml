@@ -1,5 +1,6 @@
 ---
 ssh_hosts:
+  - "alla.xthorsworld.com,10.200.1.15 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJo+BxRso28kaHwEnwrYMuYuUaMczBbfNVq+jWdPkyFl"
   - "ragno.xthorsworld.com,10.200.1.16 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAjdKlA5LKw85NXX4mDlQuaxYfkHMzF6XHWf/2K2PMqv"
   - "pajak.xthorsworld.com,10.200.50.20 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAKoThkfy75YGS0SOw1MwzyHy/BfxGxWtaC11tCuiIeM"
   - "voras.xthorsworld.com,10.200.1.13 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO2sTunNRIvm+Jjyeubtf175uopo8jMJA3n6ppGewxXy"
