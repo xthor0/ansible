@@ -30,6 +30,7 @@
       - numix-icon-theme
       - thunar
       - dunst
+      - autorandr
       - xautolock
       - maim
       - i3lock
