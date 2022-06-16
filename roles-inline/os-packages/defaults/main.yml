@@ -31,7 +31,6 @@ Debian_packages:
   - p7zip-full
   - putty-tools
   - flatpak
-  - gnome-software-plugin-flatpak
   - gnome-mpv
 
 RedHat_packages:
