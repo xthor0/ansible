@@ -2,7 +2,6 @@
 # all packages should be available in the default repos (or, with RPMfusion, in the case of Fedora)
 common_packages:
   - curl
-  - awscli
   - nmap
   - zsh
   - ncdu
