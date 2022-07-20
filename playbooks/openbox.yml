@@ -1,0 +1,17 @@
+---
+- name: verify sudo password
+  hosts: localhost
+  gather_facts: no
+  become: yes
+  any_errors_fatal: yes
+  tasks:
+    - ping:
+
+- name: Setup personal Linux workstation
+  hosts: localhost
+  roles:
+    - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
+    - { role: terminator, tags: [ "terminator" ] }
+    - { role: vim, tags: [ "vim" ] }
+    - { role: conky, tags: [ "conky" ] }
+    - { role: openbox, tags: [ "openbox" ] }

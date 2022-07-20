@@ -1,21 +1,4 @@
-# add GPG keys for repositories
-- name: add apt keys from urls
-  apt_key:
-    url: "{{ item }}"
-    state: present
-  with_items:
-    - "https://download.opensuse.org/repositories/home:/phillipberndt/xUbuntu_{{ ansible_distribution_version }}/Release.key" # autorandr
-  become: true 
-
-# add apt repositories
-- name: add apt repositories
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-  with_items:
-    - "deb https://download.opensuse.org/repositories/home:/phillipberndt/xUbuntu_{{ ansible_distribution_version }}/ /"
-  become: true 
-
+---
 - name: install packages for Openbox
   apt:
     name:
@@ -55,7 +38,6 @@
       - fonts-liberation
       - pavucontrol
       - python3-distutils-extra
-      - python-distutils-extra
       - xfce4-power-manager
       - lightdm-gtk-greeter-settings
       - plymouth-theme-spinner
@@ -63,6 +45,13 @@
     state: present
     update_cache: yes
   become: true
+
+- name: install python-distutils-extra
+  apt:
+    name: python-distutils-extra
+    state: present
+  become: true
+  when: "ansible_distribution_major_version == 20"
 
 - name: set LightDM as display manager
   file:

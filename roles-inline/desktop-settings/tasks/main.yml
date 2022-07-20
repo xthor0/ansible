@@ -3,18 +3,21 @@
   set_fact:
     desktop_env: "{{ lookup('env', 'DESKTOP_SESSION' ) | ternary (lookup('env', 'DESKTOP_SESSION' ), omit) }}"
 
-# god dammit, Ubuntu. Why you gotta do things so weird.
-- name: Apply GNOME settings (Ubuntu 20.04)
+- name: Apply GNOME settings (Ubuntu)
   include_role:
     name: gnome-settings
   when: desktop_env == "ubuntu"
+
+- name: Apply GNOME settings (Pop OS)
+  include_role:
+    name: gnome-settings
+  when: desktop_env == "pop"
 
 - name: Apply XFCE settings
   include_role:
     name: xfce-settings
   when: desktop_env == "xubuntu"
 
-# everyone else seems to follow the rules... sigh.
 - name: Apply GNOME settings
   include_role:
     name: gnome-settings
