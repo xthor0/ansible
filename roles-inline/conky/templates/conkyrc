@@ -179,7 +179,6 @@ ${color}TOTAL UP ${alignr}${totalup {{ ansible_default_ipv4.alias }}}
 ${endif}
 {% else %}
 ${if_existing /sys/class/net/{{ ansible_default_ipv4.alias }}/operstate up}${font Monospace:style=Bold:pixelsize=11}${color}ETHERNET:${font Monospace:size=7}
-${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual eno1}%
 
 ${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed {{ ansible_default_ipv4.alias }}} kb/s 
 ${alignr}${color BBCCDD}${downspeedgraph {{ ansible_default_ipv4.alias }} 20,290 EF5A29 EF5A29}
