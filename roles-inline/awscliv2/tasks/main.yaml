@@ -12,7 +12,6 @@
   args:
     cmd: "~/tmp/aws/install"
     creates: /usr/local/bin/aws
-  become: true
   register: aws_install
 
 - name: "Show installer output"
