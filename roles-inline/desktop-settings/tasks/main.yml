@@ -11,13 +11,13 @@
 
 - name: font rendering - full hinting and subpixel rgb
   file:
-    path: "/etc/fonts/conf.d/{{ item.path | basename}}"
-    src: "{{ item.path }}"
+    path: "/etc/fonts/conf.d/{{ item }}"
+    src: "{{ font_conf_avail }}/{{ item }}"
     state: link
     force: true
   with_items:
-    - "{{ font_conf_avail }}/10-hinting-full.conf"
-    - "{{ font_conf_avail }}/10-sub-pixel-rgb.conf"
+    - 10-hinting-full.conf
+    - 10-sub-pixel-rgb.conf
   become: true
 
 - name: font rendering - remove slight hinting config
