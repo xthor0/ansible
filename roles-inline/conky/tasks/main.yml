@@ -29,7 +29,6 @@
     src: templates/conkyrc
     dest: ~/.conkyrc
     mode: '0660'
-    force: no
 
 - name: copy conkyrc autostart file
   copy:
