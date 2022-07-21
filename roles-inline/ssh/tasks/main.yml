@@ -1,4 +1,10 @@
 ---
+- name: create .ssh directory
+  file:
+    path: ~/.ssh
+    state: directory
+    mode: 0700
+
 - name: set up ssh config
   copy:
     src: files/ssh-config
