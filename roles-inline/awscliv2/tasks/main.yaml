@@ -16,7 +16,7 @@
 - name: Run the installer
   command:
   args:
-    cmd: "~/tmp/aws/install"
+    cmd: "~/tmp/aws/install -i ~/.local/aws-cli -b ~/.local/bin"
     creates: "~/.local/bin/aws"
   register: aws_install
 
