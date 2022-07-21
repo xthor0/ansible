@@ -1,4 +1,10 @@
 ---
+- name: create ~/.local/bin directory
+  file:
+    path: ~/.local/bin
+    mode: 0770
+    recurse: yes
+
 - name: Download awscliv2 installer
   unarchive:
     src: "https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip"
@@ -11,7 +17,7 @@
   command:
   args:
     cmd: "~/tmp/aws/install"
-    creates: /usr/local/bin/aws
+    creates: "~/.local/bin/aws"
   register: aws_install
 
 - name: "Show installer output"
