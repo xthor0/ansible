@@ -43,7 +43,13 @@
   dconf:
     key: "/org/gnome/desktop/interface/color-scheme"
     value: "'prefer-dark'"
-  
+
+# I removed this - but it turns out, without it set, older apps don't get the right theme :manshrug:
+- name: gtk theme
+  dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Adwaita-dark'"
+
 - name: clock show date
   dconf:
     key: "/org/gnome/desktop/interface/clock-show-date"

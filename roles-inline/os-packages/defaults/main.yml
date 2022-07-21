@@ -22,6 +22,7 @@ common_packages:
   - smartmontools
   - transmission-gtk
   - calibre
+  - solaar
 
 # make sure these vars are named specifically after {{ ansible_os_family }}
 Debian_packages:
