@@ -1,21 +1,19 @@
 ---
 - name: Check if Telegram binary is already installed?
   stat:
-    path: /usr/local/Telegram
+    path: ~/.local/Telegram/Telegram
   register: telegram_exists
 
-- name: Create Telegram directory in /usr/local
+- name: Create Telegram directory in ~/.local
   file:
-    path: /usr/local/Telegram
+    path: ~/.local/Telegram
     state: directory
     mode: '0750'
-    owner: "{{ lookup('env', 'USER') }}"
-  become: true
 
 - name: Download and install Telegram
   unarchive:
     src: https://telegram.org/dl/desktop/linux
-    dest: /usr/local
+    dest: ~/.local
     remote_src: True
 
 - name: start Telegram on login

@@ -3,6 +3,6 @@ Type=Application
 Version=1.0
 Name=Telegram
 Comment=Start Telegram at Login
-Exec=/usr/local/Telegram/Telegram
+Exec=~/.local/Telegram/Telegram
 StartupNotify=false
 Terminal=false
