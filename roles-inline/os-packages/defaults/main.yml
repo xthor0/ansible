@@ -37,3 +37,4 @@ RedHat_packages:
   - NetworkManager-openvpn-gnome
   - p7zip-plugins
   - putty
+  - sqlite
