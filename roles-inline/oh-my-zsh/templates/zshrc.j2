@@ -126,8 +126,5 @@ if type kubectl >& /dev/null; then
   complete -F __start_kubectl kc
 fi
 
-# without this, 1password doesn't do a great job with the SSH agent
-export SSH_AUTH_SOCK=~/.1password/agent.sock
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

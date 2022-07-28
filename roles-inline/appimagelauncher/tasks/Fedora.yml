@@ -1,0 +1,6 @@
+---
+- name: install appimagelauncher package
+  package:
+    name: appimagelauncher
+    state: present
+  become: true
