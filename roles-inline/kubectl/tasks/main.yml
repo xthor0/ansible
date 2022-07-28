@@ -18,18 +18,21 @@
   when: "'Fedora' in ansible_distribution"
 
 - name: add apt key for kubectl repo
-  apt_key:
-    url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
-    state: present
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+    mode: 644
+    owner: root
+    group: root
   become: true 
-  when: "'Ubuntu' in ansible_distribution"
+  when: ansible_os_family == "Debian"
 
-- name: add apt repositoriy for vscode
+- name: add apt repositoriy for kubectl
   apt_repository:
-    repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+    repo: "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
     state: present
   become: true 
-  when: "'Ubuntu' in ansible_distribution"
+  when: ansible_os_family == "Debian"
 
 - name: install kubectl package
   package:
