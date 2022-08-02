@@ -32,3 +32,4 @@
     - { role: kubectl, tags: [ "kubectl"] }
     - { role: awscliv2, tags: [ "awscliv2"] }
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
+    - { role: upnote, tags: [ "upnote"] }
