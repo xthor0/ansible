@@ -1,6 +1,5 @@
 ---
 - name: install appimagelauncher package
-  package:
-    name: appimagelauncher
-    state: present
+  yum:
+    name: https://github.com/TheAssassin/AppImageLauncher/releases/download/v2.2.0/appimagelauncher-2.2.0-travis995.0f91801.x86_64.rpm
   become: true
