@@ -4,7 +4,7 @@
     url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/Release.key"
     state: present
   become: true
-  when: "'Ubuntu' in ansible_distribution"
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version < '22'"
 
 - name: add apt repository for podman
   apt_repository:
@@ -13,11 +13,12 @@
   with_items:
     - "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/ /"
   become: true 
-  when: "'Ubuntu' in ansible_distribution"
+  when: "ansible_distribution == 'Ubuntu' and ansible_distribution_major_version < '22'"
 
 - name: install podman package
   package:
     name:
       - podman
+      - podman-docker
     state: present
   become: true
