@@ -17,3 +17,8 @@ Host *.xthorsworld.lab
   UserKnownHostsFile /dev/null
   LogLevel QUIET
 
+# Unifi Dream Machine Pro
+Host unifi.xthorsworld.com
+    User root
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    HostkeyAlgorithms +ssh-rsa
