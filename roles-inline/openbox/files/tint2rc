@@ -72,7 +72,7 @@ border_color_pressed = #000000 0
 
 #-------------------------------------
 # Panel
-panel_items = TSEE:C
+panel_items = TSEE:B:C
 panel_size = 100% 32
 panel_margin = 0 0
 panel_padding = 0 0 0
