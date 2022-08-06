@@ -1,7 +1,7 @@
 ---
 - name: install dropbox-1 package from rpmfusion
   yum:
-    name: dropbox-1
+    name: nautilus-dropbox
     state: present
   become: true 
   when: "'RedHat' in ansible_os_family"

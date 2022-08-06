@@ -1,4 +1,31 @@
 ---
+- name: set fact for fonts conf.avail directory for Debian-derived distros
+  set_fact:
+    font_conf_avail: "/etc/fonts/conf.avail"
+  when: "ansible_os_family == 'Debian'"
+
+- name: set fact for fonts conf.avail directory for RedHat-derived distros
+  set_fact:
+    font_conf_avail: "/usr/share/fontconfig/conf.avail"
+  when: "ansible_os_family == 'RedHat'"
+
+- name: font rendering - full hinting and subpixel rgb
+  file:
+    path: "/etc/fonts/conf.d/{{ item }}"
+    src: "{{ font_conf_avail }}/{{ item }}"
+    state: link
+    force: true
+  with_items:
+    - 10-hinting-full.conf
+    - 10-sub-pixel-rgb.conf
+  become: true
+
+- name: font rendering - remove slight hinting config
+  file:
+    path: /etc/fonts/conf.d/10-hinting-slight.conf
+    state: absent
+  become: true
+
 - name: set fact for desktop environment
   set_fact:
     desktop_env: "{{ lookup('env', 'DESKTOP_SESSION' ) | ternary (lookup('env', 'DESKTOP_SESSION' ), omit) }}"

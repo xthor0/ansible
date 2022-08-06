@@ -1,0 +1,16 @@
+---
+- name: see if /etc/apt/trusted.gpg.d/appimagelauncher-team-ubuntu-stable.gpg exists
+  stat:
+    path: /etc/apt/trusted.gpg.d/appimagelauncher-team-ubuntu-stable.gpg
+  register: appimagelauncher_gpg
+
+- name: install appimagelauncher ppa
+  command: add-apt-repository -y ppa:appimagelauncher-team/stable
+  become: true
+  when: not appimagelauncher_gpg.stat.exists
+
+- name: install appimagelauncher package
+  package:
+    name: appimagelauncher
+    state: present
+  become: true

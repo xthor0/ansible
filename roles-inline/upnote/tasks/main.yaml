@@ -1,0 +1,6 @@
+---
+- name: Download UpNote AppImage
+  get_url:
+    url: "https://upnote-release.s3.us-west-2.amazonaws.com/UpNote.AppImage"
+    dest: ~/Downloads/Upnote.AppImage
+    mode: '0750'
