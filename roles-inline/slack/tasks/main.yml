@@ -1,7 +1,7 @@
 ---
 - name: install Slack DEB
   apt:
-    deb: "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.17.0-amd64.deb"
+    deb: "https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb"
   become: true 
   when: ansible_os_family == "Debian"
 
