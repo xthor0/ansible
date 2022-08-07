@@ -8,7 +8,7 @@
     name: "{{ item }}"
     state: present
   become: true
-  with_items: "{{ common_packages }}"
+  with_items: "{{ common_packages_libvirt }}"
   when: "ansible_distribution == 'Fedora'"
 
 - name: Install OS-specific libvirt packages
@@ -16,7 +16,7 @@
     name: "{{ item }}"
     state: present
   become: true
-  with_items: "{{ os_packages }}"
+  with_items: "{{ RedHat_packages_libvirt }}"
   when: "ansible_distribution == 'Fedora'"
 
 - name: Install common libvirt packages
@@ -24,7 +24,7 @@
     name: "{{ item }}"
     state: present
   become: true
-  with_items: "{{ common_packages }}"
+  with_items: "{{ common_packages_libvirt }}"
   when: ansible_os_family == "Debian"
 
 - name: Install OS-specific libvirt packages
@@ -32,7 +32,7 @@
     name: "{{ item }}"
     state: present
   become: true
-  with_items: "{{ os_packages }}"
+  with_items: "{{ debian_packages_libvirt }}"
   when: ansible_os_family == "Debian"
 
 - name: start libvirtd service
