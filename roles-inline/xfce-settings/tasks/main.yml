@@ -196,13 +196,6 @@
     dest: ~/.config/xfce4/terminal/terminalrc
     mode: '0660'
 
-# don't forget to manage in ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml after setting the stuff above, or the pager won't be in the right place
-- name: copy xfce4-panel.xml file
-  copy:
-    src: files/xfce4-panel.xml
-    dest:  ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-    mode: '0660'
-
 # create a startup app for ssh key
 - name: copy ssh-add.desktop to startup
   copy:
