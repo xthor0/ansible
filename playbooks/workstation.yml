@@ -15,7 +15,6 @@
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
-    - { role: libvirt, tags: [ "libvirt" ] }
     - { role: git, tags: [ "git" ] }
     - { role: conky, tags: [ "conky" ] }
     - { role: 1password, tags: [ "1password"] }
@@ -33,3 +32,4 @@
     - { role: awscliv2, tags: [ "awscliv2"] }
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
     - { role: upnote, tags: [ "upnote"] }
+    - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?
