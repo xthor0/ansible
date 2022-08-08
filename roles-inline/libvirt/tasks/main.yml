@@ -3,7 +3,7 @@
   set_fact:
     os_packages: "{{ lookup('vars', ansible_os_family + '_packages') }}"
 
-- name: Install common libvirt packages
+- name: Install common libvirt packages - Fedora
   yum:
     name: "{{ item }}"
     state: present
@@ -11,7 +11,7 @@
   with_items: "{{ common_packages_libvirt }}"
   when: "ansible_distribution == 'Fedora'"
 
-- name: Install OS-specific libvirt packages
+- name: Install OS-specific libvirt packages - Fedora
   yum:
     name: "{{ item }}"
     state: present
@@ -19,7 +19,7 @@
   with_items: "{{ RedHat_packages_libvirt }}"
   when: "ansible_distribution == 'Fedora'"
 
-- name: Install common libvirt packages
+- name: Install common libvirt packages - Debian family
   apt:
     name: "{{ item }}"
     state: present
@@ -27,7 +27,7 @@
   with_items: "{{ common_packages_libvirt }}"
   when: ansible_os_family == "Debian"
 
-- name: Install OS-specific libvirt packages
+- name: Install OS-specific libvirt packages - Debian family
   apt:
     name: "{{ item }}"
     state: present
