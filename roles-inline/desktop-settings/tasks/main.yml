@@ -43,7 +43,7 @@
 - name: Apply XFCE settings
   include_role:
     name: xfce-settings
-  when: desktop_env == "xubuntu"
+  when: "desktop_env == 'xubuntu' or desktop_env == 'xfce'"
 
 - name: Apply GNOME settings
   include_role:

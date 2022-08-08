@@ -61,26 +61,39 @@
     value_type: "string"
     value: "switch"
 
-- name: Change XFCE panel clock format
+- name: Set 4 XFCE workspaces
   xfconf:
-    channel: "xfce4-panel"
-    property: "/plugins/plugin-13/digital-format"
-    value_type: "string"
-    value: "%a %_d %b, %l:%M %p"
+    channel: "xfwm4"
+    property: "/general/workspace_count"
+    value_type: "int"
+    value: 4
 
-- name: Change XFCE panel clock format digital tooltip
+- name: Set XFCE workspace names (4)
   xfconf:
-    channel: "xfce4-panel"
-    property: "/plugins/plugin-13/tooltip-format"
-    value_type: "string"
-    value: "%c"
+    channel: xfwm4
+    property: /general/workspace_names
+    value_type: string
+    value: ['1', '2', '3', '4']
 
-- name: Change XFCE panel workspace switcher 
+- name: Use XFCE Clock instead of datetime or whatever
+  xfconf:
+    channel: xfce4-panel
+    property: /plugins/plugin-9
+    value_type: string
+    value: "clock"
+
+- name: Use XFCE Clock instead of datetime or whatever
+  xfconf:
+    channel: xfce4-panel
+    property: /plugins/plugin-9/digital-format
+    value_type: string
+    value: "%I:%M %p"
+
+- name: Delete XFCE datetime plugin
   xfconf:
     channel: "xfce4-panel"
-    property: "/plugins/plugin-13/digital-format"
-    value_type: "string"
-    value: "%a %_d %b, %l:%M %p"
+    property: "/plugins/plugin-7"
+    state: absent
 
 # make the cursor size smaller
 - name: Change XFCE mouse cursor theme
@@ -96,14 +109,6 @@
     property: "/Gtk/CursorThemeSize"
     value_type: "int"
     value: "16"
-
-# turn off compositing because we're gonna use compton instead
-- name: Disable XFCE compositor
-  xfconf:
-    channel: "xfwm4"
-    property: "/general/use_compositing"
-    value_type: "string"
-    value: "false"
 
 # keyboard shortcuts, ugly stuff
 - name: Change XFCE keyboard shortcut - tile down
@@ -190,38 +195,9 @@
     dest:  ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
     mode: '0660'
 
-- name: copy compton.conf to config directory
-  copy:
-    src: files/compton.conf
-    dest: ~/.config/compton.conf
-    mode: '0660'
-
-# create a startup app for compton
-- name: copy compton.desktop to startup
-  copy:
-    src: files/compton.desktop
-    dest: ~/.config/autostart/compton.desktop
-    mode: '0660'
-
-# create a startup app for ssh key, too
+# create a startup app for ssh key
 - name: copy ssh-add.desktop to startup
   copy:
     src: files/ssh-add.desktop
     dest: ~/.config/autostart/ssh-add.desktop
     mode: '0660'
-
-# set intel to TearFree (only if running Intel graphics, tho)
-- shell: lspci | grep VGA
-  register: videocard
-  changed_when: false
-
-- name: copy Intel xorg settings
-  copy:
-    src: files/20-intel.conf
-    dest: /usr/share/X11/xorg.conf.d/20-intel.conf
-    mode: '0660'
-  become: true
-  when: "'Intel' in videocard.stdout"
-
-## TODO:
-# panel settings didn't work
