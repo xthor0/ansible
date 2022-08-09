@@ -5,20 +5,11 @@ if which dbus-launch >/dev/null && test -z "${DBUS_SESSION_BUS_ADDRESS}"; then
   eval $(dbus-launch --sh-syntax --exit-with-session)
 fi
 
-### first-time setup items, a reminder to use autorandr
-if [ ! -d ~/.config/autorandr ]; then
-  hostnamectl | grep -q 'Chassis: vm'
-  if [ $? -eq 0 ]; then
-    xrandr -s 1920x1080 # set the resolution to 1080p
-    autorandr -s default # this'll be the only monitor since it's a VM
-    autorandr -d default # set this as the default profile
-  else
-    notify-send -u critical -t 50000 -a Openbox "autorandr not set up" "autorandr has not been configured. Please don't forget to set up your profiles."
-  fi
+# set the friggin' resolution if we're a VM
+hostnamectl | grep -q 'Chassis: vm'
+if [ $? -eq 0 ]; then
+  xrandr -s 1920x1080 # set the resolution to 1080p
 fi
-
-# without this, I get errors using lxsession-logout
-lxpolkit &
 
 # necessary if we want notifications from libnotify
 dunst &
@@ -53,6 +44,9 @@ done
 
 # screen locker
 exec xautolock -time 15 -locker ~/bin/lockscreen.sh &
+
+# set DPMS to turn the screen off after 20 minutes
+xset s 1200 1200
 
 # power management, which really just gives us battery status
 xfce4-power-manager &

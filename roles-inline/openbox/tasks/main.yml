@@ -65,13 +65,6 @@
     mode: '0660'
     force: no
 
-- name: copy xfce4-power-manager config file
-  copy:
-    src: files/xfce4-power-manager.xml
-    dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
-    mode: '0660'
-    force: no
-
 - name: copy volumeicon config file
   copy:
     src: files/volumeicon
@@ -158,7 +151,7 @@
     force: true
 
 - name: Copy the themes from oblogout-py3 to themes dir
-  shell: cp -var ~/git/github/oblogout-py3/data/themes ~/.themes
+  shell: cp -var ~/git/github/oblogout-py3/data/themes/* ~/.themes
   args:
     creates:
       - ~/.themes/foom

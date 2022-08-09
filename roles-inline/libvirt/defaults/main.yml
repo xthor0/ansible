@@ -1,18 +1,18 @@
 ---
-common_packages:
+common_packages_libvirt:
   - qemu-kvm
   - virt-manager
   - libguestfs-tools
   - bridge-utils
 
-debian_packages:
+debian_packages_libvirt:
   - cloud-image-utils
   - libvirt-daemon-system
   - libvirt-clients
   - virtinst
   - vagrant-libvirt
 
-RedHat_packages:
+RedHat_packages_libvirt:
   - cloud-utils
   - libvirt
   - virt-install
