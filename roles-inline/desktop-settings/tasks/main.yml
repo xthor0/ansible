@@ -40,10 +40,11 @@
     name: gnome-settings
   when: desktop_env == "pop"
 
-- name: Apply XFCE settings
-  include_role:
-    name: xfce-settings
-  when: "desktop_env == 'xubuntu' or desktop_env == 'xfce'"
+# making changes to XFCE via xfconf seems to cause problems. don't have time to fix it. commenting out.
+#- name: Apply XFCE settings
+#  include_role:
+#    name: xfce-settings
+#  when: "desktop_env == 'xubuntu' or desktop_env == 'xfce'"
 
 - name: Apply GNOME settings
   include_role:

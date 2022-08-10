@@ -1,3 +1,4 @@
+# left for reference... but... XFCE settings don't all work, unfortunately.
 - name: install required xfce packages - Ubuntu/Debian
   become: true
   apt:
