@@ -5,16 +5,23 @@
   become: true 
   when: ansible_os_family == "Debian"
 
-- name: add gpg yum keys for slack
-  rpm_key:
-    key: https://slack.com/gpg/slack_pubkey_2019.gpg
-    state: present
+- name: Fedora - add COPR for Slack
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    state: enabled
+    name: jdoss/slack-repo
+  become: true
+  when: ansible_os_family == "RedHat"
+
+- name: install Slack *REPO* RPM
+  yum:
+    name: slack-repo
   become: true
   when: ansible_os_family == "RedHat"
 
 - name: install Slack RPM
   yum:
-    name: https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-4.27.156-0.1.fc21.x86_64.rpm
+    name: slack
   become: true
   when: ansible_os_family == "RedHat"
 

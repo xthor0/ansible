@@ -23,6 +23,7 @@ common_packages:
   - transmission-gtk
   - calibre
   - solaar
+  - btop
 
 # make sure these vars are named specifically after {{ ansible_os_family }}
 Debian_packages:
@@ -38,3 +39,4 @@ RedHat_packages:
   - p7zip-plugins
   - putty
   - sqlite
+  - discord

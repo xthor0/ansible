@@ -16,12 +16,11 @@
     - { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
     - { role: git, tags: [ "git" ] }
-    - { role: conky, tags: [ "conky" ] }
     - { role: 1password, tags: [ "1password"] }
     - { role: vscode, tags: [ "vscode"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
-    - { role: tilix, tags: [ "tilix" ] } # keep this after desktop-settings for python3-psutil
+    - { role: terminator, tags: [ "terminator" ] 
     - { role: telegram, tags: [ "telegram"] }
     - { role: firefox, tags: [ "firefox"] }
     - { role: spotify, tags: [ "spotify"] }
