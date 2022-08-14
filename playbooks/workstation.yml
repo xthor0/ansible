@@ -20,7 +20,7 @@
     - { role: vscode, tags: [ "vscode"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
-    - { role: terminator, tags: [ "terminator" ] 
+    - { role: terminator, tags: [ "terminator" ] }
     - { role: telegram, tags: [ "telegram"] }
     - { role: firefox, tags: [ "firefox"] }
     - { role: spotify, tags: [ "spotify"] }
