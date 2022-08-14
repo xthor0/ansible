@@ -25,6 +25,12 @@
   become: true
   when: ansible_os_family == "RedHat"
 
+- name: create autostart directory
+  file:
+    path: ~/.config/autostart
+    mode: '0775'
+    state: directory
+
 - name: start Slack on login
   copy:
     src: files/slack.desktop

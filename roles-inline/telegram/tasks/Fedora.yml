@@ -18,6 +18,12 @@
     remote_src: True
   when: not telegram_exists.stat.exists
 
+- name: create autostart directory
+  file:
+    path: ~/.config/autostart
+    mode: '0775'
+    state: directory
+
 - name: start Telegram on login
   template:
     src: templates/telegram.desktop
