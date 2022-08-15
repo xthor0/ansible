@@ -1,4 +1,10 @@
 ---
+- name: Create ~/Downloads directory
+  file:
+    path: ~/Downloads
+    state: directory
+    mode: '0750'
+
 - name: Download UpNote AppImage
   get_url:
     url: "https://upnote-release.s3.us-west-2.amazonaws.com/UpNote.AppImage"
