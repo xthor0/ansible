@@ -31,4 +31,5 @@
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
     - { role: upnote, tags: [ "upnote"] }
     - { role: conky, tags: [ "conky"] }
+    - { role: slack, tags: [ "slack"] }
     - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?

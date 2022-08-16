@@ -5,13 +5,14 @@
   become: true 
   when: ansible_os_family == "Debian"
 
-- name: Fedora - add COPR for Slack
-  community.general.copr:
-    host: copr.fedorainfracloud.org
-    state: enabled
-    name: jdoss/slack-repo
-  become: true
-  when: ansible_os_family == "RedHat"
+# TODO: fix this! it does not work on Ubuntu 22.04 or Debian, it fails.
+#- name: Fedora - add COPR for Slack
+#  community.general.copr:
+#    host: copr.fedorainfracloud.org
+#    state: enabled
+#    name: jdoss/slack-repo
+#  become: true
+#  when: ansible_os_family == "RedHat"
 
 - name: install Slack *REPO* RPM
   yum:

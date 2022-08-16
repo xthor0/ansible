@@ -4,10 +4,49 @@
     path: /etc/apt/trusted.gpg.d/appimagelauncher-team-ubuntu-stable.gpg
   register: appimagelauncher_gpg
 
-- name: install appimagelauncher ppa
-  command: add-apt-repository -y ppa:appimagelauncher-team/stable
+# man, this is gonna be hacky...
+- name: appimagelauncher - temp dir
+  tempfile:
+    state: directory
+    suffix: appimagelauncher
+  register: appimagetemp
+  when: not appimagelauncher_gpg.stat.exists
+
+- name: download appimagelauncher signing key
+  get_url:
+    url: 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xacd802f535b6f55d365285574af9b16f75ef2fca'
+    #dest: /etc/apt/trusted.gpg.d/appimagelauncher-team-ubuntu-stable.gpg
+    dest: "{{ appimagetemp.path }}/appimagelauncher-key.gpg"
+  when: not appimagelauncher_gpg.stat.exists
+
+- name: import appimagelauncher public key to gpg keyring
+  command: "gpg --no-default-keyring --keyring {{ appimagetemp.path }}/temp-keyring.gpg --import {{ appimagetemp.path }}/appimagelauncher-key.gpg"
+  when: not appimagelauncher_gpg.stat.exists
+
+- name: export appimagelauncher public key from gpg keyring
+  command: "gpg --no-default-keyring --keyring {{ appimagetemp.path }}/temp-keyring.gpg --export --output {{ appimagetemp.path }}/appimagelauncher-team-ubuntu-stable.gpg"
+  when: not appimagelauncher_gpg.stat.exists
+
+- name: move appimagelauncher gpg key to /etc/apt/trusted.gpg.d
+  command: "mv {{ appimagetemp.path }}/appimagelauncher-team-ubuntu-stable.gpg /etc/apt/trusted.gpg.d"
   become: true
   when: not appimagelauncher_gpg.stat.exists
+
+- name: set /etc/apt/trusted.gpg.d/appimagelauncher-team-ubuntu-stable.gpg ownership and mode
+  file:
+    path: /etc/apt/trusted.gpg.d/appimagelauncher-team-ubuntu-stable.gpg
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  when: not appimagelauncher_gpg.stat.exists
+
+# unfortunately, this will require a manual update because ansible_distribution_release is not the same on Linux Mint or Pop_OS as it is under Ubuntu
+- name: install appimagelauncher ppa
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/appimagelauncher-team-ubuntu-stable.gpg] http://ppa.launchpad.net/appimagelauncher-team/stable/ubuntu jammy main"
+    state: present
+  become: true
 
 - name: install appimagelauncher package
   package:
