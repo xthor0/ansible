@@ -17,6 +17,7 @@
     name: "*"
     state: latest
   become: true
+  when: "ansible_distribution == 'Debian'"
 
 - name: install packages to manage media
   apt:
@@ -37,6 +38,7 @@
     - mkvtoolnix-gui
     - inotify-tools
   become: true
+  when: "ansible_distribution == 'Debian'"
 
 - name: make a dir for handbrake presets
   file:
@@ -66,4 +68,5 @@
     - { src: 'files/watch_encode_dir.sh', dest: '/usr/local/bin/watch_encode_dir.sh' }
     - { src: 'files/watch_for_disc.sh', dest: '/usr/local/bin/watch_for_disc.sh' }
     - { src: 'files/pushover_me.sh', dest: '/usr/local/bin/pushover_me.sh' }
+    - { src: 'files/benchmark.sh', dest: '/usr/local/bin/benchmark.sh' }
   become: true

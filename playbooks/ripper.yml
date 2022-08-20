@@ -11,6 +11,8 @@
 - name: Setup a machine to do Handbrake ripping
   hosts: localhost
   roles:
+    - { role: desktop-settings, tags: [ "desktop-settings"] }
+    - { role: os-packages, tags: [ "os-packages" ] } # will make handbrake easier
     - { role: terminator, tags: [ "terminator" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: vim, tags: [ "vim" ] }
