@@ -9,7 +9,7 @@
       - chrome-gnome-shell
   when: ansible_os_family == "Debian"
 
-- name: install required gnome packages - Fedora
+- name: install required Cinnamon packages - Fedora
   become: true
   package:
     name:
