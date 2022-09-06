@@ -7,36 +7,46 @@ common_packages:
   - ncdu
   - pwgen
   - htop
-  - axel
-  - mpv
   - f3
   - screen
   - iperf3
   - xorriso
   - jq
   - golang
-  - python3-boto
   - python3-pip
   - whois
   - sysstat
   - smartmontools
-  - transmission-gtk
-  - calibre
   - solaar
   - btop
 
-# make sure these vars are named specifically after {{ ansible_os_family }}
-Debian_packages:
+# make sure these vars are named specifically after {{ ansible_distribution }}
+Ubuntu_packages:
+  - transmission-gtk
+  - mpv
+  - axel
   - freerdp2-x11
   - network-manager-openvpn-gnome
   - p7zip-full
   - putty-tools
   - flatpak
+  - python3-boto
   - gnome-mpv
 
-RedHat_packages:
+Fedora_packages:
+  - transmission-gtk
+  - python3-boto
   - NetworkManager-openvpn-gnome
   - p7zip-plugins
   - putty
   - sqlite
   - discord
+  - calibre
+  - mpv
+
+Rocky_packages:
+  - python3-boto3
+  - NetworkManager-openvpn-gnome
+  - p7zip-plugins
+  - mpv
+  - rtorrent
