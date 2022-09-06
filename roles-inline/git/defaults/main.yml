@@ -12,3 +12,6 @@ git_repo_dict:
   salt-top:
     url: git@github.com:xthor0/salt-top.git
     basedir: personal
+  iso-remaster:
+    url: git@github.com:xthor0/iso-remaster.git
+    basedir: personal
