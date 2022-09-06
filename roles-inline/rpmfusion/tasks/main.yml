@@ -1,5 +1,5 @@
 ---
-- name: add yum GPG keys for rpmfusion
+- name: add yum GPG keys for rpmfusion (Fedora)
   rpm_key:
     key: "{{ item }}"
     state: present
@@ -7,6 +7,17 @@
     - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" # rpmfusion free
     - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020" # rpmfusion non-free
   become: true 
+  when: "'Fedora' in ansible_distribution"
+
+- name: add yum GPG keys for rpmfusion (Rocky)
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+  with_items:
+    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-el-9" # rpmfusion free
+    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-el-9" # rpmfusion non-free
+  become: true 
+  when: "'Rocky' in ansible_distribution"
 
 - name: install the rpmfusion repo packages (Fedora)
   dnf:
