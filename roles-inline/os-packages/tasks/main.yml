@@ -1,7 +1,7 @@
 ---
 - name: Set fact - OS-specific packages
   set_fact:
-    os_packages: "{{ lookup('vars', ansible_distribution + '_packages') }}"
+    os_packages: "{{ lookup('vars', ansible_os_family + '_packages') }}"
 
 - name: Install RPMFusion (RedHat-based distros)
   include_role:

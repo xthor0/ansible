@@ -20,8 +20,8 @@ common_packages:
   - solaar
   - btop
 
-# make sure these vars are named specifically after {{ ansible_distribution }}
-Ubuntu_packages:
+# make sure these vars are named specifically after {{ ansible_os_family }}
+Debian_packages:
   - transmission-gtk
   - mpv
   - axel
@@ -33,7 +33,8 @@ Ubuntu_packages:
   - python3-boto
   - gnome-mpv
 
-Fedora_packages:
+# this is really Fedora. I've tried CentOS/Rocky as a workstation. Missing too many packages.
+RedHat_packages:
   - transmission-gtk
   - python3-boto
   - NetworkManager-openvpn-gnome
@@ -43,10 +44,3 @@ Fedora_packages:
   - discord
   - calibre
   - mpv
-
-Rocky_packages:
-  - python3-boto3
-  - NetworkManager-openvpn-gnome
-  - p7zip-plugins
-  - mpv
-  - rtorrent
