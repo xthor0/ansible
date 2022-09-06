@@ -5,7 +5,7 @@
     name:
       - conky
       - redhat-lsb-core # for lsb_release command
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 - name: install Conky - Ubuntu
   become: true

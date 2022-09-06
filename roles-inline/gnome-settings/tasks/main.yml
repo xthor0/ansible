@@ -1,5 +1,5 @@
 ---
-- name: install required gnome packages - Ubuntu
+- name: install required gnome packages - Debian Family
   become: true
   apt:
     name:
@@ -13,7 +13,7 @@
       - breeze-icon-theme
   when: ansible_os_family == "Debian"
 
-- name: install required gnome packages - Fedora
+- name: install required gnome packages - RedHat Family
   become: true
   package:
     name:
@@ -27,7 +27,7 @@
       - numix-icon-theme
       - breeze-icon-theme
       - gnome-extensions-app
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 # looks like horizontal workspaces is back in F34, so...
 - name: install required gnome packages - Fedora 33 only

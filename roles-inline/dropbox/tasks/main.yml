@@ -1,10 +1,16 @@
 ---
-- name: install dropbox-1 package from rpmfusion
+- name: install nautilus-dropbox (Fedora)
   yum:
     name: nautilus-dropbox
     state: present
   become: true 
-  when: "'RedHat' in ansible_os_family"
+  when: ansible_distribution == "Fedora"
+
+- name: Install dropbox (Rocky Linux)
+  yum:
+    name: https://linux.dropbox.com/packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm
+  become: true
+  when: ansible_distribution == "Rocky"
 
 - name: install deb for dropbox
   apt:
@@ -12,9 +18,8 @@
   become: true
   when: "'Debian' in ansible_os_family"
 
-- name: install python3-gpg on debian-based systems for dropbox
+- name: install python3-gpg on for dropbox
   apt:
     name: python3-gpg
     state: present
   become: true
-  when: "'Debian' in ansible_os_family"

@@ -5,26 +5,36 @@
   become: true 
   when: ansible_os_family == "Debian"
 
-# TODO: fix this! it does not work on Ubuntu 22.04 or Debian, it fails.
-#- name: Fedora - add COPR for Slack
-#  community.general.copr:
-#    host: copr.fedorainfracloud.org
-#    state: enabled
-#    name: jdoss/slack-repo
-#  become: true
-#  when: ansible_os_family == "RedHat"
-
-- name: install Slack *REPO* RPM
-  yum:
-    name: slack-repo
+- name: Add Slack packagecloud repo for Fedora
+  yum_repository:
+    name: slacktechnologies_slack
+    description: Slack Technologies Packagecloud Repo
+    baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
+    gpgcheck: yes
+    gpgkey: https://packagecloud.io/slacktechnologies/slack/gpgkey
+    enabled: yes
   become: true
-  when: ansible_os_family == "RedHat"
+  when: "'Fedora' in ansible_distribution"
 
-- name: install Slack RPM
+- name: add yum GPG key for Slack (Fedora)
+  rpm_key:
+    key: "https://packagecloud.io/slacktechnologies/slack/gpgkey"
+    state: present
+  become: true 
+  when: "'Fedora' in ansible_distribution"
+
+- name: install Slack from Packagecloud (fedora)
   yum:
     name: slack
   become: true
-  when: ansible_os_family == "RedHat"
+  when: "'Fedora' in ansible_distribution"
+
+# fix this: will install on both Fedora *AND* RedHat/Rocky/etc
+- name: install Slack RPM (Rocky Linux)
+  yum:
+    name: https://downloads.slack-edge.com/releases/linux/4.28.171/prod/x64/slack-4.28.171-0.1.el8.x86_64.rpm
+  become: true
+  when: ansible_distribution == "Rocky"
 
 - name: create autostart directory
   file:

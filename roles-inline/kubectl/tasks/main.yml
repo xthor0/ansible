@@ -8,14 +8,14 @@
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
     enabled: yes
   become: true
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 - name: add yum GPG key for kubectl
   rpm_key:
     key: "https://packages.cloud.google.com/yum/doc/yum-key.gpg"
     state: present
   become: true 
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 - name: add apt key for kubectl repo
   get_url:
