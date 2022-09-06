@@ -8,7 +8,7 @@
     - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020" # rpmfusion non-free
   become: true 
 
-- name: install the rpmfusion repo packages
+- name: install the rpmfusion repo packages (Fedora)
   dnf:
     name: "{{ item }}"
     state: present
@@ -16,3 +16,21 @@
     - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
     - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
   become: true
+  when: "'Fedora' in ansible_distribution"
+
+- name: install EPEL (Rocky)
+  dnf:
+    name: epel-release
+    state: present
+  become: true
+  when: "'Rocky' in ansible_distribution"
+
+- name: install the rpmfusion repo packages (Rocky)
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+    - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+  become: true
+  when: "'Rocky' in ansible_distribution"
