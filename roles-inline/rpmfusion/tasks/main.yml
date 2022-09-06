@@ -36,12 +36,19 @@
   become: true
   when: "'Rocky' in ansible_distribution"
 
+- name: check if CRB already enabled (Rocky)
+  command:
+    cmd: grep -A5 \\[crb\\] /etc/yum.repos.d/rocky.repo | grep -q enabled=1
+  register: crb_enabled
+  changed_when: false
+  ignore_errors: true
+  when: "'Rocky' in ansible_distribution"
+
 - name: Enable CRB repo (Rocky)
   command:
     cmd: dnf config-manager --enable crb
-    unless: grep -A5 \\[crb\\] /etc/yum.repos.d/rocky.repo | grep -q enabled=1
   become: true
-  when: "'Rocky' in ansible_distribution"
+  when: "'Rocky' in ansible_distribution and crb_enabled.false"
 
 - name: install the rpmfusion repo packages (Rocky)
   dnf:
