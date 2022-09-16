@@ -19,7 +19,7 @@
   when: "'Debian' in ansible_os_family"
 
 - name: install python3-gpg on for dropbox
-  apt:
+  package:
     name: python3-gpg
     state: present
   become: true
