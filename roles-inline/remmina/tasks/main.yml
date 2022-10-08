@@ -1,0 +1,11 @@
+---
+# this probably needs adjustment for Fedora/RHEL derivatives
+- name: install remmina and plugins
+  package:
+    name:
+      - remmina-plugin-rdp
+      - remmina-plugin-vnc
+      - remmina-plugin-x2go
+      - remmina
+    state: present
+  become: true

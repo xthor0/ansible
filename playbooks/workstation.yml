@@ -34,4 +34,5 @@
     - { role: slack, tags: [ "slack"] }
     - { role: minikube, tags: [ "minikube" ] }
     - { role: oscar, tags: [ "oscar" ] }
+    - { role: remmina, tags: [ "remmina" ] }
     - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?
