@@ -5,6 +5,9 @@
   become: true 
   when: ansible_os_family == "Debian"
 
+# the slack client is no longer supported in Fedora as of March 2022
+# the packagecloud workaround no longer installs, instead throwing an error about the GPG key
+# either I have to run Ubuntu, or I have to use Slack in a web browser :manshrug:
 - name: Add Slack packagecloud repo for Fedora
   yum_repository:
     name: slacktechnologies_slack
