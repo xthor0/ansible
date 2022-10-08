@@ -2,4 +2,4 @@
   apt:
     deb: "https://www.apneaboard.com/OSCAR/oscar_1.4.0-Ubuntu22_amd64.deb"
   become: true 
-  when: "ansible_os_family == 'Debian' ansible_distribution_major_version == '22.04'"
+  when: "ansible_os_family == 'Debian' and ansible_distribution_major_version == '22.04'"
