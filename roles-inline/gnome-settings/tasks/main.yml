@@ -7,8 +7,6 @@
       - dconf-cli
       - gnome-tweaks
       - gnome-shell-extensions
-      - arc-theme
-      - numix-icon-theme
       - chrome-gnome-shell
       - breeze-icon-theme
   when: ansible_os_family == "Debian"
@@ -23,8 +21,6 @@
       - gnome-shell-extension-launch-new-instance
       - gnome-shell-extension-common
       - chrome-gnome-shell
-      - arc-theme
-      - numix-icon-theme
       - breeze-icon-theme
       - gnome-extensions-app
   when: ansible_os_family == "RedHat"
@@ -87,6 +83,7 @@
     value: "['ubuntu-dock@ubuntu.com']"
   when: "ansible_distribution == 'Ubuntu'"
 
+# leaving this as an EXAMPLE if I have to set this in the future
 #- name: set user theme to Arc-Dark
 #  dconf:
 #    key: "/org/gnome/shell/extensions/user-theme/name"
