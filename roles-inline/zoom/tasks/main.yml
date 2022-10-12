@@ -13,7 +13,7 @@
   command:
     cmd: update-crypto-policies --set DEFAULT:SHA1
   become: true
-  when: ('Rocky' in ansible_distribution) and (ansible_distribution_major_version >= 9)
+  when: ('Rocky' in ansible_distribution) and (ansible_distribution_major_version|int >= 9)
 
 - name: Install Zoom RPM GPG key
   rpm_key:
