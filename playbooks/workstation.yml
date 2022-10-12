@@ -7,6 +7,10 @@
   tasks:
     - ping:
 
+- hosts: localhost
+  collections:
+    - community.general
+
 - name: Setup personal Linux workstation
   hosts: localhost
   roles:
