@@ -5,6 +5,16 @@
   become: true 
   when: ansible_os_family == "Debian"
 
+# note: this will fail on Rocky Linux. Here's the fix: https://forums.rockylinux.org/t/cannot-import-zooms-gpg-key/6598/9
+# recommended fix: update-crypto-policies --set LEGACY *OR* update-crypto-policies --set DEFAULT:SHA1
+# I'm not sure what the implications are, but I'm going to have to put a cmd.run here (probably for the 2nd command) when ansible_distribution == Rocky and ansible_distribution_major_version <= 9
+
+- name: run update-crypto-policies to allow SHA1 for Rocky 9 and above
+  command:
+    cmd: update-crypto-policies --set DEFAULT:SHA1
+  become: true
+  when: ('Rocky' in ansible_distribution) and (ansible_distribution_major_version >= 9)
+
 - name: Install Zoom RPM GPG key
   rpm_key:
     key: https://zoom.us/linux/download/pubkey
