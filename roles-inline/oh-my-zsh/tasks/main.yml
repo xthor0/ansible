@@ -5,14 +5,14 @@
   when: ansible_os_family == "Debian"
   become: true
 
-- name: Installing Zsh and git - Fedora
+- name: Installing Zsh and git - RedHat Family
   dnf:
     name:
       - zsh
       - git
       - util-linux-user
   register: installation
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
   become: true
 
 - name: Check if .zshrc exists

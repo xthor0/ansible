@@ -1,8 +1,12 @@
 ---
 - name: Include Fedora tasks
   include_tasks: Fedora.yml
-  when: "'Fedora' in ansible_distribution"
+  when: "'Fedora' in ansible_distribution or 'Rocky' in ansible_distribution"
 
 - name: Include Ubuntu tasks
   include_tasks: Ubuntu.yml
-  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution"
+  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution"
+
+- name: Include Debian tasks
+  include_tasks: Debian.yml
+  when: "'Debian' in ansible_distribution"

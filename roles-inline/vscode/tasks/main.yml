@@ -8,21 +8,21 @@
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     enabled: yes
   become: true
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 - name: add yum GPG key for vscode
   rpm_key:
     key: "https://packages.microsoft.com/keys/microsoft.asc"
     state: present
   become: true 
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 - name: install vscode package
   package:
     name: code
     state: present
   become: true
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
 - name: install deb package for vscode from https
   apt:

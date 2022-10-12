@@ -1,8 +1,30 @@
 ---
-- name: Include Fedora tasks
-  include_tasks: Fedora.yml
-  when: "'Fedora' in ansible_distribution"
+- name: Check if Telegram binary is already installed?
+  stat:
+    path: ~/.local/Telegram/Telegram
+  register: telegram_exists
 
-- name: Include Ubuntu tasks
-  include_tasks: Ubuntu.yml
-  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution"
+- name: Create Telegram directory in ~/.local
+  file:
+    path: ~/.local/Telegram
+    state: directory
+    mode: '0750'
+  when: not telegram_exists.stat.exists
+
+- name: Download and install Telegram
+  unarchive:
+    src: https://telegram.org/dl/desktop/linux
+    dest: ~/.local
+    remote_src: True
+  when: not telegram_exists.stat.exists
+
+- name: create autostart directory
+  file:
+    path: ~/.config/autostart
+    mode: '0775'
+    state: directory
+
+- name: start Telegram on login
+  template:
+    src: templates/telegram.desktop
+    dest: ~/.config/autostart/telegram.desktop
