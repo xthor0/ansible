@@ -29,7 +29,6 @@
     - { role: telegram, tags: [ "telegram"] }
     - { role: firefox, tags: [ "firefox"] }
     - { role: spotify, tags: [ "spotify"] }
-    - { role: dropbox, tags: [ "dropbox"] }
     - { role: podman, tags: [ "podman"] }
     - { role: kubectl, tags: [ "kubectl"] }
     - { role: awscliv2, tags: [ "awscliv2"] }

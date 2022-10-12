@@ -6,6 +6,8 @@
   become: true 
   when: ansible_distribution == "Fedora"
 
+# THIS DOES NOT WORK. https://stackoverflow.com/questions/60667256/cant-install-nautilus-dropbox-on-centos-8
+# more impetus to get off Dropbox, honestly.
 - name: Install dropbox (Rocky Linux)
   yum:
     name: https://linux.dropbox.com/packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm
