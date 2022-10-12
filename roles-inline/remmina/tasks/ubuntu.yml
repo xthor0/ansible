@@ -1,0 +1,10 @@
+---
+- name: install remmina and plugins (Ubuntu family)
+  package:
+    name:
+      - remmina-plugin-rdp
+      - remmina-plugin-vnc
+      - remmina-plugin-x2go
+      - remmina
+    state: present
+  become: true

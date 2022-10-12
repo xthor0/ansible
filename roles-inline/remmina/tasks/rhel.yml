@@ -1,0 +1,10 @@
+---
+- name: install remmina and plugins (RHEL family)
+  package:
+    name:
+      - remmina-plugins-rdp
+      - remmina-plugins-vnc
+      - remmina-plugins-secret
+      - remmina
+    state: present
+  become: true
