@@ -1,0 +1,7 @@
+---
+# needs major updating if it's gonna work with Ubuntu
+- name: install helm package
+  package:
+    name: helm
+    state: present
+  become: true

@@ -25,12 +25,13 @@
     - { role: vscode, tags: [ "vscode"] }
     - { role: zoom, tags: [ "zoom"] }
     - { role: desktop-settings, tags: [ "desktop-settings"] }
-    - { role: terminator, tags: [ "terminator" ] }
+    - { role: tilix, tags: [ "tilix" ] }
     - { role: telegram, tags: [ "telegram"] }
     - { role: firefox, tags: [ "firefox"] }
     - { role: spotify, tags: [ "spotify"] }
     - { role: podman, tags: [ "podman"] }
     - { role: kubectl, tags: [ "kubectl"] }
+    - { role: helm, tags: [ "helm"] }
     - { role: awscliv2, tags: [ "awscliv2"] }
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
     - { role: upnote, tags: [ "upnote"] }
