@@ -17,7 +17,7 @@
 
 - name: Install Zoom RPM GPG key
   rpm_key:
-    key: https://zoom.us/linux/download/pubkey
+    key: https://zoom.us/linux/download/pubkey?version=5-12-6
     state: present
   become: true
   when: ansible_os_family == "RedHat"
