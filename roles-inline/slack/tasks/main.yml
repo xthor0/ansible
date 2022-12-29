@@ -7,16 +7,20 @@
   become: true 
   when: ansible_os_family == "Debian"
 
-- name: add yum RPM GPG key for Slack
-  rpm_key:
-    key: "https://slack.com/gpg/slack_pubkey_20220708.gpg"
-    state: present
-  become: true 
+- name: Add slack dnf repository
+  yum_repository:
+    name: Slack
+    description: Slack DNF repo
+    baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
+    gpgcheck: yes
+    gpgkey: https://slack.com/gpg/slack_pubkey_20220708.gpg
+    enabled: yes
+  become: true
   when: ansible_os_family == "RedHat"
 
-- name: install Slack RPM
+- name: install Slack from DNF repo
   yum:
-    name: https://downloads.slack-edge.com/releases/linux/4.28.184/prod/x64/slack-4.28.184-0.1.el8.x86_64.rpm
+    name: slack
   become: true
   when: ansible_os_family == "RedHat"
 
