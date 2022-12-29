@@ -20,7 +20,7 @@
       - gnome-shell-extension-user-theme
       - gnome-shell-extension-launch-new-instance
       - gnome-shell-extension-common
-      - chrome-gnome-shell
+      - gnome-browser-connector
       - breeze-icon-theme
       - gnome-extensions-app
   when: ansible_os_family == "RedHat"

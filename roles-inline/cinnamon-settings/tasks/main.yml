@@ -14,7 +14,7 @@
   package:
     name:
       - python3-psutil
-      - chrome-gnome-shell
+      - gnome-browser-connector
       - arc-theme
       - numix-icon-theme
   when: "'Fedora' in ansible_distribution"

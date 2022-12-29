@@ -11,8 +11,9 @@ As I've been learning Ansible, I decided to take a stab at setting up some tasks
 ## Setup
 ### GNOME workstation
 
-- Install the base OS (I tested standard installations of both Ubuntu 20.04 and Fedora 33)
+- Install the base OS (I tested standard installations of both Ubuntu 22.04 and Fedora 37)
 - install `ansible` and `git`
+- - newer distros will require the `ansible-core` package instead of the `ansible` package (Fedora 36 and above, I think)
 - Copy over my SSH keys
 - Add the SSH key to the keyring (or the Git repos won't clone): `eval $(ssh-agent) && ssh-add`
 - Run the playbook: `ansible-pull -U https://github.com/xthor0/ansible.git -K playbooks/workstation.yml`
