@@ -12,13 +12,13 @@
     key: "https://slack.com/gpg/slack_pubkey_20220708.gpg"
     state: present
   become: true 
-  when: ansible_distribution == "Rocky"
+  when: ansible_os_family == "RedHat"
 
 - name: install Slack RPM
   yum:
     name: https://downloads.slack-edge.com/releases/linux/4.28.184/prod/x64/slack-4.28.184-0.1.el8.x86_64.rpm
   become: true
-  when: ansible_distribution == "Rocky"
+  when: ansible_os_family == "RedHat"
 
 - name: create autostart directory
   file:
