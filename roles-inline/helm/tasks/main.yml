@@ -1,5 +1,28 @@
 ---
-# needs major updating if it's gonna work with Ubuntu
+- name: add yum GPG key for kubectl
+  rpm_key:
+    key: "https://packages.cloud.google.com/yum/doc/yum-key.gpg"
+    state: present
+  become: true 
+  when: ansible_os_family == "RedHat"
+
+- name: add apt key for helm repo
+  get_url:
+    url: https://baltocdn.com/helm/signing.asc
+    dest: /usr/share/keyrings/helm.asc
+    mode: 644
+    owner: root
+    group: root
+  become: true 
+  when: ansible_os_family == "Debian"
+
+- name: add apt repositoriy for helm
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/helm.asc] https://baltocdn.com/helm/stable/debian/ all main"
+    state: present
+  become: true 
+  when: ansible_os_family == "Debian"
+
 - name: install helm package
   package:
     name: helm
