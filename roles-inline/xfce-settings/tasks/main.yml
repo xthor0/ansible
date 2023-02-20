@@ -13,7 +13,7 @@
   become: true
   package:
     name:
-      - chrome-gnome-shell
+      - gnome-browser-connector
       - arc-theme
       - numix-icon-theme
       - ssh-askpass

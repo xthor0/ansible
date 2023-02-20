@@ -1,43 +1,28 @@
 ---
+# this actually doesn't work in Debian Bullseye, at least not last time I tried, but I don't feel like fixing it (it'd be a lot of when logic)
+# and Bullseye is running a fairly old GNOME stack anyhow, so... what's the point?
 - name: install Slack DEB
   apt:
-    deb: "https://downloads.slack-edge.com/releases/linux/4.27.156/prod/x64/slack-desktop-4.27.156-amd64.deb"
+    deb: https://downloads.slack-edge.com/releases/linux/4.28.184/prod/x64/slack-desktop-4.28.184-amd64.deb
   become: true 
   when: ansible_os_family == "Debian"
 
-# the slack client is no longer supported in Fedora as of March 2022
-# the packagecloud workaround no longer installs, instead throwing an error about the GPG key
-# either I have to run Ubuntu, or I have to use Slack in a web browser :manshrug:
-- name: Add Slack packagecloud repo for Fedora
+- name: Add slack dnf repository
   yum_repository:
-    name: slacktechnologies_slack
-    description: Slack Technologies Packagecloud Repo
+    name: Slack
+    description: Slack DNF repo
     baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
     gpgcheck: yes
-    gpgkey: https://packagecloud.io/slacktechnologies/slack/gpgkey
+    gpgkey: https://slack.com/gpg/slack_pubkey_20220708.gpg
     enabled: yes
   become: true
-  when: "'Fedora' in ansible_distribution"
+  when: ansible_os_family == "RedHat"
 
-- name: add yum GPG key for Slack (Fedora)
-  rpm_key:
-    key: "https://packagecloud.io/slacktechnologies/slack/gpgkey"
-    state: present
-  become: true 
-  when: "'Fedora' in ansible_distribution"
-
-- name: install Slack from Packagecloud (fedora)
+- name: install Slack from DNF repo
   yum:
     name: slack
   become: true
-  when: "'Fedora' in ansible_distribution"
-
-# fix this: will install on both Fedora *AND* RedHat/Rocky/etc
-- name: install Slack RPM (Rocky Linux)
-  yum:
-    name: https://downloads.slack-edge.com/releases/linux/4.28.171/prod/x64/slack-4.28.171-0.1.el8.x86_64.rpm
-  become: true
-  when: ansible_distribution == "Rocky"
+  when: ansible_os_family == "RedHat"
 
 - name: create autostart directory
   file:

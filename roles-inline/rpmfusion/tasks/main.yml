@@ -48,7 +48,7 @@
   command:
     cmd: dnf config-manager --enable crb
   become: true
-  when: ('Rocky' in ansible_distribution) and (crb_enabled.rc != 0)
+  when: ('Rocky' in ansible_distribution) and (crb_enabled.rc == 1)
 
 - name: install the rpmfusion repo packages (Rocky)
   dnf:

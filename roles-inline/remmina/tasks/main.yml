@@ -1,11 +1,8 @@
 ---
-# this probably needs adjustment for Fedora/RHEL derivatives
-- name: install remmina and plugins
-  package:
-    name:
-      - remmina-plugin-rdp
-      - remmina-plugin-vnc
-      - remmina-plugin-x2go
-      - remmina
-    state: present
-  become: true
+- name: Include RHEL tasks
+  include_tasks: rhel.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Include Ubuntu tasks
+  include_tasks: ubuntu.yml
+  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution"

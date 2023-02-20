@@ -19,6 +19,7 @@ common_packages:
   - smartmontools
   - solaar
   - btop
+  - rpi-imager
 
 # make sure these vars are named specifically after {{ ansible_os_family }}
 Debian_packages:
@@ -33,14 +34,10 @@ Debian_packages:
   - python3-boto
   - gnome-mpv
 
-# this is really Fedora. I've tried CentOS/Rocky as a workstation. Missing too many packages.
+# This will match Fedora, too. Unfortunately Rocky is missing a few: transmission-gtk python3-boto putty discord calibre
+# may need to tweak something if I'm intent on having it work with both Rocky *AND* Fedora *AND* install all the packages I had before.
 RedHat_packages:
-  - transmission-gtk
-  - python3-boto
   - NetworkManager-openvpn-gnome
   - p7zip-plugins
-  - putty
   - sqlite
-  - discord
-  - calibre
   - mpv
