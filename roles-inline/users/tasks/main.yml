@@ -1,0 +1,14 @@
+---
+- name: Install sudo
+  apt:
+    name: sudo
+    state: present
+  become: true
+
+- name: Add xthor user
+  ansible.builtin.user:
+    name: xthor
+    shell: /bin/bash
+    groups: sudo
+    append: yes
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: Set up UPS monitoring system
+  hosts: localhost
+  roles:
+    # - { role: desktop-settings, tags: [ "desktop-settings"] }
+    - { role: users, tags: [ "users"] }
