@@ -29,7 +29,7 @@
 
 - name: Clean up /etc/sudoers.d
   file:
-    path: "{{ item.path }}"
+    path: "{{ item }}"
     state: absent
   with_items:
     - /etc/sudoers.d/90-cloud-init-users
