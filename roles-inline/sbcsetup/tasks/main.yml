@@ -17,7 +17,6 @@
   ansible.builtin.user:
     name: xthor
     shell: /bin/bash
-    append: yes
   become: true
 
 - name: sudo without password for xthor
