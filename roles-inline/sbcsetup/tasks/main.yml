@@ -33,6 +33,7 @@
     state: absent
   with_items:
     - /etc/sudoers.d/90-cloud-init-users
+    - /etc/sudoers.d/010_pi-nopasswd
 
 - name: Add xthor user
   ansible.builtin.user:
