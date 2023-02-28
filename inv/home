@@ -1,0 +1,7 @@
+all:
+  hosts:
+  children:
+    upsmon:
+      hosts:
+        upsmon01.xthorsworld.com:
+        upsmon02.xthorsworld.com:

@@ -1,0 +1,34 @@
+---
+- name: install apcupsd
+  package:
+    name: apcupsd
+    state: present
+  become: true
+
+- name: install curl
+  package:
+    name: curl
+    state: present
+  become: true
+
+- name: copy apcupsd files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: '0750'
+    owner: root
+    group: root
+  with_items:
+    - { src: files/apccontrol, dest: /etc/apcupsd/apccontrol }
+    - { src: files/apcupsd.conf, dest: /etc/apcupsd/apcupsd.conf }
+    - { src: files/onbattery, dest: /etc/apcupsd/onbattery }
+    - { src: files/offbattery, dest: /etc/apcupsd/offbattery }
+  notify: restart apcupsd
+  become: true
+
+- name: start apcupsd
+  service:
+    name: apcupsd
+    state: started
+    enabled: yes
+  become: true

@@ -1,0 +1,18 @@
+---
+- name: copy .bashrc for xthor (debian)
+  copy:
+    src: files/bashrc.debian
+    dest: /home/xthor/.bashrc
+    mode: '0660'
+    owner: xthor
+    group: xthor
+  when: ansible_os_family == "Debian"
+
+- name: copy .bashrc for xthor (rhel)
+  copy:
+    src: files/bashrc.rhel
+    dest: /home/xthor/.bashrc
+    mode: '0660'
+    owner: xthor
+    group: xthor
+  when: ansible_os_family == "RedHat"

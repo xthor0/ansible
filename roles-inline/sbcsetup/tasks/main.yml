@@ -27,13 +27,15 @@
     remove: yes
   become: true
 
-- name: Clean up /etc/sudoers.d
+- name: Remove files I don't want
   file:
     path: "{{ item }}"
     state: absent
   with_items:
     - /etc/sudoers.d/90-cloud-init-users
     - /etc/sudoers.d/010_pi-nopasswd
+    - /etc/update-motd.d/60-unminimize
+  become: true
 
 - name: Add xthor user
   ansible.builtin.user:
