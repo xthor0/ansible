@@ -12,7 +12,7 @@
   when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
 
 - name: gpg dearmor spotify public key
-  cmd: cat ~/tmp/spotify_pubkey.gpg | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+  shell: cat ~/tmp/spotify_pubkey.gpg | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
   when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
   become: True
 
@@ -25,15 +25,15 @@
 
 - name: Enable Negativo17.org DNF repo (Fedora)
   command:
-      cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
-      creates: /etc/yum.repos.d/fedora-spotify.repo
+    cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
+    creates: /etc/yum.repos.d/fedora-spotify.repo
   become: true
   when: "'Fedora' in ansible_distribution"
 
 - name: Enable Negativo17.org DNF repo (Rocky Linux)
   command:
-      cmd: dnf config-manager --add-repo=https://negativo17.org/repos/epel-spotify.repo
-      creates: /etc/yum.repos.d/epel-spotify.repo
+    cmd: dnf config-manager --add-repo=https://negativo17.org/repos/epel-spotify.repo
+    creates: /etc/yum.repos.d/epel-spotify.repo
   become: true
   when: "'Rocky' in ansible_distribution"
 

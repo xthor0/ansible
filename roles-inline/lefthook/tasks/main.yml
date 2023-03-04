@@ -1,14 +1,28 @@
 ---
+- name: retrieve lefthook setup script (Fedora)
+  get_url:
+    url: https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.rpm.sh
+    dest: ~/tmp/lefthook-setup.sh
+    mode: '0750'
+  when: "ansible_distribution == 'Fedora'"
+
 - name: Add lefthook repo to Fedora
   command:
-    cmd: curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.rpm.sh' | bash
+    cmd: ~/tmp/lefthook-setup.sh
     creates: /etc/yum.repos.d/evilmartians-lefthook.repo
   become: true
   when: "ansible_distribution == 'Fedora'"
 
+- name: retrieve lefthook setup script (Debian and derivatives)
+  get_url:
+    url: https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh
+    dest: ~/tmp/lefthook-setup.sh
+    mode: '0750'
+  when: ansible_os_family == "Debian"
+
 - name: Add lefthook repo to Ubuntu and friends
   command:
-    cmd: curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' | bash
+    cmd: ~/tmp/lefthook-setup.sh
     creates: /etc/apt/sources.list.d/evilmartians-lefthook.list
   become: true
   when: ansible_os_family == "Debian"
