@@ -36,7 +36,7 @@
     - { role: awscliv2, tags: [ "awscliv2"] }
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
     - { role: upnote, tags: [ "upnote"] }
-    - { role: conky, tags: [ "conky"] }
+    # - { role: conky, tags: [ "conky"] }
     - { role: slack, tags: [ "slack"] }
     - { role: minikube, tags: [ "minikube" ] }
     - { role: oscar, tags: [ "oscar" ] }
