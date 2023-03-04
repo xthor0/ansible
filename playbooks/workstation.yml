@@ -33,6 +33,7 @@
     - { role: kubectl, tags: [ "kubectl"] }
     - { role: helm, tags: [ "helm"] }
     - { role: lefthook, tags: [ "lefthook"] }
+    - { role: k9s, tags: [ "k9s"] }
     - { role: awscliv2, tags: [ "awscliv2"] }
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
     - { role: upnote, tags: [ "upnote"] }
