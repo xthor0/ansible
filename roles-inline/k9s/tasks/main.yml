@@ -9,6 +9,12 @@
   set_fact:
     k9s_release: "{{ github_api_k9s.json.tag_name }}"
 
+- name: create ~/.local/bin directory
+  file:
+    path: ~/.local/bin
+    mode: 0770
+    recurse: yes
+
 - name: Download and install k9s
   unarchive:
     src: https://github.com/derailed/k9s/releases/download/{{ k9s_release }}/k9s_Linux_amd64.tar.gz
