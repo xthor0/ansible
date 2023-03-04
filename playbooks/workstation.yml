@@ -32,6 +32,7 @@
     - { role: podman, tags: [ "podman"] }
     - { role: kubectl, tags: [ "kubectl"] }
     - { role: helm, tags: [ "helm"] }
+    - { role: lefthook, tags: [ "lefthook"] }
     - { role: awscliv2, tags: [ "awscliv2"] }
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
     - { role: upnote, tags: [ "upnote"] }
