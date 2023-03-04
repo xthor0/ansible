@@ -1,7 +1,7 @@
 ---
-- name: see if /etc/apt/trusted.gpg.d/spotify.gpg exists
+- name: see if /usr/share/keyrings/spotify.gpg exists
   stat:
-    path: /etc/apt/trusted.gpg.d/spotify.gpg
+    path: /usr/share/keyrings/spotify.gpg
   register: spotify_gpg
   when: ansible_os_family == "Debian"
 
@@ -13,13 +13,13 @@
   when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
 
 - name: gpg dearmor spotify public key
-  shell: cat /tmp/spotify_pubkey.gpg | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+  shell: cat /tmp/spotify_pubkey.gpg | gpg --dearmor --yes -o /usr/share/keyrings/spotify.gpg
   when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
   become: True
 
 - name: add apt repository for spotify
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/spotify.gpg] http://repository.spotify.com stable non-free"
+    repo: "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free"
     state: present
   become: true 
   when: ansible_os_family == "Debian"
