@@ -16,7 +16,7 @@
     recurse: yes
 
 - name: Download and install k9s
-  unarchive:
+  ansible.builtin.unarchive:
     src: https://github.com/derailed/k9s/releases/download/{{ k9s_release }}/k9s_Linux_amd64.tar.gz
     dest: ~/.local/bin
     remote_src: True
