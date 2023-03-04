@@ -6,7 +6,7 @@
   when: ansible_os_family == "Debian"
 
 - name: download spotify public key
-    get_url:
+  get_url:
     url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
     dest: ~/tmp/spotify_pubkey.gpg
   when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
