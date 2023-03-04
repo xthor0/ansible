@@ -1,15 +1,24 @@
 ---
-# Debian/Ubuntu
-- name: add apt keys for spotify
-  apt_key:
-    url: https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg
-    state: present
-  become: true
+- name: see if /etc/apt/trusted.gpg.d/spotify.gpg exists
+  stat:
+    path: /etc/apt/trusted.gpg.d/spotify.gpg
+  register: spotify_gpg
   when: ansible_os_family == "Debian"
+
+- name: download spotify public key
+    get_url:
+    url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
+    dest: ~/tmp/spotify_pubkey.gpg
+  when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
+
+- name: gpg dearmor spotify public key
+  cmd: cat ~/tmp/spotify_pubkey.gpg | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+  when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
+  become: True
 
 - name: add apt repository for spotify
   apt_repository:
-    repo: "deb http://repository.spotify.com stable non-free"
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/spotify.gpg] http://repository.spotify.com stable non-free"
     state: present
   become: true 
   when: ansible_os_family == "Debian"
