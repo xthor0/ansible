@@ -108,9 +108,9 @@
     key: "/org/gnome/desktop/session/idle-delay"
     value: "uint32 900"
 
-- name: sleep when inactive for 15 minutes
+- name: do not automatically suspend when inactive
   community.general.dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
     value: "'nothing'"
 
 # terminal settings
