@@ -235,7 +235,6 @@
   file:
     path: ~/Pictures/backgrounds
     mode: 0770
-    recurse: yes
 
 - name: copy backgrounds to Pictures folder
   copy:
