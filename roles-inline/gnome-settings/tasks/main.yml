@@ -231,10 +231,16 @@
 #  changed_when: false
 #  when: "ansible_distribution == 'Pop!_OS'"
 
+- name: create ~/Pictures/backgrounds directory
+  file:
+    path: ~/Pictures/backgrounds
+    mode: 0770
+    recurse: yes
+
 - name: copy backgrounds to Pictures folder
   copy:
     src: "{{ item }}"
-    dest: ~/Pictures
+    dest: ~/Pictures/backgrounds
     mode: '0640'
   with_fileglob:
     - "files/metallurgy1_single_*"
