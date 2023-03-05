@@ -233,6 +233,8 @@
 
 - name: copy backgrounds to Pictures folder
   copy:
-    src: files/metallurgy1_single_*
+    src: "{{ item }}"
     dest: ~/Pictures
     mode: '0640'
+  with_fileglob:
+    - "files/metallurgy1_single_*"
