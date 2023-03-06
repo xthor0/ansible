@@ -234,6 +234,7 @@
 - name: create ~/Pictures/backgrounds directory
   file:
     path: ~/Pictures/backgrounds
+    state: directory
     mode: 0770
 
 - name: copy backgrounds to Pictures folder
