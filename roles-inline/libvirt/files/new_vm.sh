@@ -81,9 +81,9 @@ case ${flavor} in
   alma8) image="${image_dir}/almalinux8.qcow2"; dlurl="https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2"; variant="centos8";;
   alma9) image="${image_dir}/almalinux9.qcow2"; dlurl="https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"; variant="centos8";;
   rocky8) image="${image_dir}/rocky8.qcow2"; dlurl="https://dl.rockylinux.org/pub/rocky/8/images/Rocky-8-GenericCloud.latest.x86_64.qcow2"; variant="centos8";;
-  rocky9) image="${image_dir}/rocky9.qcow2"; salted_image="https://dl.rockylinux.org/pub/rocky/9/images/Rocky-9-GenericCloud.latest.x86_64.qcow2"; variant="rocky9";;
-  buster) image="${image_dir}/buster.qcow2"; salted_image="${image_dir}/salted/buster.qcow2"; variant="debian10";;
-  bullseye) image="${image_dir}/bullseye.qcow2"; salted_image="${image_dir}/salted/bullseye.qcow2"; variant="debian10";;
+  rocky9) image="${image_dir}/rocky9.qcow2"; dlurl="https://dl.rockylinux.org/pub/rocky/9/images/Rocky-9-GenericCloud.latest.x86_64.qcow2"; variant="rocky9";;
+  buster) image="${image_dir}/buster.qcow2"; dlurl="https://cloud.debian.org/images/cloud/buster/latest/debian-10-generic-amd64.qcow2"; variant="debian10";;
+  bullseye) image="${image_dir}/bullseye.qcow2"; dlurl="https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-amd64.qcow2"; variant="debian10";;
   *) bad_taste;;
 esac
 
