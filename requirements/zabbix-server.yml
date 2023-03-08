@@ -1,0 +1,9 @@
+roles:
+- name: geerlingguy.mysql
+- name: geerlingguy.mysql
+- name: geerlingguy.apache
+- name: geerlingguy.php-versions
+- name: geerlingguy.php
+collections:
+- name: ansible.posix
+- name: community.mysql

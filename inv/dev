@@ -1,3 +1,8 @@
-all:
+zabbix-servers:
   hosts:
-    10.200.54.14:
+    zabbixsrv01:
+      ansible_host: 192.168.122.238
+
+all:
+  children:
+    zabbix-servers:

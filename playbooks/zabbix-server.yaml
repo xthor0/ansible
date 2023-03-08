@@ -1,0 +1,10 @@
+  - hosts: zabbix-servers
+    become: true
+
+    roles:
+      - geerlingguy.mysql
+      - geerlingguy.apache
+      - geerlingguy.php
+      - community.zabbix.zabbix_server
+      - community.zabbix.zabbix_web
+      - community.zabbix.zabbix_agent
