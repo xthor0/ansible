@@ -2,6 +2,10 @@
     become: true
 
     roles:
+      - role: geerlingguy.repo-epel
+        when: ansible_os_family == "RedHat"
+      #- role: geerlingguy.repo-remi
+      #  when: ansible_os_family == "RedHat"
       - geerlingguy.mysql
       - geerlingguy.apache
       - geerlingguy.php

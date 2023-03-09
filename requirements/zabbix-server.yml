@@ -4,6 +4,8 @@ roles:
 - name: geerlingguy.apache
 - name: geerlingguy.php-versions
 - name: geerlingguy.php
+- name: geerlingguy.repo-epel
+- name: geerlingguy.repo-remi
 collections:
 - name: ansible.posix
 - name: community.mysql
