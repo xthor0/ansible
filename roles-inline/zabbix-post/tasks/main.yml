@@ -1,0 +1,24 @@
+---
+- name: Set httpd_execmem flag on and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: httpd_execmem
+    state: true
+    persistent: true
+  when: ansible_os_family == "RedHat"
+
+- name: Replace contents of httpd welcome.conf
+  ansible.builtin.copy:
+    content: '# Emptied by Ansible - do not edit'
+    dest: /etc/httpd/conf.d/welcome.conf
+  notify: restart httpd
+  when: ansible_os_family == "RedHat"
+
+- name: Copy ssl.conf to /etc/httpd/conf.d/ssl.conf
+  ansible.builtin.copy:
+    src: files/ssl.conf
+    dest: /etc/httpd/conf.d/ssl.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart httpd
+  when: ansible_os_family == "RedHat"

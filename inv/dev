@@ -1,7 +1,6 @@
 zabbix-servers:
   hosts:
-    zabbix.xthorsworld.lab:
-    zabbix2.xthorsworld.lab:
+    zabbixt1.xthorsworld.lab:
 
 all:
   children:

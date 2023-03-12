@@ -1,0 +1,20 @@
+---
+# paths needs adjustment - will only work for RHEL family
+# apparently httpd + mod_ssl generates a cert for us. do we even need to do this?
+- name: Generate an OpenSSL private key
+  community.crypto.openssl_privatekey:
+    path: "/etc/pki/tls/private/{{ server_hostname }}_privkey.pem"
+    size: "{{ key_size }}"
+    type: "{{ key_type }}"
+    backup: yes
+  become: true
+
+- name: Generate an OpenSSL Certificate Signing Request with Subject information
+  community.crypto.openssl_csr:
+    path: "/etc/pki/tls//{{ server_hostname }}.csr"
+    privatekey_path: "./certificates/{{ server_hostname }}_privkey.pem"
+    country_name: "{{ country_name }}"
+    organization_name: "{{ organization_name }}"
+    email_address: "{{ email_address }}"
+    common_name: "{{ server_hostname }}"
+  become: true
