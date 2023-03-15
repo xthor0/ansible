@@ -2,6 +2,10 @@ zabbix-servers:
   hosts:
     zabbixt1.xthorsworld.lab:
 
+libvirt:
+  hosts:
+    firstone.xthorsworld.lab:
+
 all:
   children:
     zabbix-servers:

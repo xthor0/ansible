@@ -1,0 +1,17 @@
+upsmon:
+  hosts:
+    upsmon01.xthorsworld.com:
+    upsmon02.xthorsworld.com:
+
+libvirt:
+  hosts:
+    etterkop.xthorsworld.com:
+    kusikusi.xthorsworld.com:
+    alla.xthorsworld.com:
+    ragno.xthorsworld.com:
+    spinne.xthorsworld.com:
+
+all:
+  children:
+    libvirt:
+    upsmon:

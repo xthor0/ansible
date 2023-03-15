@@ -1,6 +1,6 @@
 ---
 - name: Install sudo
-  apt:
+  package:
     name: sudo
     state: present
   become: true
@@ -9,7 +9,6 @@
   ansible.builtin.user:
     name: xthor
     shell: /bin/bash
-    append: yes
   become: true
 
 - name: sudo without password for xthor
@@ -18,6 +17,7 @@
     dest: /etc/sudoers.d/xthor_nopasswd
     validate: 'visudo -cf %s'
     mode: 0440
+  become: true
 
 - name: Set SSH authorized key for xthor
   authorized_key:
@@ -29,4 +29,12 @@
   user:
     name: root
     update_password: always
-    password: "$6$NfMWZxKFxUAmFOgf$g2Hj0zrh0VtvZoqdUpn/3XNROlOX61u9LgecufthzUzgcHTwivjd1dtkXJyvEBohfpmXNpnrGCnqFGVtZLUEZ1" # fuckoff, just testing
+    password: "{{ root_password_hash }}"
+  become: true
+
+- name: Set xthor user password
+  user:
+    name: xthor
+    update_password: always
+    password: "{{ xthor_password_hash }}"
+  become: true
