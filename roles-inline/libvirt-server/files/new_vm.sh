@@ -269,26 +269,4 @@ sudo virt-install --virt-type kvm --name ${host_name} --ram ${memory} --vcpus ${
 # cleanup
 rm -rf ${tmpdir}
 
-# grab the MAC from the XML generated
-# I don't think we'll ever see more than one, not in this setup, but just in case...
-if [ $(sudo virsh domiflist ${host_name} | grep virbr0 | wc -l) -ne 1 ]; then
-  echo "Unexpected output from \`virsh domiflist\` -- exiting."
-  exit 255
-fi
-
-macaddr=$(sudo virsh domiflist ${host_name} | grep virbr0 | awk '{print $5 }')
-
-# wait for the DHCP lease to show up
-echo "waiting for DHCP lease..."
-while true; do
-  sudo virsh net-dhcp-leases default --mac ${macaddr} | grep -q ${macaddr}
-  if [ $? -eq 0 ]; then
-    echo -n "VM ${host_name} has IP address "
-    sudo virsh net-dhcp-leases default --mac ${macaddr} | grep ${macaddr} | awk '{ print $5 }'
-    break
-  else
-    sleep 5
-  fi
-done
-
 exit 0

@@ -57,3 +57,12 @@
     group: root
     mode: '0755'
   become: true
+
+- name: create directory for cloud images
+  file:
+    path: /srv/cloud-images
+    state: directory
+    mode: '0755'
+    owner: xthor
+    group: xthor
+  become: true
