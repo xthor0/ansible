@@ -3,6 +3,7 @@
 
     roles:
       - role: users
+      - role: bash
       - role: geerlingguy.repo-epel
         when: ansible_os_family == "RedHat"
       - geerlingguy.mysql

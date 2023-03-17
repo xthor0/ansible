@@ -4,13 +4,12 @@ zabbix_server_database_long: mysql
 zabbix_server_dbport: 3306
 zabbix_server_dbhost: localhost
 zabbix_server_dbhost_run_install: true
-zabbix_server_dbpassword: 8O4NsHUfG9zS7riuygZsYKS0W
+zabbix_server_dbpassword: "{{ lookup('community.general.onepassword', 'zabbix_dbpassword', field='password', vault='Ansible') }}"
 zabbix_server_privileged_host: '%'
 zabbix_server_mysql_login_host: localhost
 zabbix_server_mysql_login_user: root
-zabbix_server_mysql_login_password: root
+zabbix_server_mysql_login_password: "{{ lookup('community.general.onepassword', 'zabbix_root_dbpassword', field='password', vault='Ansible') }}"
 zabbix_server_mysql_login_port: 3306
-zabbix_api_server_url: zabbixt1.xthorsworld.lab
 zabbix_php_version: '8.0'
 zabbix_php_install: false
 php_packages:
@@ -20,8 +19,6 @@ php_enable_php_fpm: true
 php_fpm_state: started
 php_fpm_enabled_on_boot: true
 apache_remove_default_vhost: true
-zabbix_agent_server: 127.0.0.1
-zabbix_agent_serveractive: 127.0.0.1
 # zabbix_agent_install_agent_only: true
 zabbix_agent_dont_detect_ip: true
 zabbix_agent_become_on_localhost: false
@@ -32,7 +29,7 @@ zabbix_server_install_database_client: false
 zabbix_selinux: true
 selinux_allow_zabbix_can_network: true
 selinux_allow_zabbix_can_http: true
-# see if we can get zabbix to use ssl
-zabbix_apache_tls: true
-zabbix_apache_tls_crt: /etc/pki/tls/certs/localhost.crt
-zabbix_apache_tls_key: /etc/pki/tls/private/localhost.key
+mysql_root_username: root
+mysql_root_password: "{{ lookup('community.general.onepassword', 'zabbix_root_dbpassword', field='password', vault='Ansible') }}"
+mysql_enabled_on_startup: true
+zabbix_apache_redirect: true

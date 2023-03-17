@@ -1,0 +1,7 @@
+- hosts: zabbixchecker
+  become: true
+
+  roles:
+    - role: users
+    - role: bash
+    - role: community.zabbix.zabbix_agent

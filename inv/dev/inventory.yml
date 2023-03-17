@@ -6,6 +6,12 @@ libvirt:
   hosts:
     firstone.xthorsworld.lab:
 
+zabbixchecker:
+  hosts:
+    zabbixchecker.xthorsworld.lab:
+
 all:
   children:
     zabbix-servers:
+    libvirt:
+    snmp:
