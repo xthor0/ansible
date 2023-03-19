@@ -1,6 +1,7 @@
-zabbix-servers:
+zabbix_servers:
   hosts:
     zabbixt1.xthorsworld.lab:
+    zabbixsrv.xthorsworld.lab:
 
 libvirt:
   hosts:
@@ -10,8 +11,13 @@ zabbixchecker:
   hosts:
     zabbixchecker.xthorsworld.lab:
 
+linux:
+  hosts:
+    vm1.xthorsworld.lab:
+    zabbixchecker.xthorsworld.lab:
+
 all:
   children:
-    zabbix-servers:
+    zabbix_servers:
     libvirt:
-    snmp:
+    linux:

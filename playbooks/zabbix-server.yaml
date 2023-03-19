@@ -1,4 +1,4 @@
-  - hosts: zabbix-servers
+  - hosts: zabbix_servers
     become: true
 
     roles:
@@ -8,16 +8,14 @@
         when: ansible_os_family == "RedHat"
       - geerlingguy.mysql
       - geerlingguy.apache
-      - geerlingguy.php
+      #- geerlingguy.php
       - community.zabbix.zabbix_server
-      - community.zabbix.zabbix_web
-      - community.zabbix.zabbix_agent
-      - role: zabbix-post
-        tags: ["zabbix-post"]
-  
-  # TODO:
-  # /etc/httpd/conf.d/welcome.conf - manage in a file with only a comment saying "Managed by Ansible, don't update" or whatever
-  # /etc/httpd/conf.d/ssl.conf - more complex, as this already has a default virtualhost. either change the file to suit Zabbix, or remove the virtualhost.
-  ### the main issue is that this file has Listen 443 https which is kinda important...
-
-  # before dumping more time into this, spin up a second VM guest and try to deploy the zabbix agent role only. then add it for monitoring.
+      - role: community.zabbix.zabbix_web
+        tags: ["zabbix-web"]
+      - role: community.zabbix.zabbix_agent
+        tags: ["zabbix-agent"]
+      - role: zabbix-fix-httpd
+        tags: ["zabbix-fix-httpd"]
+      # doesn't work. don't quite know why. so there's some manual setup I have to do, unfortunately.
+      #- role: zabbix-users
+      #  tags: ["zabbix-users"]

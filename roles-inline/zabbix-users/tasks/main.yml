@@ -1,0 +1,76 @@
+---
+# THIS WILL ONLY WORK ONCE! After the initial setup, this should be commented out, because this user gets REMOVED.
+## UPDATE: this doesn't work at ALL. Throws errors. something like this: ansible.module_utils.connection.ConnectionError: 'Connection' object has no attribute 'zbx_api_version'
+## 
+- name: Set credentials to acess Zabbix server API (INITIAL INSTALL ONLY)
+  set_fact:
+    ansible_network_os: community.zabbix.zabbix
+    ansible_connection: httpapi
+    ansible_httpapi_port: 443
+    ansible_httpapi_use_ssl: true
+    ansible_httpapi_validate_certs: false
+    #ansible_zabbix_url_path: /
+
+- name: Set credentials to access Zabbix Server API
+  set_fact:
+    ansible_user: Admin
+    ansible_httpapi_pass: zabbix
+
+- name: add xthor zabbix user
+  community.zabbix.zabbix_user:
+    username: "{{ lookup('community.general.onepassword', 'zabbix_user_xthor', field='username', vault='Ansible') }}"
+    name: Ben
+    surname: Brown
+    usrgrps:
+      - Zabbix administrators
+    role_name:
+      - Super admin role
+    passwd: "{{ lookup('community.general.onepassword', 'zabbix_user_xthor', field='password', vault='Ansible') }}"
+    lang: en_US
+    theme: dark-theme
+    autologin: no
+    autologout: '0'
+    refresh: '30'
+    rows_per_page: '200'
+    after_login_url: ''
+    user_medias:
+      - mediatype: Email
+        sendto: xthor@xthorsworld.com
+        period: 1-7,00:00-24:00
+        severity:
+          not_classified: yes
+          information: yes
+          warning: yes
+          average: yes
+          high: yes
+          disaster: yes
+        active: yes
+      - mediatype: Pushover
+        sendto: "{{ lookup('community.general.onepassword', 'zabbix_user_xthor', field='pushover_token', vault='Ansible') }}"
+        period: 1-7,00:00-24:00
+        severity:
+          not_classified: yes
+          information: yes
+          warning: yes
+          average: yes
+          high: yes
+          disaster: yes
+        active: yes
+    type: Zabbix super admin
+    state: present
+  become: false
+
+# this may be dangerous, but that's why we're testing first! :) 
+- name: delete existing zabbix user.
+  community.zabbix.zabbix_user:
+    username: Admin
+    state: absent
+  become: false
+
+- name: Update Pushover mediatype with API key
+  community.zabbix.zabbix_mediatype:
+    name: Pushover
+    webhook_params:
+      - name: token
+        value: "{{ lookup('community.general.onepassword', 'zabbix_pushover_token', field='password', vault='Ansible') }}"
+  become: false
