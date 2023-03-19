@@ -2,13 +2,13 @@
 # make this work on armbian, raspbian, or ubuntu arm64 images :)
 # may be a little complex on the initial setup of some of these images, since you'll have to log in, set a root password, and then log in as root :(
 - name: Install sudo
-  apt:
+  package:
     name: sudo
     state: present
   become: true
 
 - name: Install openssh-server
-  apt:
+  package:
     name: openssh-server
     state: present
   become: true
