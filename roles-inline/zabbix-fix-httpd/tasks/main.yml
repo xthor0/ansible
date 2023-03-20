@@ -25,3 +25,11 @@
     mode: '0644'
   notify: restart httpd
   when: ansible_os_family == "RedHat"
+
+# don't know that this will be missing on most distros, but just in case
+# it was on a digitalocean droplet
+- name: install glibc-langpack-en (Rocky Linux)
+  package:
+    name: glibc-langpack-en
+    state: present
+  when: ansible_os_family == "RedHat"

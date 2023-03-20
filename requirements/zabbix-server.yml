@@ -6,6 +6,7 @@ roles:
 - name: geerlingguy.php
 - name: geerlingguy.repo-epel
 - name: geerlingguy.repo-remi
+- name: geerlingguy.certbot
 collections:
 - name: ansible.posix
 - name: community.mysql

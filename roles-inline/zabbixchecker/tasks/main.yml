@@ -1,0 +1,28 @@
+---
+- name: install required packages
+  package:
+    name: jq
+    state: present
+
+- name: template zabbixchecker.sh
+  template:
+    src: templates/zabbixchecker.sh.j2
+    dest: /usr/local/bin/zabbixchecker.sh
+    mode: '0775'
+    owner: root
+    group: root
+  notify: restart zabbixchecker
+
+- name: template zabbixchecker systemd unit
+  template:
+    src: templates/zabbixchecker.service
+    dest: /etc/systemd/system/zabbixchecker.service
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: start zabbixchecker service
+  systemd:
+    state: started
+    name: zabbixchecker
+    daemon_reload: yes

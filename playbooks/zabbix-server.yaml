@@ -8,6 +8,8 @@
         when: ansible_os_family == "RedHat"
       - geerlingguy.mysql
       - geerlingguy.apache
+      - role: geerlingguy.certbot
+        when: certbot_admin_email is defined
       #- geerlingguy.php
       - community.zabbix.zabbix_server
       - role: community.zabbix.zabbix_web

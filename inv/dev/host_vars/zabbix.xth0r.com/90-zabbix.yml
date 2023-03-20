@@ -1,0 +1,41 @@
+---
+zabbix_server_version: 6.2 # we don't want to automatically upgrade to a newer version - 6.4 will be out soon
+zabbix_server_database: mysql
+zabbix_server_database_long: mysql
+zabbix_server_dbport: 3306
+zabbix_server_dbhost: localhost
+zabbix_server_dbhost_run_install: true
+zabbix_server_dbpassword: "{{ lookup('community.general.onepassword', 'zabbix_dbpassword', field='password', vault='Ansible') }}"
+zabbix_server_privileged_host: 'localhost'
+zabbix_server_mysql_login_host: localhost
+zabbix_server_mysql_login_user: root
+zabbix_server_mysql_login_password: "{{ lookup('community.general.onepassword', 'zabbix_root_dbpassword', field='password', vault='Ansible') }}"
+zabbix_server_mysql_login_port: 3306
+zabbix_php_version: '8.0'
+zabbix_php_install: true
+zabbix_server_install_database_client: false
+zabbix_selinux: true
+selinux_allow_zabbix_can_network: true
+selinux_allow_zabbix_can_http: true
+mysql_root_username: root
+mysql_root_password: "{{ lookup('community.general.onepassword', 'zabbix_root_dbpassword', field='password', vault='Ansible') }}"
+mysql_enabled_on_startup: true
+zabbix_apache_redirect: true
+zabbix_apache_tls: true
+zabbix_apache_tls_crt: /etc/letsencrypt/live/zabbix.xth0r.com/cert.pem
+zabbix_apache_tls_key: /etc/letsencrypt/live/zabbix.xth0r.com/privkey.pem
+# zabbix agent overrides for server ONLY
+zabbix_api_server_url: zabbix.xth0r.com
+zabbix_api_create_hosts: false # the zabbix server is created by default
+zabbix_agent_server: "127.0.0.1,10.200.54.232" # we need both the local server AND the zabbixchecker SBC to be able to hit this
+zabbix_agent_serveractive: 127.0.0.1
+zabbix_agent_hostname: Zabbix server
+# certbot
+certbot_admin_email: xthor0@gmail.com
+certbot_create_if_missing: true
+certbot_create_standalone_stop_services: [httpd]
+certbot_certs:
+  - domains:
+      - zabbix.xth0r.com
+certbot_auto_renew_minute: "20"
+certbot_auto_renew_hour: "5"

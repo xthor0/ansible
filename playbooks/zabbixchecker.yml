@@ -5,3 +5,4 @@
     - role: users
     - role: bash
     - role: community.zabbix.zabbix_agent
+    - role: zabbixchecker
