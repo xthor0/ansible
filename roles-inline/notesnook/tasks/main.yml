@@ -1,13 +1,12 @@
 ---
-- name: Download and install Notesnook (Debian family)
-  apt:
-    deb: https://notesnook.com/releases/linux/notesnook_linux_amd64.deb
-  become: true 
-  when: ansible_os_family == "Debian"
+- name: Create ~/Downloads directory
+  file:
+    path: ~/Downloads
+    state: directory
+    mode: '0750'
 
-- name: Download and install Notesnook (RedHat family)
-  yum:
-    name: https://notesnook.com/releases/linux/notesnook_linux_x86_64.rpm
-    disable_gpg_check: true # hate to do this but they don't publish a GPG key as far as I can tell
-  become: true
-  when: ansible_os_family == "RedHat"
+- name: Download Notesnook AppImage
+  get_url:
+    url: https://notesnook.com/releases/linux/notesnook_linux_x86_64.AppImage
+    dest: ~/Downloads/Notesnook.AppImage
+    mode: '0750'
