@@ -1,0 +1,23 @@
+---
+- name: Create ~/Downloads directory
+  file:
+    path: ~/Downloads
+    state: directory
+    mode: '0750'
+
+- name: Get Ultimaker Cura release info from api.github.com
+  uri:
+    url: https://api.github.com/repos/Ultimaker/Cura/releases/latest
+    return_content: yes
+  register: github_api_ultimaker
+
+- name: Set fact - latest Ultimaker Cura release
+  set_fact:
+    ultimaker_version: "{{ github_api_ultimaker.json.tag_name }}"
+
+
+- name: Download Ultimaker Cura AppImage
+  get_url:
+    url: "https://github.com/Ultimaker/Cura/releases/download/{{ ultimaker_version }}/UltiMaker-Cura-{{ ultimaker_version }}-linux-modern.AppImage"
+    dest: ~/Downloads/UltiMaker-Cura.AppImage
+    mode: '0750'

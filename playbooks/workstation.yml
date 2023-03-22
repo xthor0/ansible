@@ -36,10 +36,12 @@
     - { role: k9s, tags: [ "k9s"] }
     - { role: awscliv2, tags: [ "awscliv2"] }
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
-    - { role: upnote, tags: [ "upnote"] }
+    - { role: notesnook, tags: [ "notesnook"] }
     # - { role: conky, tags: [ "conky"] }
     - { role: slack, tags: [ "slack"] }
     - { role: minikube, tags: [ "minikube" ] }
     - { role: oscar, tags: [ "oscar" ] }
     - { role: remmina, tags: [ "remmina" ] }
+    - { role: cura, tags: [ "cura" ] }
+    - { role: creality-print, tags: [ "creality-print" ] }
     - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?
