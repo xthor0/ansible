@@ -1,42 +1,11 @@
 ---
-- name: see if /usr/share/keyrings/spotify.gpg exists
-  stat:
-    path: /usr/share/keyrings/spotify.gpg
-  register: spotify_gpg
-  when: ansible_os_family == "Debian"
+- name: Include Debian tasks
+  include_tasks: Debian.yml
+  when: "'Debian' in ansible_distribution"
 
-- name: download spotify public key
-  get_url:
-    url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
-    dest: /tmp/spotify_pubkey.gpg
-  become: true
-  when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
-
-- name: gpg dearmor spotify public key
-  shell: cat /tmp/spotify_pubkey.gpg | gpg --dearmor --yes -o /usr/share/keyrings/spotify.gpg
-  when: (not spotify_gpg.stat.exists) and (ansible_os_family == 'Debian')
-  become: True
-
-- name: add apt repository for spotify
-  apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free"
-    state: present
-  become: true 
-  when: ansible_os_family == "Debian"
-
-- name: Enable Negativo17.org DNF repo (Fedora)
-  command:
-    cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
-    creates: /etc/yum.repos.d/fedora-spotify.repo
-  become: true
+- name: Include Fedora tasks
+  include_tasks: Fedora.yml
   when: "'Fedora' in ansible_distribution"
-
-- name: Enable Negativo17.org DNF repo (Rocky Linux)
-  command:
-    cmd: dnf config-manager --add-repo=https://negativo17.org/repos/epel-spotify.repo
-    creates: /etc/yum.repos.d/epel-spotify.repo
-  become: true
-  when: "'Rocky' in ansible_distribution"
 
 - name: install spotify package
   package:
