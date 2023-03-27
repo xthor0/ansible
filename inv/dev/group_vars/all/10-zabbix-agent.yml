@@ -1,13 +1,13 @@
-
-zabbix_agent_server: zabbixsrv.xthorsworld.lab
-zabbix_agent_serveractive: zabbixsrv.xthorsworld.lab
+---
+zabbix_agent_server: zabbixsrv.xthorsworld.com
+zabbix_agent_serveractive: zabbixsrv.xthorsworld.com
 zabbix_agent_dont_detect_ip: true
 zabbix_agent_become_on_localhost: false
 zabbix_api_create_hosts: true
 zabbix_agent_link_templates: ["Linux by Zabbix agent"]
 zabbix_host_groups: ["Linux servers"]
 # without this stuff, auto-creating the host won't work
-zabbix_api_server_host: zabbixsrv.xthorsworld.lab
+zabbix_api_server_host: zabbixsrv.xthorsworld.com
 zabbix_api_server_port: 443
 # this user must be added manually before running the playbook. can't figure out a way to add him via ansible, unfortunately.
 zabbix_api_http_user: "{{ lookup('community.general.onepassword', 'zabbix_apiuser', field='username', vault='Ansible') }}"
