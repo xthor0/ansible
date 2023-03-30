@@ -17,3 +17,4 @@ RedHat_packages_libvirt:
   - virt-install
   - libguestfs-tools
   - virt-top
+  - guestfs-tools
