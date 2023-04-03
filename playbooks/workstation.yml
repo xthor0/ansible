@@ -18,7 +18,7 @@
     - { role: os-packages, tags: [ "os-packages" ] }
     - { role: ssh, tags: [ "ssh" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
-    - { role: power-management, tags: [ "power-management" ] }
+    #- { role: power-management, tags: [ "power-management" ] }
     - { role: vim, tags: [ "vim" ] }
     - { role: git, tags: [ "git" ] }
     - { role: 1password, tags: [ "1password"] }
@@ -40,8 +40,9 @@
     # - { role: conky, tags: [ "conky"] }
     - { role: slack, tags: [ "slack"] }
     - { role: minikube, tags: [ "minikube" ] }
-    - { role: oscar, tags: [ "oscar" ] }
+    #- { role: oscar, tags: [ "oscar" ] }
     - { role: remmina, tags: [ "remmina" ] }
     - { role: cura, tags: [ "cura" ] }
+    - { role: synologydrive, tags: [ "synologydrive" ] }
     #- { role: creality-print, tags: [ "creality-print" ] }
     - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?

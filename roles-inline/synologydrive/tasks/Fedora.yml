@@ -1,0 +1,6 @@
+---
+- name: Enable Fedora Copr for SynologyDrive
+  command:
+      cmd: dnf copr enable -y emixampp/synology-drive
+      creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:emixampp:synology-drive.repo
+  become: true

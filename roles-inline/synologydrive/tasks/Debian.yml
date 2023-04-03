@@ -1,0 +1,5 @@
+---
+- name: install SynologyDrive package
+  apt:
+    deb: https://global.synologydownload.com/download/Utility/SynologyDriveClient/3.2.1-13272/Ubuntu/Installer/x86_64/synology-drive-client-13272.x86_64.deb
+  become: true
