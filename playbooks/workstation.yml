@@ -45,4 +45,5 @@
     - { role: cura, tags: [ "cura" ] }
     - { role: synologydrive, tags: [ "synologydrive" ] }
     #- { role: creality-print, tags: [ "creality-print" ] }
+    - { role: terraform, tags: [ "terraform" ] }
     - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?

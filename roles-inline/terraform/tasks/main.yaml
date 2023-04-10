@@ -1,0 +1,39 @@
+---
+- name: create ~/.local/bin directory
+  file:
+    path: ~/.local/bin
+    mode: 0770
+    recurse: yes
+
+- name: Get terraform-docs release info from api.github.com
+  uri:
+    url: https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest
+    return_content: yes
+  register: github_api_terraformdocs
+
+- name: Set fact - latest terraform-docs release
+  set_fact:
+    terraformdocs_version: "{{ github_api_terraformdocs.json.tag_name }}"
+
+- name: Download and extract terraform-docs
+  unarchive:
+    src: "https://github.com/terraform-docs/terraform-docs/releases/download/{{ terraformdocs_version }}/terraform-docs-{{ terraformdocs_version }}-linux-{{ ansible_architecture }}.tar.gz"
+    dest: ~/.local/bin
+    remote_src: true
+    include:
+      - terraform-docs
+
+- name: checkout tfenv repo
+  ansible.builtin.git:
+    repo: https://github.com/tfutils/tfenv.git
+    dest: ~/.tfenv
+    depth: 1
+
+- name: symlink terraform and tfenv binaries to path
+  ansible.builtin.file:
+    path: "~/.local/bin/{{ item }}"
+    src: "~/.tfenv/{{ item }}"
+    state: link
+  with_items:
+    - terraform
+    - tfenv
