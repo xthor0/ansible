@@ -1,9 +1,7 @@
 ---
-- name: create ~/.local/bin directory
-  file:
-    path: ~/.local/bin
-    mode: 0770
-    recurse: yes
+- name: include local-dirs role
+  include_role:
+    name: local-dirs
 
 - name: Get terraform-docs release info from api.github.com
   uri:

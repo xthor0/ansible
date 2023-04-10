@@ -1,4 +1,8 @@
 ---
+- name: include local-dirs role
+  include_role:
+    name: local-dirs
+
 - name: Get k9s release info from api.github.com
   uri:
     url: "https://api.github.com/repos/derailed/k9s/releases/latest"
@@ -8,12 +12,6 @@
 - name: Set fact - latest k9s release
   set_fact:
     k9s_release: "{{ github_api_k9s.json.tag_name }}"
-
-- name: create ~/.local/bin directory
-  file:
-    path: ~/.local/bin
-    mode: 0770
-    recurse: yes
 
 - name: Download and install k9s
   ansible.builtin.unarchive:
