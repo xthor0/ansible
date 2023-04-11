@@ -29,8 +29,8 @@
 
 - name: symlink terraform and tfenv binaries to path
   ansible.builtin.file:
-    path: "~/.local/bin/{{ item }}"
-    src: "~/.tfenv/{{ item }}"
+    src: "~/.local/bin/{{ item }}"
+    path: "~/.tfenv/{{ item }}"
     state: link
   with_items:
     - terraform
