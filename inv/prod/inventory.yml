@@ -8,10 +8,18 @@ libvirt:
     etterkop.xthorsworld.com:
     kusikusi.xthorsworld.com:
     alla.xthorsworld.com:
+    #spinne.xthorsworld.com:
+
+linux:
+  hosts:
     ragno.xthorsworld.com:
-    spinne.xthorsworld.com:
+    pavuk.xthorsworld.com:
+  children:
+    libvirt:
+    upsmon:
 
 all:
   children:
     libvirt:
     upsmon:
+    linux:

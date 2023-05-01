@@ -5,4 +5,4 @@
   roles:
     - role: users
     - role: bash
-    - role: community.zabbix.zabbix_agent
+    #- role: community.zabbix.zabbix_agent
