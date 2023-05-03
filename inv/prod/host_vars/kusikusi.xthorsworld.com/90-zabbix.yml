@@ -1,0 +1,32 @@
+---
+zabbix_server_version: 6.2 # we don't want to automatically upgrade to a newer version - 6.4 will be out soon
+zabbix_server_database: mysql
+zabbix_server_database_long: mysql
+zabbix_server_dbport: 3306
+zabbix_server_dbhost: localhost
+zabbix_server_dbhost_run_install: true
+zabbix_server_dbpassword: "{{ lookup('community.general.onepassword', 'zabbix_dbpassword', field='password', vault='Ansible') }}"
+zabbix_server_privileged_host: 'localhost'
+zabbix_server_mysql_login_host: localhost
+zabbix_server_mysql_login_user: root
+zabbix_server_mysql_login_password: "{{ lookup('community.general.onepassword', 'zabbix_root_dbpassword', field='password', vault='Ansible') }}"
+zabbix_server_mysql_login_port: 3306
+zabbix_php_version: '8.0'
+zabbix_php_install: true
+zabbix_server_install_database_client: false
+zabbix_selinux: true
+selinux_allow_zabbix_can_network: true
+selinux_allow_zabbix_can_http: true
+mysql_root_username: root
+mysql_root_password: "{{ lookup('community.general.onepassword', 'zabbix_root_dbpassword', field='password', vault='Ansible') }}"
+mysql_enabled_on_startup: true
+zabbix_apache_redirect: true
+zabbix_apache_tls: true
+zabbix_apache_tls_crt: /etc/pki/tls/certs/localhost.crt
+zabbix_apache_tls_key: /etc/pki/tls/private/localhost.key
+# zabbix agent overrides for server ONLY
+zabbix_api_server_url: kusikusi.xthorsworld.com
+zabbix_api_create_hosts: false # the zabbix server is created by default
+zabbix_agent_server: "127.0.0.1"
+zabbix_agent_serveractive: 127.0.0.1
+zabbix_agent_hostname: Zabbix server

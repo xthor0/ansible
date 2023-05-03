@@ -39,7 +39,7 @@ for x in virt-sysprep mcopy virt-install; do
 done
 
 # get command-line args
-while getopts "h:f:s:p:r:i:mu" OPTION; do
+while getopts "t:h:f:s:p:r:i:mu" OPTION; do
   case $OPTION in
     h) host_name=${OPTARG};;
     f) flavor=${OPTARG};;
@@ -49,6 +49,7 @@ while getopts "h:f:s:p:r:i:mu" OPTION; do
     i) ipaddr=${OPTARG};;
     m) salted="1";;
     u) update="--update";;
+    t) network=${OPTARG};;
     *) usage;;
   esac
 done

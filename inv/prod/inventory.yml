@@ -6,9 +6,16 @@ upsmon:
 libvirt:
   hosts:
     etterkop.xthorsworld.com:
-    kusikusi.xthorsworld.com:
     alla.xthorsworld.com:
     #spinne.xthorsworld.com:
+
+zabbix_servers:
+  hosts:
+    kusikusi.xthorsworld.com:
+
+zabbixchecker:
+  hosts:
+    brimba.xthorsworld.com:
 
 linux:
   hosts:
@@ -17,9 +24,12 @@ linux:
   children:
     libvirt:
     upsmon:
+    zabbix_servers:
+    zabbixchecker:
 
 all:
   children:
     libvirt:
     upsmon:
     linux:
+    zabbixchecker:
