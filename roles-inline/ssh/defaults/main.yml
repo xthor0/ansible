@@ -2,7 +2,7 @@
 ssh_hosts:
   - "alla.xthorsworld.com,10.200.1.15 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILQeoXKLMdoWcpviN/cMIQDGgfM9JRJUz7mbxapw5tRy"
   - "ragno.xthorsworld.com,10.200.1.16 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGb2TfcXZ/GRjcYyIPgQpF36HCCD27F1OkWeuNUHGg+A"
-  - "spinne.xthorsworld.com,10.200.1.17 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO+rhO5Snj5ulgnLNxh1wfYK16VXvHEKG9PvzAJoF/Cl"
+  - "spinne.xthorsworld.com,10.200.1.17 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEV0s+jRGIJKGRrn2s1BwnbyyBqTd45itKcEvaxv6a4W"
   - "pajak.xthorsworld.com,10.200.50.20 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAKoThkfy75YGS0SOw1MwzyHy/BfxGxWtaC11tCuiIeM"
   - "arimarma.xthorsworld.com,10.200.1.20 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJXD7mXAetyoavIgaeg6OqrbF43zfbEFBKnTrm/nSyuf"
   - "lancah.xthorsworld.com,10.200.50.21 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINc0ilGhKSzqP9xwg4tMcolwQQfvehFglVuT/ZSpG1s8"

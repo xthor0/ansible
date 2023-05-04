@@ -7,7 +7,7 @@ libvirt:
   hosts:
     etterkop.xthorsworld.com:
     alla.xthorsworld.com:
-    #spinne.xthorsworld.com:
+    spinne.xthorsworld.com:
 
 zabbix_servers:
   hosts:
