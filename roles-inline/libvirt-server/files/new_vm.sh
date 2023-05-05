@@ -1,7 +1,17 @@
 #!/bin/bash
 
-image_dir=/srv/cloud-images
-target_dir=/var/lib/libvirt/images
+# some VM hosts have a /storage partition
+if [ -d "/storage/cloud-images" ]; then
+  image_dir=/storage/cloud-images
+else
+  image_dir=/srv/cloud-images
+fi
+
+if [ -d /storage/libvirt/images ]; then
+  target_dir=/var/lib/libvirt/images
+else
+  target_dir=/var/lib/libvirt/images
+fi
 
 # default options
 flavor="rocky9"
@@ -48,7 +58,7 @@ while getopts "t:h:f:s:p:r:i:mu" OPTION; do
     r) ram=${OPTARG};;
     i) ipaddr=${OPTARG};;
     m) salted="1";;
-    u) update="--update";;
+    u) update="1";;
     t) network=${OPTARG};;
     *) usage;;
   esac
@@ -253,11 +263,14 @@ ethernets:
 EOF
 fi
 
-# virt-sysprep and inject user-data and meta-data
-sudo virt-sysprep -a ${disk_image} --hostname ${host_name} --network --update --run-command 'mkdir -p /var/lib/cloud/seed' --copy-in ${tmpdir}/nocloud:/var/lib/cloud/seed --selinux-relabel
-if [ $? -ne 0 ]; then
-  echo "virt-sysprep exited with a non-zero status -- exiting."
-  exit 255
+# did the user ask us to update first?
+if [ -n "${update}" ]; then
+  echo "Updating ${disk_image} (as requested)"
+  sudo virt-sysprep -a ${disk_image} --network --update --selinux-relabel
+  if [ $? -ne 0 ]; then
+    echo "virt-sysprep exited with a non-zero status -- exiting."
+    exit 255
+  fi
 fi
 
 # kick off virt-install
@@ -265,6 +278,7 @@ echo "Installing VM ${host_name}..."
 sudo virt-install --virt-type kvm --name ${host_name} --ram ${memory} --vcpus ${vcpus} \
   --os-variant ${variant} --network=bridge=${ifname},model=virtio --graphics vnc \
   --disk path=${disk_image},cache=writeback \
+  --cloud-init root-password-generate=no,disable=on,user-data=${tmpdir}/nocloud/user-data,meta-data=${tmpdir}/nocloud/meta-data \
   --noautoconsole --import
 
 # cleanup
