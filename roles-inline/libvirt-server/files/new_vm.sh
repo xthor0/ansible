@@ -8,7 +8,7 @@ else
 fi
 
 if [ -d /storage/libvirt/images ]; then
-  target_dir=/var/lib/libvirt/images
+  target_dir=/storage/libvirt/images
 else
   target_dir=/var/lib/libvirt/images
 fi
