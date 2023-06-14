@@ -3,6 +3,6 @@
   become: true
 
   roles:
-    - role: users
-    - role: bash
-    - role: community.zabbix.zabbix_agent
+    - { role: users, tags: [ "users" ] }
+    - { role: bash, tags: [ "bash" ] }
+    - { role: community.zabbix.zabbix_agent, tags: [ "zabbix-agent" ] }
