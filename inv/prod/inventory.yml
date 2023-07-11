@@ -5,7 +5,6 @@ upsmon:
 
 libvirt:
   hosts:
-    etterkop.xthorsworld.com:
     alla.xthorsworld.com:
     spinne.xthorsworld.com:
 
@@ -19,7 +18,7 @@ zabbixchecker:
 
 linux:
   hosts:
-    ragno.xthorsworld.com:
+    arimarma.xthorsworld.com:
     pavuk.xthorsworld.com:
   children:
     libvirt:
