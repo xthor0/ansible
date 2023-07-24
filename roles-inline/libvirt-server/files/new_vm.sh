@@ -58,7 +58,7 @@ while getopts "t:h:f:s:p:r:i:mu" OPTION; do
     r) ram=${OPTARG};;
     i) ipaddr=${OPTARG};;
     m) salted="1";;
-    u) update="1";;
+    u) update="--update";;
     t) network=${OPTARG};;
     *) usage;;
   esac
@@ -265,14 +265,14 @@ ethernets:
 EOF
 fi
 
-# did the user ask us to update first?
-if [ -n "${update}" ]; then
-  echo "Updating ${disk_image} (as requested)"
-  sudo virt-sysprep -a ${disk_image} --network --update --selinux-relabel
-  if [ $? -ne 0 ]; then
-    echo "virt-sysprep exited with a non-zero status -- exiting."
-    exit 255
-  fi
+# if we don't run virt-sysprep, even if we're not updating, the a new machine seed does not get generated
+# this causes issues with debian-based systems, at least, because they boot up and make DHCP requests
+# that result in IP conflicts
+echo "Running virt-sysprep against ${disk_image} ..."
+sudo virt-sysprep -a ${disk_image} --network ${update} --selinux-relabel
+if [ $? -ne 0 ]; then
+  echo "virt-sysprep exited with a non-zero status -- exiting."
+  exit 255
 fi
 
 # kick off virt-install
