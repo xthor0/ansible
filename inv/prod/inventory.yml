@@ -20,6 +20,7 @@ linux:
   hosts:
     arimarma.xthorsworld.com:
     pavuk.xthorsworld.com:
+    etterkop.xthorsworld.com:
   children:
     libvirt:
     upsmon:
