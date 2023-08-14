@@ -5,4 +5,4 @@
   roles:
     - { role: users, tags: [ "users" ] }
     - { role: bash, tags: [ "bash" ] }
-    - { role: community.zabbix.zabbix_agent, tags: [ "zabbix-agent" ] }
+    # - { role: community.zabbix.zabbix_agent, tags: [ "zabbix-agent" ] }
