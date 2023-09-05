@@ -21,6 +21,7 @@ linux:
     arimarma.xthorsworld.com:
     pavuk.xthorsworld.com:
     etterkop.xthorsworld.com:
+    ragno.xthorsworld.com:
   children:
     libvirt:
     upsmon:
