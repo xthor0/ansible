@@ -1,0 +1,175 @@
+object NotificationCommand "mail-host-notification" {
+  command = [ ConfigDir + "/scripts/mail-host-notification.sh" ]
+
+  arguments += {
+    "-4" = "$notification_address$"
+    "-6" = "$notification_address6$"
+    "-b" = "$notification_author$"
+    "-c" = "$notification_comment$"
+    "-d" = {
+      required = true
+      value = "$notification_date$"
+    }
+    "-f" = {
+      value = "$notification_from$"
+      description = "Set from address. Requires GNU mailutils (Debian/Ubuntu) or mailx (RHEL/SUSE)"
+    }
+    "-i" = "$notification_icingaweb2url$"
+    "-l" = {
+      required = true
+      value = "$notification_hostname$"
+    }
+    "-n" = {
+      required = true
+      value = "$notification_hostdisplayname$"
+    }
+    "-o" = {
+      required = true
+      value = "$notification_hostoutput$"
+    }
+    "-r" = {
+      required = true
+      value = "$notification_useremail$"
+    }
+    "-s" = {
+      required = true
+      value = "$notification_hoststate$"
+    }
+    "-t" = {
+      required = true
+      value = "$notification_type$"
+    }
+    "-v" = "$notification_logtosyslog$"
+  }
+
+  vars += {
+    notification_address = "$address$"
+    notification_address6 = "$address6$"
+    notification_author = "$notification.author$"
+    notification_comment = "$notification.comment$"
+    notification_type = "$notification.type$"
+    notification_date = "$icinga.long_date_time$"
+    notification_hostname = "$host.name$"
+    notification_hostdisplayname = "$host.display_name$"
+    notification_hostoutput = "$host.output$"
+    notification_hoststate = "$host.state$"
+    notification_useremail = "$user.email$"
+  }
+}
+
+object NotificationCommand "mail-service-notification" {
+  command = [ ConfigDir + "/scripts/mail-service-notification.sh" ]
+
+  arguments += {
+    "-4" = "$notification_address$"
+    "-6" = "$notification_address6$"
+    "-b" = "$notification_author$"
+    "-c" = "$notification_comment$"
+    "-d" = {
+      required = true
+      value = "$notification_date$"
+    }
+    "-e" = {
+      required = true
+      value = "$notification_servicename$"
+    }
+    "-f" = {
+      value = "$notification_from$"
+      description = "Set from address. Requires GNU mailutils (Debian/Ubuntu) or mailx (RHEL/SUSE)"
+    }
+    "-i" = "$notification_icingaweb2url$"
+    "-l" = {
+      required = true
+      value = "$notification_hostname$"
+    }
+    "-n" = {
+      required = true
+      value = "$notification_hostdisplayname$"
+    }
+    "-o" = {
+      required = true
+      value = "$notification_serviceoutput$"
+    }
+    "-r" = {
+      required = true
+      value = "$notification_useremail$"
+    }
+    "-s" = {
+      required = true
+      value = "$notification_servicestate$"
+    }
+    "-t" = {
+      required = true
+      value = "$notification_type$"
+    }
+    "-u" = {
+      required = true
+      value = "$notification_servicedisplayname$"
+    }
+    "-v" = "$notification_logtosyslog$"
+  }
+
+  vars += {
+    notification_address = "$address$"
+    notification_address6 = "$address6$"
+    notification_author = "$notification.author$"
+    notification_comment = "$notification.comment$"
+    notification_type = "$notification.type$"
+    notification_date = "$icinga.long_date_time$"
+    notification_hostname = "$host.name$"
+    notification_hostdisplayname = "$host.display_name$"
+    notification_servicename = "$service.name$"
+    notification_serviceoutput = "$service.output$"
+    notification_servicestate = "$service.state$"
+    notification_useremail = "$user.email$"
+    notification_servicedisplayname = "$service.display_name$"
+  }
+}
+
+object NotificationCommand "pushover-host-notification" { 
+import "plugin-notification-command" 
+
+command = [ SysconfDir + "/icinga2/scripts/notify_by_pushover.sh" ] 
+
+env = { 
+    PUSHOVERUSER = "$user.vars.pushover_user$" 
+    PUSHOVERTOKEN = "$user.vars.pushover_token$" 
+    PUSHOVERTITLE = "Icinga: {{ salt['grains.get']('id') }}" 
+    PUSHOVERMESSAGE = "$notification.type$ $host.display_name$ $host.state$ $icinga.long_date_time$" 
+  } 
+} 
+
+object NotificationCommand "pushover-service-notification" { 
+  import "plugin-notification-command" 
+
+  command = [ SysconfDir + "/icinga2/scripts/notify_by_pushover.sh" ] 
+
+  env = { 
+    PUSHOVERUSER = "$user.vars.pushover_user$" 
+    PUSHOVERTOKEN = "$user.vars.pushover_token$" 
+    PUSHOVERTITLE = "Icinga: {{ salt['grains.get']('id') }}" 
+    PUSHOVERMESSAGE = "$notification.type$ $host.display_name$ $service.display_name$ $service.state$ $icinga.long_date_time$" 
+  } 
+} 
+
+object CheckCommand "check_nrpe" {
+  import "plugin-check-command"
+
+  command = [
+    PluginDir + "/check_nrpe",
+    "-H", "$address$",
+    "-c", "$remote_nrpe_command$",
+  ]
+}
+
+object CheckCommand "memory" {
+  import "plugin-check-command"
+
+  command = [
+    PluginDir + "/check_mem.pl",
+    "-C",
+    "-u",
+    "-w 80",
+    "-c 90" 
+  ]
+}

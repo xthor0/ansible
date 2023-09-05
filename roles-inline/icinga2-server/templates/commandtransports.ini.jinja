@@ -1,0 +1,8 @@
+[icinga2]
+transport = "api"
+host = "127.0.0.1"
+port = "5665"
+{# looks like the username should come from freaking pillar, too... but... something to fix later :) #}
+username = "icingaweb2"
+password = "{{ salt['pillar.get']('icinga2:apiusers:icingaweb2:password') }}"
+

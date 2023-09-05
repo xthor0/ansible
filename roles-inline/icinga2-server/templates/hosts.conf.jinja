@@ -1,0 +1,40 @@
+/*
+managed by saltstack. local edits will be overwritten.
+*/
+
+object Host NodeName {
+  import "generic-host"
+
+  address = "127.0.0.1"
+
+  vars.os = "Linux"
+
+  vars.http_vhosts["http"] = {
+    http_uri = "/"
+  }
+
+  vars.http_vhosts["Icinga Web 2"] = {
+    http_uri = "/icingaweb2"
+  }
+
+  vars.disks["disk"] = {
+    /* No parameters. */
+  }
+
+  vars.notification["pushover"] = {
+    groups = [ "icingaadmins" ]
+  }
+}
+
+{#
+this is a good way to do debugging, if necessary, so I'm keeping it here...
+{%- do salt.log.error('debug: pillar vars: ' + salt['pillar.get']('icinga2:hosts')|json) -%}
+#}
+
+{% for host, vars in salt['pillar.get']('icinga2:hosts').items() %}
+object Host "{{ host }}" {
+  import "{{ vars['template'] }}"
+  check_command = "ping4"
+  address = "{{ vars['ip'] }}"
+}
+{% endfor %}

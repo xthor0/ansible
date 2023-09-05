@@ -1,0 +1,94 @@
+---
+- name: End the play for hosts that do not run Debian Bookworm
+  ansible.builtin.meta: end_host
+  when:
+  - ansible_distribution == 'Debian'
+  - ansible_distribution_major_version != '12'
+
+- name: see if /usr/share/keyrings/icinga-archive-keyring.gpg exists
+  stat:
+    path: /usr/share/keyrings/icinga-archive-keyring.gpg
+  register: icingakey_gpg
+
+- name: download icinga2 public key
+  get_url:
+    url: https://packages.icinga.com/icinga.key
+    dest: /tmp/icinga.key
+  become: true
+  when: not icingakey_gpg.stat.exists
+
+- name: gpg dearmor icinga2 public key
+  shell: cat /tmp/icinga.key | gpg --dearmor --yes -o /usr/share/keyrings/icinga-archive-keyring.gpg
+  when: not icingakey_gpg.stat.exists
+  become: True
+
+- name: add apt repositoriy for icinga2
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/icinga-archive-keyring.gpg] https://packages.icinga.com/debian icinga-{{ ansible_distribution_release }} main"
+    state: present
+  become: true 
+
+- name: install icinga2 packages
+  apt:
+    pkg:
+      - icinga2
+      - icinga2-ido-mysql
+      - icingaweb2
+      - icingacli
+      - apache2
+      - monitoring-plugins
+      - nagios-nrpe-plugin
+      - vim-icinga2
+      - vim-addon-manager
+      - bsd-mailx
+      - postfix
+    state: latest
+    update_cache: true
+    become: true
+
+- name: Timezone in php.ini
+  lineinfile:
+    path: /etc/php/8.2/apache2/php.ini
+    regexp: '^;?date.timezone ='
+    line: "date.timezone = \"{{ lookup('file', '/etc/timezone') }}\""
+  notify: restart apache2
+
+- name: Enable icinga2 feature ido-mysql
+  command:
+    cmd: icinga2 feature enable ido-mysql
+    creates: /etc/icinga2/features-enabled/ido-mysql.conf
+  become: true
+
+- name: Enable icinga2 feature command
+  command:
+    cmd: icinga2 feature enable command
+    creates: /etc/icinga2/features-enabled/command.conf
+  become: true
+
+- name: icinga2 api setup
+  command:
+    cmd: icinga2 api setup
+    creates: /etc/icinga2/features-enabled/api.conf
+  become: true
+
+# manage in files
+- name: copy icinga2 plugins/scripts
+    copy: 
+      src: "{{ item.src }}" 
+      dest: "{{ item.dest }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+      mode: "{{ item.mode }}"
+    with_items:
+      - src: files/check_mem.pl
+        dest: /usr/lib/nagios/plugins
+        owner: root
+        group: root
+        mode: 0755
+      - src: notify_by_pushover.sh
+        dest: /etc/icinga2/scripts
+        owner: nagios
+        group: nagios
+        mode: 0750
+
+# need to figure out how to do the templates here

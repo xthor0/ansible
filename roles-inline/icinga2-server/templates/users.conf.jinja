@@ -1,0 +1,19 @@
+/**
+ * The example user 'icingaadmin' and the example
+ * group 'icingaadmins'.
+ */
+
+object User "icingaadmin" {
+  import "generic-user"
+
+  display_name = "Icinga 2 Admin"
+  groups = [ "icingaadmins" ]
+
+  email = "xthor@xthorsworld.com"
+  vars.pushover_user = "{{ salt['pillar.get']('icinga2:pushover:usertoken', {}) }}"
+  vars.pushover_token = "{{ salt['pillar.get']('icinga2:pushover:apptoken', {}) }}"
+}
+
+object UserGroup "icingaadmins" {
+  display_name = "Icinga 2 Admin Group"
+}
