@@ -22,6 +22,7 @@ linux:
     pavuk.xthorsworld.com:
     etterkop.xthorsworld.com:
     ragno.xthorsworld.com:
+    lancah.xthorsworld.com:
   children:
     libvirt:
     upsmon:
