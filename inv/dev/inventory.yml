@@ -8,13 +8,21 @@ linux:
     dnsmasq.xthorsworld.lab:
     linvm1.xthorsworld.lab:
     arcrunner.xthorsworld.lab:
+  children:
+    libvirt:
 
 zabbixchecker:
   hosts:
     zabbixchk1.xthorsworld.lab:
+
+libvirt:
+  hosts:
+    debvmh:
+      ansible_host: 10.200.50.172
 
 all:
   children:
     zabbix_servers:
     linux:
     zabbixchecker:
+    libvirt:

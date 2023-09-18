@@ -23,6 +23,7 @@ linux:
     etterkop.xthorsworld.com:
     ragno.xthorsworld.com:
     lancah.xthorsworld.com:
+    omada.xthorsworld.com:
   children:
     libvirt:
     upsmon:

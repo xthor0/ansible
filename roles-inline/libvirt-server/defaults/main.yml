@@ -3,12 +3,21 @@
 common_packages_libvirt_server:
   - qemu-kvm
 
-debian_packages_libvirt_server:
+Debian_packages_libvirt_server:
   - cloud-image-utils
   - libvirt-daemon-system
   - libvirt-clients
   - virtinst
   - vagrant-libvirt
+  - bridge-utils
+  - libvirt-daemon
+  - libguestfs-tools
+  - virtinst
+  - python3-libvirt
+  - libosinfo-bin
+  - cloud-image-utils
+  - cockpit
+  - cockpit-machines
   - bridge-utils
 
 RedHat_packages_libvirt_server:
