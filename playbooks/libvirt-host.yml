@@ -3,4 +3,5 @@
   hosts: libvirt
   roles:
     - { role: users, tags: ["users"] }
+    - { role: bash, tags: [ "bash" ] }
     - { role: libvirt-server, tags: ["libvirt-server"] }

@@ -7,6 +7,7 @@ libvirt:
   hosts:
     alla.xthorsworld.com:
     spinne.xthorsworld.com:
+    vmh01.xthorsworld.com:
 
 zabbix_servers:
   hosts:

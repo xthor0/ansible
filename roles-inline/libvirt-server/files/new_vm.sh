@@ -235,7 +235,7 @@ EOF
 if [ -n "${ipaddr}" ]; then
   # we expect this IP address to be provided in x.x.x.x/xx form
   # TODO: regex to check it
-    gateway="10.200.${network}.1"
+  gateway="$(echo ${ipaddr} | sed -E 's/\.[0-9]{1,3}\/[0-9]{1,3}//g').1"
   if [ ${network} -eq 54 ]; then
     search="xthorsworld.lab"
   else
@@ -264,6 +264,7 @@ ethernets:
       search: [${search}]
       addresses: [${gateway}]
 EOF
+  nocloudnet=",network-config=${tmpdir}/nocloud/network-config"
 fi
 
 # if we don't run virt-sysprep, even if we're not updating, the a new machine seed does not get generated
@@ -281,7 +282,7 @@ echo "Installing VM ${host_name}..."
 sudo virt-install --virt-type kvm --name ${host_name} --ram ${memory} --vcpus ${vcpus} \
   --os-variant ${variant} --network=bridge=${ifname},model=virtio --graphics vnc \
   --disk path=${disk_image},cache=writeback \
-  --cloud-init root-password-generate=no,disable=on,user-data=${tmpdir}/nocloud/user-data,meta-data=${tmpdir}/nocloud/meta-data \
+  --cloud-init root-password-generate=no,disable=on,user-data=${tmpdir}/nocloud/user-data,meta-data=${tmpdir}/nocloud/meta-data${nocloudnet} \
   --noautoconsole --import
 
 # cleanup
