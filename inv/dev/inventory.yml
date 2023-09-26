@@ -4,10 +4,6 @@ zabbix_servers:
 
 linux:
   hosts:
-    vm1.xthorsworld.lab:
-    dnsmasq.xthorsworld.lab:
-    linvm1.xthorsworld.lab:
-    arcrunner.xthorsworld.lab:
   children:
     libvirt:
 
@@ -17,8 +13,10 @@ zabbixchecker:
 
 libvirt:
   hosts:
-    debvmh:
-      ansible_host: 10.200.50.172
+    dvmh01.xthorsworld.com:
+    dvmh02.xthorsworld.com:
+    #debvmh:
+    #  ansible_host: 10.200.50.172
 
 all:
   children:

@@ -1,4 +1,11 @@
 ---
+- name: install epel-release (RHEL and family only)
+  package:
+    name: epel-release
+    state: present
+  become: true
+  when: ansible_os_family == "RedHat"
+
 - name: install apcupsd
   package:
     name: apcupsd

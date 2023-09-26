@@ -1,9 +1,10 @@
 ---
-- name: End the play for hosts that do not run Debian Bookworm
+- name: End the play for hosts that do not run Rocky Linux 9
   ansible.builtin.meta: end_host
   when:
-  - ansible_distribution == 'Debian'
-  - ansible_distribution_major_version != '12'
+  - ansible_distribution == 'Rocky'
+  - ansible_distribution_major_version != '9'
+# TODO: lots of things, but do it on Linux, it'll be easier
 
 - name: see if /usr/share/keyrings/icinga-archive-keyring.gpg exists
   stat:

@@ -2,5 +2,6 @@
 - name: UPSMON
   hosts: upsmon
   roles:
+    - { role: users, tags: ["users"] }
     - { role: bash, tags: [ "bash"] }
     - { role: apcupsd, tags: [ "apcupsd"] }
