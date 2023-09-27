@@ -10,8 +10,8 @@ object User "icingaadmin" {
   groups = [ "icingaadmins" ]
 
   email = "xthor@xthorsworld.com"
-  vars.pushover_user = "{{ salt['pillar.get']('icinga2:pushover:usertoken', {}) }}"
-  vars.pushover_token = "{{ salt['pillar.get']('icinga2:pushover:apptoken', {}) }}"
+  vars.pushover_user = "{{ icinga2_pushover_usertoken }}"
+  vars.pushover_token = "{{ icinga2_pushover_apptoken }}"
 }
 
 object UserGroup "icingaadmins" {

@@ -1,0 +1,7 @@
+---
+- name: Set up icinga2 server
+  hosts: icinga2-server
+  roles:
+    - { role: users, tags: ["users"] }
+    - { role: bash, tags: [ "bash" ] }
+    - { role: icinga2-server, tags: ["icinga2-server"] }

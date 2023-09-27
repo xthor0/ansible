@@ -1,0 +1,16 @@
+---
+icinga2_hosts:
+  - name: dmon01.xthorsworld.lab
+    template: linux-host
+    ip: 10.200.54.11
+  - name: icinga2v2.xthorsworld.lab
+    template: generic-host
+    ip: icinga2v2.xthorsworld.lab
+icinga2_db_username: "{{ lookup('community.general.onepassword', 'icinga2-dev-db', field='username', vault='Ansible') }}"
+icinga2_db_password: "{{ lookup('community.general.onepassword', 'icinga2-dev-db', field='password', vault='Ansible') }}"
+icinga2_web_admin_username: "{{ lookup('community.general.onepassword', 'icingaweb2-user-dev', field='username', vault='Ansible') }}"
+icinga2_web_admin_password: "{{ lookup('community.general.onepassword', 'icingaweb2-user-dev', field='password', vault='Ansible') }}"
+icinga2_web_admin_passwordhash: "{{ lookup('community.general.onepassword', 'icingaweb2-user-dev', field='passwordhash', vault='Ansible') }}"
+icinga2_api_password: "{{ lookup('community.general.onepassword', 'icingaweb2-api-dev', field='password', vault='Ansible') }}"
+icinga2_pushover_usertoken: "{{ lookup('community.general.onepassword', 'pushover', field='usertoken', vault='Ansible') }}"
+icinga2_pushover_apptoken: "{{ lookup('community.general.onepassword', 'pushover', field='apptoken', vault='Ansible') }}"

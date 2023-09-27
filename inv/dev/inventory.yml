@@ -11,6 +11,11 @@ zabbixchecker:
   hosts:
     zabbixchk1.xthorsworld.lab:
 
+icinga2-server:
+  hosts:
+    rocky8test.xthorsworld.lab:
+      ansible_host: 10.200.54.10
+
 libvirt:
   hosts:
     dvmh01.xthorsworld.com:
@@ -24,3 +29,4 @@ all:
     linux:
     zabbixchecker:
     libvirt:
+    icinga2-server:

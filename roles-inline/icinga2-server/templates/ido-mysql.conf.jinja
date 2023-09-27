@@ -1,0 +1,13 @@
+/**
+ * The IdoMysqlConnection type implements MySQL support
+ * for DB IDO.
+ * THIS FILE IS MANAGED BY ANSIBLE
+ * CHANGES WILL BE OVERWRITTEN
+ */
+
+object IdoMysqlConnection "ido-mysql" {
+  user      = "{{ icinga2_db_username }}"
+  password  = "{{ icinga2_db_password }}"
+  database  = "icinga2"
+  host      = "localhost"
+}

@@ -1,6 +1,20 @@
 ---
-- name: restart apache2
+- name: Import schema for icingaweb2 database
+  mysql_db:
+    name: icingaweb2
+    state: import
+    target: /usr/share/doc/icingaweb2/schema/mysql.schema.sql
+  become: true
+  
+- name: Import schema for icinga2 database
+  mysql_db:
+    name: icinga2
+    state: import
+    target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
+  become: true
+
+- name: restart icinga2 service
   service:
-    name: apache2
+    name: icinga2
     state: restarted
   become: true

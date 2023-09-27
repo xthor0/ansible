@@ -134,7 +134,7 @@ command = [ SysconfDir + "/icinga2/scripts/notify_by_pushover.sh" ]
 env = { 
     PUSHOVERUSER = "$user.vars.pushover_user$" 
     PUSHOVERTOKEN = "$user.vars.pushover_token$" 
-    PUSHOVERTITLE = "Icinga: {{ salt['grains.get']('id') }}" 
+    PUSHOVERTITLE = "Icinga: {{ ansible_fqdn }}" 
     PUSHOVERMESSAGE = "$notification.type$ $host.display_name$ $host.state$ $icinga.long_date_time$" 
   } 
 } 
@@ -147,7 +147,7 @@ object NotificationCommand "pushover-service-notification" {
   env = { 
     PUSHOVERUSER = "$user.vars.pushover_user$" 
     PUSHOVERTOKEN = "$user.vars.pushover_token$" 
-    PUSHOVERTITLE = "Icinga: {{ salt['grains.get']('id') }}" 
+    PUSHOVERTITLE = "Icinga: {{ ansible_fqdn }}" 
     PUSHOVERMESSAGE = "$notification.type$ $host.display_name$ $service.display_name$ $service.state$ $icinga.long_date_time$" 
   } 
 } 

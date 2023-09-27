@@ -1,5 +1,5 @@
 /*
-managed by saltstack. local edits will be overwritten.
+managed by ansible. local edits will be overwritten.
 */
 
 object Host NodeName {
@@ -26,15 +26,10 @@ object Host NodeName {
   }
 }
 
-{#
-this is a good way to do debugging, if necessary, so I'm keeping it here...
-{%- do salt.log.error('debug: pillar vars: ' + salt['pillar.get']('icinga2:hosts')|json) -%}
-#}
-
-{% for host, vars in salt['pillar.get']('icinga2:hosts').items() %}
-object Host "{{ host }}" {
-  import "{{ vars['template'] }}"
+{% for i in icinga2_hosts %}
+object Host "{{ i.name }}" {
+  import "{{ i.template }}"
   check_command = "ping4"
-  address = "{{ vars['ip'] }}"
+  address = "{{ i.ip }}"
 }
 {% endfor %}
