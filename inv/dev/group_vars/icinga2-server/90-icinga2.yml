@@ -14,3 +14,4 @@ icinga2_web_admin_passwordhash: "{{ lookup('community.general.onepassword', 'ici
 icinga2_api_password: "{{ lookup('community.general.onepassword', 'icingaweb2-api-dev', field='password', vault='Ansible') }}"
 icinga2_pushover_usertoken: "{{ lookup('community.general.onepassword', 'pushover', field='usertoken', vault='Ansible') }}"
 icinga2_pushover_apptoken: "{{ lookup('community.general.onepassword', 'pushover', field='apptoken', vault='Ansible') }}"
+icinga2_snmp_community: "{{ lookup('community.general.onepassword', 'linux-snmp-dev', field='password', vault='Ansible') }}"

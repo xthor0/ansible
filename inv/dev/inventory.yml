@@ -13,8 +13,7 @@ zabbixchecker:
 
 icinga2-server:
   hosts:
-    rocky8test.xthorsworld.lab:
-      ansible_host: 10.200.54.10
+    icinga2v3.xthorsworld.lab:
 
 libvirt:
   hosts:

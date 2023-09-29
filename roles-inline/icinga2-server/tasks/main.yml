@@ -51,11 +51,14 @@
       - nagios-plugins-swap
       - nagios-plugins-ssh
       - nagios-plugins-nrpe
+      - nagios-plugins-perl
       - mailx
       - postfix
       - mariadb
       - mariadb-server
       - python3-mysql
+      - perl-Net-SNMP
+      - net-snmp-utils
     state: latest
     update_cache: true
   become: true
@@ -64,8 +67,8 @@
   lineinfile:
     path: /etc/php.ini
     regexp: '^;?date.timezone ='
-    line: "date.timezone = \"{{ lookup('file', '/etc/timezone') }}\""
-  notify: restart httpd
+    line: "date.timezone = \"America/Denver\""
+  notify: restart httpd service
   become: true
 
 - name: Enable icinga2 feature ido-mysql
@@ -292,6 +295,11 @@
   become: true
   notify: Import schema for icinga2 database
 
+# if this is not run at this point, the databases don't get populated until the end of the play
+# which will cause the 'Check if icingaweb2 user exists' task to fail
+- name: Flush handlers
+  meta: flush_handlers
+
 - name: Check if icingaweb2 user exists
   community.mysql.mysql_query:
     login_db: icingaweb2
@@ -303,7 +311,7 @@
 - name: Show me output of icingaweb2_check_user
   ansible.builtin.debug:
     msg:
-    - "icingaweb2_check_user: {{ icingaweb2_check_user }}"
+    - "icingaweb2_check_user.rowcount equals {{ icingaweb2_check_user.rowcount[0] }}"
 
 - name: Set up icingaweb2 user
   community.mysql.mysql_query:
@@ -314,7 +322,7 @@
       - INSERT INTO `icingaweb_group_membership` (group_id,username) VALUES (1,"{{ icinga2_web_admin_username }}");
       - INSERT INTO `icingaweb_user_preference` (username,section,name,value) VALUES ("{{ icinga2_web_admin_username }}",'icingaweb','auto_refresh','1'),("{{ icinga2_web_admin_username }}",'icingaweb','show_application_state_messages','system'),("{{ icinga2_web_admin_username }}",'icingaweb','show_benchmark','0'),("{{ icinga2_web_admin_username }}",'icingaweb','show_stacktraces','1'),("{{ icinga2_web_admin_username }}",'icingaweb','theme','solarized-dark');
   become: true
-  when: "icingaweb2_check_user.rowcount == 0"
+  when: "icingaweb2_check_user.rowcount[0] == 0"
 
 - name: enable icinga2 service
   service:

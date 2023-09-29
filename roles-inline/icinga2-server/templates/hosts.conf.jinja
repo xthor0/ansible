@@ -31,5 +31,6 @@ object Host "{{ i.name }}" {
   import "{{ i.template }}"
   check_command = "ping4"
   address = "{{ i.ip }}"
+  vars.snmpCommunity = "{{ icinga2_snmp_community }}"
 }
 {% endfor %}

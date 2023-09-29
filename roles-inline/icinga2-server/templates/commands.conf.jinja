@@ -173,3 +173,16 @@ object CheckCommand "memory" {
     "-c 90" 
   ]
 }
+
+object CheckCommand "check_snmp_mem" {
+  import "plugin-check-command"
+
+  command = [
+    PluginDir + "/check_snmp_mem.pl",
+    "-H", "$address$",
+    "-C", "$host.vars.snmpCommunity$",
+    "-2",
+    "-w 80",
+    "-c 90" 
+  ]
+}
