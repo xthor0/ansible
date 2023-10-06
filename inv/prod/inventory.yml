@@ -8,6 +8,7 @@ libvirt:
     vmh01.xthorsworld.com:
     vmh02.xthorsworld.com:
     vmh03.xthorsworld.com:
+    arimarma.xthorsworld.com:
 
 linux:
   hosts:
