@@ -6,6 +6,7 @@ linux:
   hosts:
   children:
     libvirt:
+    k3s:
 
 zabbixchecker:
   hosts:
@@ -22,6 +23,15 @@ libvirt:
     #debvmh:
     #  ansible_host: 10.200.50.172
 
+k3s:
+  hosts:
+    dk01n01.xthorsworld.lab:
+    dk01n02.xthorsworld.lab:
+    dk01n03.xthorsworld.lab:
+    dk01n04.xthorsworld.lab:
+    dk01n05.xthorsworld.lab:
+    dk01n06.xthorsworld.lab:
+
 all:
   children:
     zabbix_servers:
@@ -29,3 +39,4 @@ all:
     zabbixchecker:
     libvirt:
     icinga2-server:
+    k3s:
