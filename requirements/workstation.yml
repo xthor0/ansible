@@ -1,3 +1,5 @@
-collections:
-- name: community.general
-  version: 6.4.0 # until they fix this bug: https://github.com/ansible-collections/community.general/issues/6271
+#collections:
+#- name: community.general
+#  version: 6.4.0 # until they fix this bug: https://github.com/ansible-collections/community.general/issues/6271
+roles:
+- name: geerlingguy.helm
