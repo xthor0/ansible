@@ -10,5 +10,6 @@
 - name: install Slack RPM
   yum:
     name: https://downloads.slack-edge.com/releases/linux/4.35.126/prod/x64/slack-4.35.126-0.1.el8.x86_64.rpm
+    disable_gpg_check: true
   become: true 
   when: ansible_os_family == "RedHat"
