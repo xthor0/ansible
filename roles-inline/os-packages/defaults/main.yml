@@ -19,7 +19,7 @@ common_packages:
   - smartmontools
   - solaar
   - btop
-  - rpi-imager
+  #- rpi-imager
 
 # make sure these vars are named specifically after {{ ansible_os_family }}
 Debian_packages:
