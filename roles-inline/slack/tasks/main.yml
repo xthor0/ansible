@@ -13,7 +13,7 @@
     description: Slack DNF repo
     baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
     gpgcheck: yes
-    gpgkey: https://slack.com/gpg/slack_pubkey_20220708.gpg
+    gpgkey: https://packagecloud.io/gpg.key
     enabled: yes
   become: true
   when: ansible_os_family == "RedHat"
