@@ -20,18 +20,24 @@
       - gnome-shell-extension-user-theme
       - gnome-shell-extension-launch-new-instance
       - gnome-shell-extension-common
-      - gnome-browser-connector
+      - chrome-gnome-shell
       - breeze-icon-theme
       - gnome-extensions-app
-  when: ansible_os_family == "RedHat"
+  when: "ansible_distribution == 'Rocky' and ansible_distribution_major_version == '9'"
 
-# looks like horizontal workspaces is back in F34, so...
-- name: install required gnome packages - Fedora 33 only
+- name: install required gnome packages - Fedora
   become: true
   package:
     name:
-      - gnome-shell-extension-horizontal-workspaces
-  when: "ansible_distribution == 'Fedora' and ansible_distribution_version == '33'"
+      - python3-psutil
+      - gnome-tweaks
+      - gnome-shell-extension-user-theme
+      - gnome-shell-extension-launch-new-instance
+      - gnome-shell-extension-common
+      - gnome-browser-connector
+      - breeze-icon-theme
+      - gnome-extensions-app
+  when: ansible_distribution == 'Fedora'
 
 # gnome interface settings
 
