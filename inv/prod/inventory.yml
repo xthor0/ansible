@@ -16,6 +16,7 @@ linux:
     ragno.xthorsworld.com:
     lancah.xthorsworld.com:
     gagamba.xthorsworld.com:
+    hbnas.xthorsworld.com:
   children:
     libvirt:
     upsmon:
