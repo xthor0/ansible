@@ -21,10 +21,22 @@
 
 - name: Add FileBot repo (Fedora)
   command:
-    cmd: sudo dnf config-manager --add-repo 'https://raw.githubusercontent.com/filebot/plugins/master/yum/main.repo'
+    cmd: dnf config-manager --add-repo 'https://raw.githubusercontent.com/filebot/plugins/master/yum/main.repo'
     creates: /etc/yum.repos.d/main.repo
   become: true
   when: ansible_distribution == "Fedora"
+
+- name: Check if FileBot repo Enabled (Fedora)
+  command:
+    cmd: grep -q enabled=1 /etc/yum.repos.d/main.repo
+  register: filebot_repo_enabled
+  changed_when: false
+
+- name: Enable FileBot repo (Fedora)
+  command:
+    cmd: dnf config-manager --set-enabled filebot
+  become: true
+  when: ansible_distribution == "Fedora" and filebot_repo_enabled.rc == 1
 
 - name: install FileBot package and dependencies (Fedora)
   yum:
