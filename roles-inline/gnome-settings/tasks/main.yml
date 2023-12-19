@@ -50,7 +50,7 @@
 - name: gtk theme
   community.general.dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Adwaita-dark'"
+    value: "'Adwaita'"
 
 - name: clock show date
   community.general.dconf:
