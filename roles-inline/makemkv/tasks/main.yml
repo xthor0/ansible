@@ -38,6 +38,12 @@
   become: true
   when: "ansible_distribution == 'Debian'"
 
+- name: Create MakeMKV directory
+  file:
+    path: ~/.MakeMKV
+    state: directory
+    mode: '0750'
+
 - name: copy makemkv settings file (unless it already exists)
   copy:
     src: files/settings.conf
