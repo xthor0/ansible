@@ -1,21 +1,8 @@
 ---
-- name: add yum GPG keys from urls
-  rpm_key:
-    key: "{{ item }}"
-    state: present
-  with_items:
-    - "https://negativo17.org/repos/RPM-GPG-KEY-slaanesh"
-  become: true
-  when: "ansible_distribution == 'Fedora'"
-
-- name: install negativo17 media repo
-  yum_repository:
-    name: fedora-multimedia
-    baseurl: https://negativo17.org/repos/multimedia/fedora-$releasever/$basearch/
-    gpgcheck: yes
-    gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
-    enabled: yes
-    skip_if_unavailable: yes
+- name: add negativo17 repo (Fedora)
+  command:
+    cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-multimedia.repo
+    creates: /etc/yum.repos.d/fedora-multimedia.repo
   become: true
   when: "ansible_distribution == 'Fedora'"
 
@@ -50,12 +37,6 @@
     - makemkv-bin
   become: true
   when: "ansible_distribution == 'Debian'"
-
-- name: create config dir for terminator
-  file:
-    path: ~/.MakeMKV
-    state: directory
-    mode: '0755'
 
 - name: copy makemkv settings file (unless it already exists)
   copy:
