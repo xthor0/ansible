@@ -41,7 +41,7 @@
   when: "ansible_distribution == 'Debian'"
 
 - name: install packages to manage media (Fedora)
-  apt:
+  dnf:
     name: "{{ item }}"
     state: present
   with_items:
