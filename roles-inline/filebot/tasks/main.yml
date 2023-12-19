@@ -31,6 +31,7 @@
     cmd: grep -q enabled=1 /etc/yum.repos.d/main.repo
   register: filebot_repo_enabled
   changed_when: false
+  failed_when: false
 
 - name: Enable FileBot repo (Fedora)
   command:
