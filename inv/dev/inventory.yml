@@ -1,9 +1,10 @@
 zabbix_servers:
   hosts:
-    zabbix2.xthorsworld.lab:
+    mon01.xthorsworld.lab:
 
 linux:
   hosts:
+    guest01.xthorsworld.lab:
   children:
     libvirt:
     k3s:

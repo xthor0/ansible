@@ -58,6 +58,15 @@
     mode: '0755'
   become: true
 
+- name: install setup_network.sh script
+  ansible.builtin.copy:
+    src: files/setup_network.sh
+    dest: /usr/local/bin/setup_network.sh
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
+
 - name: create directory for cloud images
   file:
     path: /srv/cloud-images

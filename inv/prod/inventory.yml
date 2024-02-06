@@ -8,7 +8,7 @@ libvirt:
     vmh01.xthorsworld.com:
     vmh02.xthorsworld.com:
     vmh03.xthorsworld.com:
-    arimarma.xthorsworld.com:
+    monvmh01.xthorsworld.com:
 
 linux:
   hosts:
@@ -16,7 +16,7 @@ linux:
     ragno.xthorsworld.com:
     lancah.xthorsworld.com:
     gagamba.xthorsworld.com:
-    hbnas.xthorsworld.com:
+    arimarma.xthorsworld.com:
   children:
     libvirt:
     upsmon:

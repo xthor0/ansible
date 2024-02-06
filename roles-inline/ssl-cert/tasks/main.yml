@@ -1,9 +1,15 @@
 ---
+# really only needed for Zabbix, but
+- name: Ensure locale en_US.UTF-8 exists
+  community.general.locale_gen:
+    name: en_US.UTF-8
+    state: present
+
 # paths needs adjustment - will only work for RHEL family
 # apparently httpd + mod_ssl generates a cert for us. do we even need to do this?
 - name: Generate an OpenSSL private key
   community.crypto.openssl_privatekey:
-    path: "/etc/pki/tls/private/{{ server_hostname }}_privkey.pem"
+    path: "/etc/ssl/private/{{ server_hostname }}.key"
     size: "{{ key_size }}"
     type: "{{ key_type }}"
     backup: yes
@@ -11,10 +17,19 @@
 
 - name: Generate an OpenSSL Certificate Signing Request with Subject information
   community.crypto.openssl_csr:
-    path: "/etc/pki/tls//{{ server_hostname }}.csr"
-    privatekey_path: "./certificates/{{ server_hostname }}_privkey.pem"
+    path: "/etc/ssl/certs/{{ server_hostname }}.csr"
+    privatekey_path: "/etc/ssl/private/{{ server_hostname }}.key"
     country_name: "{{ country_name }}"
     organization_name: "{{ organization_name }}"
     email_address: "{{ email_address }}"
     common_name: "{{ server_hostname }}"
+    subject_alt_name:
+      - "DNS:{{ san_name }}"
   become: true
+
+- name: Create self-signed certificate from CSR
+  community.crypto.x509_certificate:
+    path: "/etc/ssl/certs/{{ server_hostname }}.pem"
+    csr_path: "/etc/ssl/certs/{{ server_hostname }}.csr"
+    privatekey_path: "/etc/ssl/private/{{ server_hostname }}.key"
+    provider: selfsigned
