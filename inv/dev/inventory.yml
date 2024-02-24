@@ -5,9 +5,11 @@ zabbix_servers:
 linux:
   hosts:
     guest01.xthorsworld.lab:
+    guest02.xthorsworld.lab:
   children:
     libvirt:
     k3s:
+    iperf:
 
 zabbixchecker:
   hosts:
@@ -33,6 +35,10 @@ k3s:
     dk01n05.xthorsworld.lab:
     dk01n06.xthorsworld.lab:
 
+iperf:
+  hosts:
+    perfmon.xthorsworld.lab:
+
 all:
   children:
     zabbix_servers:
@@ -41,3 +47,4 @@ all:
     libvirt:
     icinga2-server:
     k3s:
+    iperf:

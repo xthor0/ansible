@@ -11,7 +11,7 @@ else
 fi
 
 ## what's my IP address, so I can set it correctly later
-ipaddr=$(ip -4 -br addr show eno1 | awk '{ print $3 }')
+ipaddr=$(ip -4 -br addr show ${netdev} | awk '{ print $3 }')
 gateway=$(ip route | grep ^default | awk '{ print $3 }')
 
 ## set up the primary br0 for default vlan

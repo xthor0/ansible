@@ -1,0 +1,19 @@
+- name: install iperf3 package
+  package:
+    name: iperf3
+    state: present
+  become: true
+
+- name: iperf3 systemd file
+  copy:
+    src: files/iperf3.service
+    dest: /etc/systemd/system/iperf3.service
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: start iperf3 service
+  systemd:
+    state: started
+    name: iperf3
+    daemon_reload: yes

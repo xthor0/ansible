@@ -7,6 +7,9 @@
       - role: geerlingguy.repo-epel
         when: ansible_os_family == "RedHat"
       - role: zabbix-pre
+      - role: ssl-cert
+        tags: ["ssl-cert"]
+        when: san_name is defined
       - geerlingguy.mysql
       - geerlingguy.apache
       - role: geerlingguy.certbot
@@ -17,8 +20,3 @@
         tags: ["zabbix-web"]
       - role: community.zabbix.zabbix_agent
         tags: ["zabbix-agent"]
-      #- role: zabbix-fix-httpd
-      #  tags: ["zabbix-fix-httpd"]
-      # doesn't work. don't quite know why. so there's some manual setup I have to do, unfortunately.
-      #- role: zabbix-users
-      #  tags: ["zabbix-users"]

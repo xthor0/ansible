@@ -20,6 +20,15 @@ linux:
   children:
     libvirt:
     upsmon:
+    zabbix_servers:
+
+zabbix_servers:
+  hosts:
+    mon01.xthorsworld.com:
+
+iperf:
+  hosts:
+    speed01.xthorsworld.com:
 
 all:
   children:

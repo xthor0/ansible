@@ -1,13 +1,13 @@
 ---
-zabbix_agent_server: kusikusi.xthorsworld.com
-zabbix_agent_serveractive: kusikusi.xthorsworld.com
+zabbix_agent_server: mon01.xthorsworld.com
+zabbix_agent_serveractive: 10.200.1.5
 zabbix_agent_dont_detect_ip: true
 zabbix_agent_become_on_localhost: false
-zabbix_api_create_hosts: true
+zabbix_api_create_hosts: false
 zabbix_agent_link_templates: ["Linux by Zabbix agent"]
 zabbix_host_groups: ["Linux servers"]
 # without this stuff, auto-creating the host won't work
-zabbix_api_server_host: kusikusi.xthorsworld.com
+zabbix_api_server_host: mon01.xthorsworld.com
 zabbix_api_server_port: 443
 # this user must be added manually before running the playbook. can't figure out a way to add him via ansible, unfortunately.
 # WE NEED BOTH SETS OF LOGINS HERE. Sigh. Took me AGES to figure this out.
