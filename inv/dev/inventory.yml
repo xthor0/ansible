@@ -21,10 +21,8 @@ icinga2-server:
 
 libvirt:
   hosts:
-    dvmh01.xthorsworld.com:
-    dvmh02.xthorsworld.com:
-    #debvmh:
-    #  ansible_host: 10.200.50.172
+    vmh-test:
+      ansible_host: 10.200.1.61
 
 k3s:
   hosts:
