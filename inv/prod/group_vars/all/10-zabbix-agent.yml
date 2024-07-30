@@ -18,3 +18,5 @@ zabbix_api_http_password: "{{ lookup('community.general.onepassword', 'zabbix_ap
 zabbix_api_use_ssl: yes
 zabbix_api_validate_certs: false
 ansible_zabbix_url_path: /
+zabbix_agent_userparameters:
+  - name: ZoL_without_sudo.conf

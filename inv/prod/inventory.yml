@@ -18,6 +18,7 @@ linux:
     gagamba.xthorsworld.com:
     arimarma.xthorsworld.com:
     frigate.xthorsworld.com:
+    prycop.xthorsworld.com:
   children:
     libvirt:
     upsmon:
