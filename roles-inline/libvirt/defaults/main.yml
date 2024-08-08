@@ -10,7 +10,6 @@ debian_packages_libvirt:
   - libvirt-daemon-system
   - libvirt-clients
   - virtinst
-  - vagrant-libvirt
 
 RedHat_packages_libvirt:
   - libvirt

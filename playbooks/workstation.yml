@@ -6,6 +6,9 @@
   any_errors_fatal: yes
   tasks:
     - ping:
+  vars:
+    foo: bar
+
 
 - name: collections
   hosts: localhost
@@ -30,7 +33,8 @@
     - { role: firefox, tags: [ "firefox"] }
     - { role: spotify, tags: [ "spotify"] }
     - { role: podman, tags: [ "podman"] }
-    - { role: kubectl, tags: [ "kubectl"] }
+    #- { role: kubectl, tags: [ "kubectl"] }
+    - { role: githubixx.kubectl, become: true, tags: [ "kubectl"] }
     - { role: geerlingguy.helm, tags: [ "helm"] }
     - { role: lefthook, tags: [ "lefthook"] }
     - { role: k9s, tags: [ "k9s"] }
@@ -38,8 +42,8 @@
     - { role: appimagelauncher, tags: [ "appimagelauncher"] }
     - { role: notesnook, tags: [ "notesnook"] }
     # - { role: conky, tags: [ "conky"] }
-    - { role: slack, tags: [ "slack"] }
-    - { role: minikube, tags: [ "minikube" ] }
+    #- { role: slack, tags: [ "slack"] }
+    #- { role: minikube, tags: [ "minikube" ] }
     #- { role: oscar, tags: [ "oscar" ] }
     - { role: remmina, tags: [ "remmina" ] }
     - { role: cura, tags: [ "cura" ] }
