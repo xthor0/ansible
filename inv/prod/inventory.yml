@@ -19,6 +19,7 @@ linux:
     arimarma.xthorsworld.com:
     pajak.xthorsworld.com:
     prycop.xthorsworld.com:
+    pavuk.xthorsworld.com:
   children:
     libvirt:
     upsmon:
