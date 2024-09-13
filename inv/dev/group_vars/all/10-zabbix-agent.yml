@@ -1,6 +1,6 @@
 ---
 zabbix_agent_server: mon01.xthorsworld.lab
-zabbix_agent_serveractive: 10.200.54.50
+zabbix_agent_serveractive: 10.200.54.102
 zabbix_agent_dont_detect_ip: true
 zabbix_agent_become_on_localhost: False
 zabbix_api_create_hosts: false
@@ -18,3 +18,6 @@ zabbix_api_http_password: "{{ lookup('community.general.onepassword', 'zabbix_ap
 zabbix_api_use_ssl: yes
 zabbix_api_validate_certs: no
 ansible_zabbix_url_path: /
+zabbix_agent_tlspsk_auto: true
+zabbix_agent_userparameters:
+  - name: ZoL_without_sudo.conf

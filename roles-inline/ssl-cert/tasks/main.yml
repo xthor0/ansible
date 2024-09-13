@@ -1,9 +1,9 @@
 ---
 # really only needed for Zabbix, but
-- name: Ensure locale en_US.UTF-8 exists
-  community.general.locale_gen:
-    name: en_US.UTF-8
-    state: present
+#- name: Ensure locale en_US.UTF-8 exists
+#  community.general.locale_gen:
+#    name: en_US.UTF-8
+#    state: present
 
 # paths needs adjustment - will only work for RHEL family
 # apparently httpd + mod_ssl generates a cert for us. do we even need to do this?

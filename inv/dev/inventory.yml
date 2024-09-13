@@ -6,6 +6,8 @@ linux:
   hosts:
     guest01.xthorsworld.lab:
     guest02.xthorsworld.lab:
+    mon02.xthorsworld.lab:
+    mon03.xthorsworld.lab:
   children:
     libvirt:
     k3s:

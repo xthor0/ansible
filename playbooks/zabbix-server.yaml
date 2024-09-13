@@ -6,10 +6,6 @@
       - role: bash
       - role: geerlingguy.repo-epel
         when: ansible_os_family == "RedHat"
-      - role: zabbix-pre
-      - role: ssl-cert
-        tags: ["ssl-cert"]
-        when: san_name is defined
       - geerlingguy.mysql
       - geerlingguy.apache
       - role: geerlingguy.certbot
@@ -20,3 +16,4 @@
         tags: ["zabbix-web"]
       - role: community.zabbix.zabbix_agent
         tags: ["zabbix-agent"]
+      - role: zabbix-fix-httpd
