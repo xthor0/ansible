@@ -3,25 +3,16 @@ upsmon:
     upsmon01.xthorsworld.com:
     upsmon02.xthorsworld.com:
 
-libvirt:
-  hosts:
-    vmh01.xthorsworld.com:
-    vmh02.xthorsworld.com:
-    vmh03.xthorsworld.com:
-    monvmh01.xthorsworld.com:
-
 linux:
   hosts:
     etterkop.xthorsworld.com:
     ragno.xthorsworld.com:
     lancah.xthorsworld.com:
     gagamba.xthorsworld.com:
-    arimarma.xthorsworld.com:
     pajak.xthorsworld.com:
     prycop.xthorsworld.com:
     pavuk.xthorsworld.com:
   children:
-    libvirt:
     upsmon:
     zabbix_servers:
 

@@ -4,40 +4,22 @@ zabbix_servers:
 
 linux:
   hosts:
-    guest01.xthorsworld.lab:
-    guest02.xthorsworld.lab:
     mon02.xthorsworld.lab:
     mon03.xthorsworld.lab:
+    fio1.xthorsworld.lab:
+    dk01lb01.xthosworld.lab:
+      ansible_host: 10.200.54.47
+    dk01lb02.xthorsworld.lab:
   children:
     libvirt:
     k3s:
-    iperf:
-
-zabbixchecker:
-  hosts:
-    zabbixchk1.xthorsworld.lab:
-
-icinga2-server:
-  hosts:
-    icinga2v3.xthorsworld.lab:
-
-libvirt:
-  hosts:
-    vmh-test:
-      ansible_host: 10.200.1.61
+    zabbix_servers:
 
 k3s:
   hosts:
-    dk01n01.xthorsworld.lab:
-    dk01n02.xthorsworld.lab:
-    dk01n03.xthorsworld.lab:
-    dk01n04.xthorsworld.lab:
-    dk01n05.xthorsworld.lab:
-    dk01n06.xthorsworld.lab:
-
-iperf:
-  hosts:
-    perfmon.xthorsworld.lab:
+    dk01m01.xthorsworld.lab:
+    dk01m02.xthorsworld.lab:
+    dk01m03.xthorsworld.lab:
 
 all:
   children:
