@@ -25,13 +25,13 @@ proxmox:
   hosts:
     dvmh01.xthorsworld.lab:
       ansible_user: root
-      ansible_host: 10.200.54.5
+      ansible_host: 10.200.54.7
     dvmh02.xthorsworld.lab:
       ansible_user: root
-      ansible_host: 10.200.54.6
+      ansible_host: 10.200.54.8
     dvmh03.xthorsworld.lab:
       ansible_user: root
-      ansible_host: 10.200.54.7
+      ansible_host: 10.200.54.9
 
 k3s:
   hosts:
