@@ -1,0 +1,77 @@
+---
+- name: Fix Ceph apt sources
+  copy:
+    dest: /etc/apt/sources.list.d/ceph.list
+    content: |
+      # managed by Ansible
+      deb http://download.proxmox.com/debian/ceph-quincy {{ ansible_distribution_release }} no-subscription
+      deb http://download.proxmox.com/debian/ceph-reef {{ ansible_distribution_release }} no-subscription
+
+- name: Comment out pve-enterprise sources
+  replace:
+    path: /etc/apt/sources.list.d/pve-enterprise.list
+    regexp: '^(?!#)'
+    replace: '#'
+
+- name: Update Debian apt sources to mirror.xmission.com
+  replace:
+    path: /etc/apt/sources.list
+    regexp: 'ftp.us.debian.org'
+    replace: 'mirror.xmission.com'
+
+- name: Disable subscription nag
+  notify: Reinstall proxmox-widget-toolkit
+  copy:
+    dest: /etc/apt/apt.conf.d/no-nag-script
+    content: |
+      # managed by Ansible
+      DPkg::Post-Invoke { "dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ $? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/.*data\.status.*{/{s/\!//;s/active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi"; };
+
+- name: Set root password
+  user:
+    name: root
+    update_password: always
+    password: "{{ root_password_hash }}"
+  become: true
+
+- name: install vim and axel
+  apt:
+    name:
+      - vim
+      - axel
+    state: present
+    update_cache: yes
+
+- name: Check if local snippets are enabled
+  shell: pvesm list local | grep -q ^local\:snippets
+  register: pvesm_check
+  failed_when: pvesm_check.rc == 2
+  changed_when: pvesm_check.rc == 1
+
+- name: Enable PVESM local snippets
+  shell: pvesm set local -content snippets,iso,vztmpl,backup
+  when: pvesm_check.rc == 1
+
+- name: Create /var/lib/vz/snippets/vendor.yaml
+  copy:
+    dest: /var/lib/vz/snippets/vendor.yaml
+    content: |
+      # managed by Ansible
+      #cloud-config
+      timezone: America/Denver
+      package_update: true
+      package_upgrade: true
+      packages:
+        - qemu-guest-agent
+      runcmd:
+          - touch /etc/cloud/cloud-init.disabled
+          - sleep 1 && reboot
+  when: pvesm_check.rc == 1
+
+- name: install create_template.sh script
+  copy:
+    src: files/create_template.sh
+    dest: /usr/local/bin/create_template.sh
+    mode: 0700
+    owner: root
+    group: root

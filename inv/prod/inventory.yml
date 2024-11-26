@@ -12,6 +12,8 @@ linux:
     pajak.xthorsworld.com:
     prycop.xthorsworld.com:
     pavuk.xthorsworld.com:
+    cfproxy.xthorsworld.com:
+    nextcloud.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
