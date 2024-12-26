@@ -5,4 +5,6 @@
   roles:
     - { role: users, tags: [ "users" ] }
     - { role: bash, tags: [ "bash" ] }
+    - { role: server-packages, tags: [ "server-packages" ] }
+    - { role: pushover-me, tags: [ "pushover-me" ] }
     - { role: community.zabbix.zabbix_agent, tags: [ "zabbix-agent" ] }

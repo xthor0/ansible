@@ -85,8 +85,8 @@ pushd ${tmpdir}
 # create sshkeys file
 cat << EOF > sshkeys
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJNEonif7PNwf6DFR1/nqU9phsdgGFzSMO8EWkD3caLDoAs8/TvnQ+iwvzcox8yAKpU6uIaungjEil3LdiScQSB6yJXB++/4pO827+8AkYmo3seKWkk7LTpHuW8zPc8dbsre1uBCuV7VoAeMJkml1O4wwYooJVt55Nfj2qwVqbg7EMyO9C0KN6X85GLOV1WI3Oa95gmwJvnhg3sbFFW0l4DddsU7rmqzftHyfNzgg/X7VbBa1GzAhhr+EmCh19r8msAgVj6odKutk9/Z8bvE9kUH1+4c0WkdpeVOkdcacluRFZ3lrb9+UTdZ/H1ebTEKbpp/wg7eGT+pO4JcFNrqSqyiVkcBjYi6u8rzCJ3KjSy9718wwWM+y3m/NW0gCuuKTQnCeNqe+b1SUvvPZqGvMykGxStHszkVSDjuGZlu9IsP59ALSWDOvTkybu+fIONw4EmItrdPmGqGHYuA0tTzwLh4QqPr8fvF8sZaVislzHaPWzwaafKc2QpxjoABpfXdU= linux
-ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJxAV/7QW6fm8xwV05rDjh9eYZlXW54kBcSgfOVKVOAhSzzuH0+CmkZVL6vCYMBnkjGz/f33mp15WZBx4fjxLrw= mbp16
 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHd8PMFpRbXMohUHJqvJmaFyF/JZHyHajm7kyDuQ7tJx5EkdqSFJI9lgLG5m9UWj8x33AUUqbktgnwXx+Y2CK4s= macstudio
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBK3iRP3Unzjkv8+WvKQyaJCtEAAnC8jPjYqv/H4gSpu/nlhLweTW5LStsolj/Dbiya5nzZDkHI5HRSRhlIFx4Vw= mba15
 EOF
 
 # download the source disk
@@ -95,7 +95,7 @@ mv $(basename ${dlurl}) $(basename ${image})
 #virt-sysprep -a ${image} --selinux-relabel --network --update --install qemu-guest-agent --operations -machine-id
 
 # create the VM
-qm create ${vm_id} --name ${vmname} --memory 2048 --net0 virtio,bridge=vmbr0,tag=54 --agent enabled=1 --cpu x86-64-v2 --vga qxl
+qm create ${vm_id} --name ${vmname} --memory 2048 --net0 virtio,bridge=vmbr0,tag=54 --agent enabled=1 --cpu x86-64-v3 --vga qxl
 
 # import the debian 12 qcow2 disk to VM created
 qm importdisk ${vm_id} ${image} ${storage}

@@ -1,0 +1,19 @@
+---
+# all packages should be available in the default repos (or, with RPMfusion, in the case of Fedora)
+common_packages:
+  - curl
+  - screen
+  - sysstat
+  - smartmontools
+  - btop
+  - bash-completion
+
+# make sure these vars are named specifically after {{ ansible_os_family }}
+Debian_packages:
+  - vim
+
+# This will match Fedora, too. Unfortunately Rocky is missing a few: transmission-gtk python3-boto putty discord calibre
+# may need to tweak something if I'm intent on having it work with both Rocky *AND* Fedora *AND* install all the packages I had before.
+RedHat_packages:
+  - python3-policycoreutils
+  - vim-enhanced
