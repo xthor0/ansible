@@ -11,9 +11,15 @@ linux:
     gagamba.xthorsworld.com:
     cfproxy.xthorsworld.com:
     nextcloud.xthorsworld.com:
+    stor01.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
+    transmission:
+
+transmission:
+  hosts:
+    evarcha.xthorsworld.com:
 
 zabbix_servers:
   hosts:

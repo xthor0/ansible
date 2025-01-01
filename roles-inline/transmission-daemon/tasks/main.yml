@@ -1,0 +1,136 @@
+---
+- name: install transmission-daemon
+  dnf:
+    name: transmission-daemon
+    state: present
+  become: true
+
+- name: install nginx
+  dnf:
+    name: nginx
+    state: present
+  become: true
+
+- name: install python3-cryptography
+  dnf:
+    name: python3-cryptography
+    state: present
+  become: true
+
+- name: Create private key (RSA, 4096 bits)
+  community.crypto.openssl_privatekey:
+    path: /etc/pki/tls/private/nginx.key
+
+- name: Create simple self-signed certificate
+  community.crypto.x509_certificate:
+    path: /etc/pki/tls/certs/nginx.pem
+    privatekey_path: /etc/pki/tls/private/nginx.key
+    provider: selfsigned
+  become: true
+
+- name: template nginx.conf
+  ansible.builtin.template:
+    src: templates/nginx.conf.j1
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
+  notify: restart nginx
+
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect
+    state: true
+    persistent: true
+  become: true
+
+- name: create transmission directories
+  file:
+    path: '{{ item }}'
+    mode: '0775'
+    state: directory
+    owner: transmission
+    group: transmission
+  with_items:
+    - /srv/transmission/downloads
+    - /srv/transmission/incomplete
+  become: true
+
+- name: start transmission-daemon if config file does not exist
+  command: systemctl start transmission-daemon
+  args: 
+    creates: /var/lib/transmission/.config/transmission-daemon/settings.json
+  become: true
+
+- name: stop transmission-daemon service
+  service:
+    name: transmission-daemon
+    state: stopped
+  become: true
+
+- name: transmission-daemon settings - download directory
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"download-dir": "/var/lib/transmission/Downloads",'
+    line: '    "download-dir": "/srv/transmission/downloads",'
+  become: true
+
+- name: transmission-daemon settings - incomplete download directory
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"incomplete-dir": "/var/lib/transmission/Downloads",'
+    line: '    "incomplete-dir": "/srv/transmission/incomplete",'
+  become: true
+
+- name: transmission-daemon settings - enable incomplete downloads
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"incomplete-dir-enabled": false,'
+    line: '    "incomplete-dir-enabled": true,'
+  become: true
+
+- name: transmission-daemon settings - disable download queue
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"download-queue-enabled": true,'
+    line: '    "download-queue-enabled": false,'
+  become: true
+
+- name: transmission-daemon settings - disable rpc whitelist
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"rpc-whitelist-enabled": true,'
+    line: '    "rpc-whitelist-enabled": false,'
+  become: true
+
+- name: transmission-daemon settings - enable rpc authentication
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"rpc-authentication-required": false,'
+    line: '    "rpc-authentication-required": true,'
+  become: true
+
+- name: transmission-daemon settings - set rpc username
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"rpc-username":.*'
+    line: '    "rpc-username": "{{ transmission_rpc_username }}",'
+  become: true
+
+- name: transmission-daemon settings - set rpc password
+  ansible.builtin.lineinfile:
+    path: /var/lib/transmission/.config/transmission-daemon/settings.json
+    regexp: '"rpc-password":.*'
+    line: '    "rpc-password": "{{ transmission_rpc_password }}",'
+  become: true
+
+- name: start necessary services
+  service:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  with_items:
+    - transmission-daemon
+    - nginx
+  become: true

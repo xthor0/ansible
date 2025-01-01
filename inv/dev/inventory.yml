@@ -1,25 +1,26 @@
 zabbix_servers:
   hosts:
-    mon01.xthorsworld.lab:
+    #mon01.xthorsworld.lab:
 
 linux:
   hosts:
-    mon02.xthorsworld.lab:
-    mon03.xthorsworld.lab:
-    fio1.xthorsworld.lab:
-    dk01lb01.xthosworld.lab:
-      ansible_host: 10.200.54.47
-    dk01lb02.xthorsworld.lab:
   children:
     libvirt:
     k3s:
     zabbix_servers:
+    transmission:
+
+transmission:
+  hosts:
+    evarcha.xthosworld.lab:
+      ansible_host: 10.200.54.209
+
 
 libvirt:
   hosts:
     #vmh01.xthorsworld.lab:
     #  ansible_host: 10.200.54.124
-    tvmh01.xthorsworld.com:
+    #tvmh01.xthorsworld.com:
 
 proxmox:
   hosts:
@@ -35,9 +36,9 @@ proxmox:
 
 k3s:
   hosts:
-    dk01m01.xthorsworld.lab:
-    dk01m02.xthorsworld.lab:
-    dk01m03.xthorsworld.lab:
+    #dk01m01.xthorsworld.lab:
+    #dk01m02.xthorsworld.lab:
+    #dk01m03.xthorsworld.lab:
 
 all:
   children:
