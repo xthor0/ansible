@@ -1,0 +1,332 @@
+---
+- name: End the play for hosts that do not run Rocky Linux 8
+  ansible.builtin.fail:
+    msg: This role can only be applied to a Rocky Linux 8 server.
+  when:
+  - ansible_distribution == 'Rocky'
+  - ansible_distribution_major_version != '8'
+
+- name: add yum repository for icinga2
+  yum_repository:
+    name: icinga
+    description: ICINGA (stable release for epel)
+    baseurl: http://packages.icinga.com/epel/$releasever/release/
+    gpgcheck: yes
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ICINGA
+    enabled: yes
+  become: true
+
+- name: download icinga RPM key
+  get_url:
+    url: https://packages.icinga.com/icinga.key
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-ICINGA
+    mode: '0644'
+    checksum: "sha256:be677e07972ed57b99ffc2fd211379ac11b9c6a7c8d9460086b447b96b0a82bb"
+  become: true
+
+- name: install epel-release
+  package:
+    pkg:
+      - epel-release
+    state: latest
+  become: true
+
+- name: install icinga2 packages
+  package:
+    pkg:
+      - icinga2
+      - icinga2-ido-mysql
+      - icingaweb2
+      - icingaweb2-selinux
+      - icingacli
+      - httpd
+      - mod_ssl
+      - nagios-plugins-http
+      - nagios-plugins-ping
+      - nagios-plugins-fping
+      - nagios-plugins-load
+      - nagios-plugins-disk
+      - nagios-plugins-users
+      - nagios-plugins-procs
+      - nagios-plugins-swap
+      - nagios-plugins-ssh
+      - nagios-plugins-nrpe
+      - nagios-plugins-perl
+      - mailx
+      - postfix
+      - mariadb
+      - mariadb-server
+      - python3-mysql
+      - perl-Net-SNMP
+      - net-snmp-utils
+    state: latest
+    update_cache: true
+  become: true
+
+- name: Timezone in php.ini
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^;?date.timezone ='
+    line: "date.timezone = \"America/Denver\""
+  notify: restart httpd service
+  become: true
+
+- name: Enable icinga2 feature ido-mysql
+  command:
+    cmd: icinga2 feature enable ido-mysql
+    creates: /etc/icinga2/features-enabled/ido-mysql.conf
+  become: true
+
+- name: Enable icinga2 feature command
+  command:
+    cmd: icinga2 feature enable command
+    creates: /etc/icinga2/features-enabled/command.conf
+  become: true
+
+- name: icinga2 api setup
+  command:
+    cmd: icinga2 api setup
+    creates: /etc/icinga2/features-enabled/api.conf
+  become: true
+
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect
+    state: true
+    persistent: true
+  become: true
+
+- name: enable postfix service
+  service:
+    name: postfix
+    state: started
+    enabled: yes
+  become: true
+
+- name: create /etc/icingaweb2/modules/monitoring directory
+  file:
+    path: /etc/icingaweb2/modules/monitoring
+    state: directory
+    mode: "0770"
+    owner: root
+    group: icingaweb2
+  become: true
+  notify: restart icinga2 service
+
+- name: copy icinga2 files
+  copy: 
+    src: "{{ item.src }}" 
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - src: files/check_mem.pl
+      dest: /usr/lib64/nagios/plugins/check_mem.pl
+      owner: root
+      group: root
+      mode: "0755"
+    - src: files/notify_by_pushover.sh
+      dest: /etc/icinga2/scripts/notify_by_pushover.sh
+      owner: icinga
+      group: icinga
+      mode: "0750"
+    - src: files/authentication.ini
+      dest: /etc/icingaweb2/authentication.ini
+      owner: root
+      group: icingaweb2
+      mode: "0660"
+    - src: files/config.ini
+      dest: /etc/icingaweb2/config.ini
+      owner: root
+      group: icingaweb2
+      mode: "0660"
+    - src: files/backends.ini
+      dest: /etc/icingaweb2/modules/monitoring/backends.ini
+      owner: root
+      group: icingaweb2
+      mode: "0660"
+    - src: files/mariadb-server.cnf
+      dest: /etc/my.cnf.d/mariadb-server.cnf
+      owner: root
+      group: root
+      mode: "0660"
+    - src: files/notifications.conf
+      dest: /etc/icinga2/conf.d/notifications.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+    - src: files/services.conf
+      dest: /etc/icinga2/conf.d/services.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+    - src: files/templates.conf
+      dest: /etc/icinga2/conf.d/templates.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+  become: true
+  notify: restart icinga2 service
+
+- name: copy icinga2 templates
+  template:
+    src: "{{ item.src }}" 
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - src: templates/index.html.jinja
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: "0644"
+    - src: templates/api-users.conf.jinja
+      dest: /etc/icinga2/conf.d/api-users.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+    - src: templates/resources.ini.jinja
+      dest: /etc/icingaweb2/resources.ini
+      owner: root
+      group: icingaweb2
+      mode: "0660"
+    - src: templates/roles.ini.jinja
+      dest: /etc/icingaweb2/roles.ini
+      owner: root
+      group: icingaweb2
+      mode: "0660"
+    - src: templates/commandtransports.ini.jinja
+      dest: /etc/icingaweb2/modules/monitoring/commandtransports.ini
+      owner: root
+      group: icingaweb2
+      mode: "0660"
+    - src: templates/commands.conf.jinja
+      dest: /etc/icinga2/conf.d/commands.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+    - src: templates/hosts.conf.jinja
+      dest: /etc/icinga2/conf.d/hosts.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+    - src: templates/users.conf.jinja
+      dest: /etc/icinga2/conf.d/users.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+    - src: templates/users.conf.jinja
+      dest: /etc/icinga2/conf.d/users.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+    - src: templates/ido-mysql.conf.jinja
+      dest: /etc/icinga2/features-available/ido-mysql.conf
+      owner: icinga
+      group: icinga
+      mode: "0640"
+  become: true
+  notify: restart icinga2 service
+
+- name: create /etc/icingaweb2/enabledModules directory
+  file:
+    path: /etc/icingaweb2/enabledModules
+    state: directory
+    mode: "0770"
+    owner: root
+    group: icingaweb2
+  become: true
+  notify: restart icinga2 service
+
+- name: Create a symbolic link for /etc/icingaweb2/enabledModules/monitoring
+  file:
+    dest: /etc/icingaweb2/enabledModules/monitoring
+    src: /usr/share/icingaweb2/modules/monitoring
+    owner: root
+    group: icingaweb2
+    state: link
+  become: true
+  notify: restart icinga2 service
+
+- name: start and enable mariadb service
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+  become: true
+
+- name: enable php-fpm service
+  service:
+    name: php-fpm
+    state: started
+    enabled: yes
+  become: true
+
+- name: enable httpd service
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  become: true
+
+- name: Create icinga2 database user
+  community.mysql.mysql_user:
+    state: present
+    name: "{{ icinga2_db_username }}"
+    password: "{{ icinga2_db_password }}"
+    priv:
+      'icinga2.*': 'ALL'
+      'icingaweb2.*': 'ALL'
+  become: true
+
+- name: Ensure icingaweb2 database exists
+  mysql_db:
+    name: icingaweb2
+    state: present
+  become: true
+  notify: Import schema for icingaweb2 database
+
+- name: Ensure icinga2 database exists
+  mysql_db:
+    name: icinga2
+    state: present
+  become: true
+  notify: Import schema for icinga2 database
+
+# if this is not run at this point, the databases don't get populated until the end of the play
+# which will cause the 'Check if icingaweb2 user exists' task to fail
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Check if icingaweb2 user exists
+  community.mysql.mysql_query:
+    login_db: icingaweb2
+    query:
+      - SELECT name FROM icingaweb_user WHERE name = "{{ icinga2_web_admin_username }}";
+  become: true
+  register: icingaweb2_check_user
+
+- name: Show me output of icingaweb2_check_user
+  ansible.builtin.debug:
+    msg:
+    - "icingaweb2_check_user.rowcount equals {{ icingaweb2_check_user.rowcount[0] }}"
+
+- name: Set up icingaweb2 user
+  community.mysql.mysql_query:
+    login_db: icingaweb2
+    query:
+      - INSERT INTO `icingaweb_user` (name, active, password_hash) VALUES ("{{ icinga2_web_admin_username }}", 1, "{{ icinga2_web_admin_passwordhash }}");
+      - INSERT INTO `icingaweb_group` (name) VALUES ('Administrators');
+      - INSERT INTO `icingaweb_group_membership` (group_id,username) VALUES (1,"{{ icinga2_web_admin_username }}");
+      - INSERT INTO `icingaweb_user_preference` (username,section,name,value) VALUES ("{{ icinga2_web_admin_username }}",'icingaweb','auto_refresh','1'),("{{ icinga2_web_admin_username }}",'icingaweb','show_application_state_messages','system'),("{{ icinga2_web_admin_username }}",'icingaweb','show_benchmark','0'),("{{ icinga2_web_admin_username }}",'icingaweb','show_stacktraces','1'),("{{ icinga2_web_admin_username }}",'icingaweb','theme','solarized-dark');
+  become: true
+  when: "icingaweb2_check_user.rowcount[0] == 0"
+
+- name: enable icinga2 service
+  service:
+    name: icinga2
+    state: started
+    enabled: yes
+  become: true

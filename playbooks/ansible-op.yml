@@ -1,0 +1,7 @@
+---
+- name: retrieve item from 1password
+  hosts: localhost
+  tasks:
+    - name: get item firstone from vault Ansible
+      ansible.builtin.debug:
+        var: lookup('community.general.onepassword', 'firstone', field='password', vault='Ansible')

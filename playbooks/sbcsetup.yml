@@ -1,0 +1,7 @@
+---
+# this should be called via ansible-pull
+# won't have access to secrets, therefore will set temp values till it can be accessed via network
+- name: Initial setup for Linux SBC
+  hosts: localhost
+  roles:
+    - { role: sbcsetup, tags: [ "sbcsetup"] }

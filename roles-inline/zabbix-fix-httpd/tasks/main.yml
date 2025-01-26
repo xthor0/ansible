@@ -1,0 +1,46 @@
+---
+- name: Set httpd_execmem flag on and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: httpd_execmem
+    state: true
+    persistent: true
+  when: ansible_os_family == "RedHat"
+
+- name: Remove default SSL VirtualHost
+  replace:
+    path: "{{ apache_server_root }}/conf.d/ssl.conf"
+    regexp: '({{pattern}})'
+    replace: '#\1'
+  loop_control:
+    loop_var: pattern
+  loop:
+    - "^<VirtualHost"
+    - "^</VirtualHost"
+    - "^DocumentRoot"
+    - "^ServerName"
+    - "^ErrorLog"
+    - "^TransferLog"
+    - "^LogLevel"
+    - "^SSLEngine"
+    - "^SSLCertificateFile"
+    - "^SSLCertificateKeyFile"
+  notify: restart apache
+  when: ansible_os_family == "RedHat"
+
+- name: Copy ssl.conf to /etc/httpd/conf.d/ssl.conf
+  ansible.builtin.copy:
+    src: files/ssl.conf
+    dest: /etc/httpd/conf.d/ssl.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart httpd
+  when: ansible_os_family == "RedHat"
+
+# don't know that this will be missing on most distros, but just in case
+# it was on a digitalocean droplet
+- name: install glibc-langpack-en (Rocky Linux)
+  package:
+    name: glibc-langpack-en
+    state: present
+  when: ansible_os_family == "RedHat"

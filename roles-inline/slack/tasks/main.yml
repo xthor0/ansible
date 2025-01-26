@@ -7,30 +7,9 @@
   become: true 
   when: ansible_os_family == "Debian"
 
-- name: Add slack dnf repository
-  yum_repository:
-    name: Slack
-    description: Slack DNF repo
-    baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
-    gpgcheck: yes
-    gpgkey: https://slack.com/gpg/slack_pubkey_20220708.gpg
-    enabled: yes
-  become: true
-  when: ansible_os_family == "RedHat"
-
-- name: install Slack from DNF repo
+- name: install Slack RPM
   yum:
-    name: slack
-  become: true
+    name: https://downloads.slack-edge.com/releases/linux/4.35.126/prod/x64/slack-4.35.126-0.1.el8.x86_64.rpm
+    disable_gpg_check: true
+  become: true 
   when: ansible_os_family == "RedHat"
-
-- name: create autostart directory
-  file:
-    path: ~/.config/autostart
-    mode: '0775'
-    state: directory
-
-- name: start Slack on login
-  copy:
-    src: files/slack.desktop
-    dest: ~/.config/autostart/slack.desktop

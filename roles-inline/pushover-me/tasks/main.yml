@@ -1,0 +1,26 @@
+---
+- name: Install pushover_me.sh script in /usr/local/bin
+  ansible.builtin.template:
+    src: templates/pushover_me.sh
+    dest: /usr/local/bin/pushover_me.sh
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create /root/.local/bin directory (RHEL family)
+  file:
+    path: /root/.local/bin
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  become: true
+  when: "ansible_os_family == 'RedHat'"
+
+- name: symlink pushover_me.sh to /root/.local/bin so path works (RHEL family)
+  file:
+    path: /root/.local/bin/pushover_me.sh
+    src: /usr/local/bin/pushover_me.sh
+    state: link
+  become: true
+  when: "ansible_os_family == 'RedHat'"

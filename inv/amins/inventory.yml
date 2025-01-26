@@ -1,0 +1,23 @@
+zabbix_servers:
+  hosts:
+    aiimon01.american-ins.com:
+
+libvirt:
+  hosts:
+    aiivmh01.american-ins.com:
+
+zabbixchecker:
+  hosts:
+    aiimon02.american-ins.com:
+
+linux:
+  hosts:
+    aiimon01.american-ins.com:
+    aiimon02.american-ins.com:
+    aiivmh01.american-ins.com:
+
+all:
+  children:
+    zabbix_servers:
+    libvirt:
+    linux:

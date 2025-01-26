@@ -1,0 +1,23 @@
+---
+- name: see if /usr/share/keyrings/spotify.gpg exists
+  stat:
+    path: /usr/share/keyrings/spotify.gpg
+  register: spotify_gpg
+
+- name: download spotify public key
+  get_url:
+    url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
+    dest: /tmp/spotify_pubkey.gpg
+  become: true
+  when: not spotify_gpg.stat.exists
+
+- name: gpg dearmor spotify public key
+  shell: cat /tmp/spotify_pubkey.gpg | gpg --dearmor --yes -o /usr/share/keyrings/spotify.gpg
+  when: not spotify_gpg.stat.exists
+  become: True
+
+- name: add apt repository for spotify
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free"
+    state: present
+  become: true 

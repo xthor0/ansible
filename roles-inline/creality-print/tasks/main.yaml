@@ -1,0 +1,15 @@
+---
+- name: include local-dirs role
+  include_role:
+    name: local-dirs
+
+# this is so ugly, github releases are much easier
+- name: Get latest Creality release name via curl
+  shell: curl https://www.creality.com/pages/download-ender-3-v2-neo | grep 'href=.*cdn.creality.com.*AppImage.*AppImage' | cut -d \> -f 1 | cut -d \= -f 2 | tr -d \"
+  register: creality_release
+
+- name: Download Creality Print AppImage
+  get_url:
+    url: "{{ creality_release.stdout }}"
+    dest: ~/Downloads/Creality_Print.AppImage
+    mode: '0750'

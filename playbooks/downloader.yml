@@ -1,0 +1,13 @@
+- hosts: transmission
+  name: download the whole internets
+  become: true
+
+  roles:
+    - { role: users, tags: [ "users" ] }
+    - { role: bash, tags: [ "bash" ] }
+    - role: geerlingguy.repo-epel
+      when: ansible_os_family == "RedHat"
+    #- { role: community.zabbix.zabbix_agent, tags: [ "zabbix-agent" ] }
+    - { role: server-packages, tags: [ "server-packages" ] }
+    - { role: openvpn, tags: [ "openvpn" ] }
+    - { role: transmission-daemon, tags: [ "transmission-daemon" ] }

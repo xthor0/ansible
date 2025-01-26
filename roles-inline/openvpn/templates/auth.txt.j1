@@ -1,0 +1,2 @@
+{{ nordvpn_service_username }}
+{{ nordvpn_service_password }}

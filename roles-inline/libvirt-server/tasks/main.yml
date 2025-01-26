@@ -1,0 +1,77 @@
+---
+- name: Set fact - OS-specific packages
+  set_fact:
+    os_packages: "{{ lookup('vars', ansible_os_family + '_packages_libvirt_server') }}"
+
+- name: Install common libvirt packages - RHEL family
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages_libvirt_server }}"
+  when: ansible_os_family == "RedHat"
+
+- name: Install OS-specific libvirt packages - RHEL family
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ RedHat_packages_libvirt_server }}"
+  when: ansible_os_family == "RedHat"
+
+- name: Install common libvirt packages - Debian family
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ common_packages_libvirt_server }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install OS-specific libvirt packages - Debian family
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ Debian_packages_libvirt_server }}"
+  when: ansible_os_family == "Debian"
+
+- name: start libvirtd service
+  service:
+    name: libvirtd
+    state: started
+    enabled: yes
+  become: true
+
+- name: start cockpit service
+  service:
+    name: cockpit.socket
+    state: started
+    enabled: yes
+  become: true
+
+- name: install new_vm.sh script
+  ansible.builtin.copy:
+    src: files/new_vm.sh
+    dest: /usr/local/bin/new_vm.sh
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
+
+- name: install setup_network.sh script
+  ansible.builtin.copy:
+    src: files/setup_network.sh
+    dest: /usr/local/bin/setup_network.sh
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
+
+- name: create directory for cloud images
+  file:
+    path: /srv/cloud-images
+    state: directory
+    mode: '0755'
+    owner: xthor
+    group: xthor
+  become: true

@@ -1,0 +1,6 @@
+---
+zabbix_api_server_url: zabbixt1.xthorsworld.lab
+# this will differ when I start screwing with lets encrypt
+zabbix_apache_tls: true
+zabbix_apache_tls_crt: /etc/pki/tls/certs/localhost.crt
+zabbix_apache_tls_key: /etc/pki/tls/private/localhost.key

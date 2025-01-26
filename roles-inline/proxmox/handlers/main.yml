@@ -1,0 +1,3 @@
+---
+- name: Reinstall proxmox-widget-toolkit
+  command: "apt --reinstall install proxmox-widget-toolkit"

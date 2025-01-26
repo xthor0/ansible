@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# This shell script if placed in /etc/apcupsd
+# will be called by /etc/apcupsd/apccontrol when the UPS
+# power comes back from batteries.
+#
+# NOTE: This file is managed by saltstack. Local modifications will be overwritten.
+
+HOSTNAME=`hostname`
+APPTOKEN="aafz1xykzjtt56955zusq5ak74rfsg"
+USERTOKEN="uiLUuynXsvF7UCQATr3j6j7pG7dGoh"
+
+# send a message to Pushover
+/usr/bin/curl -s --form-string "token=${APPTOKEN}" --form-string "user=${USERTOKEN}" --form-string "message=$HOSTNAME :: UPS power has returned" https://api.pushover.net/1/messages.json

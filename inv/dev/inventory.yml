@@ -1,0 +1,51 @@
+zabbix_servers:
+  hosts:
+    #mon01.xthorsworld.lab:
+
+linux:
+  hosts:
+  children:
+    libvirt:
+    k3s:
+    zabbix_servers:
+    transmission:
+
+transmission:
+  hosts:
+    evarcha.xthosworld.lab:
+      ansible_host: 10.200.54.209
+
+
+libvirt:
+  hosts:
+    #vmh01.xthorsworld.lab:
+    #  ansible_host: 10.200.54.124
+    #tvmh01.xthorsworld.com:
+
+proxmox:
+  hosts:
+    dvmh01.xthorsworld.lab:
+      ansible_user: root
+      ansible_host: 10.200.54.7
+    dvmh02.xthorsworld.lab:
+      ansible_user: root
+      ansible_host: 10.200.54.8
+    dvmh03.xthorsworld.lab:
+      ansible_user: root
+      ansible_host: 10.200.54.9
+
+k3s:
+  hosts:
+    #dk01m01.xthorsworld.lab:
+    #dk01m02.xthorsworld.lab:
+    #dk01m03.xthorsworld.lab:
+
+all:
+  children:
+    zabbix_servers:
+    linux:
+    zabbixchecker:
+    libvirt:
+    icinga2-server:
+    k3s:
+    iperf:

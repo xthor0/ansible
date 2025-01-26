@@ -1,0 +1,14 @@
+roles:
+- name: geerlingguy.mysql
+- name: geerlingguy.mysql
+- name: geerlingguy.apache
+- name: geerlingguy.php-versions
+- name: geerlingguy.php
+- name: geerlingguy.repo-epel
+- name: geerlingguy.repo-remi
+- name: geerlingguy.certbot
+collections:
+- name: ansible.posix
+- name: community.mysql
+- name: community.zabbix
+- name: community.crypto

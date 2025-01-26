@@ -1,0 +1,4 @@
+snmp_access_address: 10.200.54.25
+snmp_monitoring_server: 10.200.54.25
+snmp_password: youcanEatit
+snmp_user: snmpread

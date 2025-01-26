@@ -1,0 +1,6 @@
+---
+- name: restart apcupsd
+  service:
+    name: apcupsd
+    state: restarted
+  become: true

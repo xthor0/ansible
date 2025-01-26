@@ -1,0 +1,49 @@
+upsmon:
+  hosts:
+    upsmon01.xthorsworld.com:
+    upsmon02.xthorsworld.com:
+
+linux:
+  hosts:
+    etterkop.xthorsworld.com:
+    ragno.xthorsworld.com:
+    lancah.xthorsworld.com:
+    gagamba.xthorsworld.com:
+    cfproxy.xthorsworld.com:
+    nextcloud.xthorsworld.com:
+    stor01.xthorsworld.com:
+    brimba.xthorsworld.com:
+  children:
+    upsmon:
+    zabbix_servers:
+    transmission:
+
+transmission:
+  hosts:
+    evarcha.xthorsworld.com:
+
+zabbix_servers:
+  hosts:
+    mon01.xthorsworld.com:
+
+iperf:
+  hosts:
+    speed01.xthorsworld.com:
+
+proxmox:
+  hosts:
+    vmh01.xthorsworld.com:
+      ansible_user: root
+    vmh02.xthorsworld.com:
+      ansible_user: root
+    vmh03.xthorsworld.com:
+      ansible_user: root
+    vmh04.xthorsworld.com:
+      ansible_user: root
+
+all:
+  children:
+    libvirt:
+    upsmon:
+    linux:
+    proxmox:

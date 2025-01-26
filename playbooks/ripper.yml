@@ -13,10 +13,9 @@
   roles:
     - { role: desktop-settings, tags: [ "desktop-settings"] }
     - { role: os-packages, tags: [ "os-packages" ] } # will make handbrake easier
-    - { role: terminator, tags: [ "terminator" ] }
+    - { role: tilix, tags: [ "tilix" ] }
     - { role: oh-my-zsh, tags: [ "oh-my-zsh" ] }
     - { role: vim, tags: [ "vim" ] }
-    - { role: conky, tags: [ "conky" ] }
     - { role: handbrake, tags: [ "handbrake" ] }
     - { role: makemkv, tags: [ "makemkv" ] }
     - { role: media-ripper, tags: [ "media-ripper" ] }

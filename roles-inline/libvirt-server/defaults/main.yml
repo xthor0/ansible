@@ -1,0 +1,31 @@
+---
+# this needs a lot of work if I want to use with debian or ubuntu - only tested on RHEL 9
+common_packages_libvirt_server:
+  - qemu-kvm
+  - screen
+
+Debian_packages_libvirt_server:
+  - cloud-image-utils
+  - libvirt-daemon-system
+  - libvirt-clients
+  - virtinst
+  - vagrant-libvirt
+  - bridge-utils
+  - libvirt-daemon
+  - libguestfs-tools
+  - virtinst
+  - python3-libvirt
+  - libosinfo-bin
+  - cloud-image-utils
+  - cockpit
+  - cockpit-machines
+  - bridge-utils
+
+RedHat_packages_libvirt_server:
+  - libvirt
+  - virt-install
+  - libguestfs-tools
+  - virt-top
+  - cockpit
+  - cockpit-machines
+  - libguestfs-tools-c

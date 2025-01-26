@@ -1,0 +1,10 @@
+---
+- name: include local-dirs role
+  include_role:
+    name: local-dirs
+
+- name: Download Notesnook AppImage
+  get_url:
+    url: https://github.com/streetwriters/notesnook/releases/download/v2.4.7/notesnook_linux_x86_64.AppImage
+    dest: ~/Downloads/Notesnook.AppImage
+    mode: '0750'

@@ -1,0 +1,31 @@
+---
+- name: Download and install openvpn
+  yum:
+    name: openvpn
+    state: present
+  become: true
+
+- name: openvpn client auth.txt
+  ansible.builtin.template:
+    src: templates/auth.txt.j1
+    dest: /etc/openvpn/client/auth.txt
+    owner: root
+    group: root
+    mode: '0700'
+  become: true
+
+- name: download nordvpn config for openvpn
+  copy:
+    src: files/us10424.conf
+    dest: /etc/openvpn/client/us10424.conf
+    mode: '0660'
+    owner: root
+    group: root
+  become: true
+
+- name: start openvpn client
+  service:
+    name: openvpn-client@us10424
+    state: started
+    enabled: yes
+  become: true

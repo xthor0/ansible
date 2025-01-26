@@ -20,18 +20,24 @@
       - gnome-shell-extension-user-theme
       - gnome-shell-extension-launch-new-instance
       - gnome-shell-extension-common
-      - gnome-browser-connector
+      - chrome-gnome-shell
       - breeze-icon-theme
       - gnome-extensions-app
-  when: ansible_os_family == "RedHat"
+  when: "ansible_distribution == 'Rocky' and ansible_distribution_major_version == '9'"
 
-# looks like horizontal workspaces is back in F34, so...
-- name: install required gnome packages - Fedora 33 only
+- name: install required gnome packages - Fedora
   become: true
   package:
     name:
-      - gnome-shell-extension-horizontal-workspaces
-  when: "ansible_distribution == 'Fedora' and ansible_distribution_version == '33'"
+      - python3-psutil
+      - gnome-tweaks
+      - gnome-shell-extension-user-theme
+      - gnome-shell-extension-launch-new-instance
+      - gnome-shell-extension-common
+      - gnome-browser-connector
+      - breeze-icon-theme
+      - gnome-extensions-app
+  when: ansible_distribution == 'Fedora'
 
 # gnome interface settings
 
@@ -44,7 +50,7 @@
 - name: gtk theme
   community.general.dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Adwaita-dark'"
+    value: "'Adwaita'"
 
 - name: clock show date
   community.general.dconf:
@@ -108,9 +114,9 @@
     key: "/org/gnome/desktop/session/idle-delay"
     value: "uint32 900"
 
-- name: sleep when inactive for 15 minutes
+- name: do not automatically suspend when inactive
   community.general.dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
     value: "'nothing'"
 
 # terminal settings
@@ -206,33 +212,41 @@
     value: "'solarized-dark'"
 
 # keybindings
+# I killed pop OS - look at this instead: https://support.system76.com/articles/pop-keyboard-shortcuts/
+# their bindings will take getting used to, but changing them all is a pain
 
-- name: set keybindings for moving between workspaces - down
+# dock for pop OS
+
+- name: set dock to intelligent hide
   community.general.dconf:
-    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-down"
-    value: "['<Primary><Shift><Super>Down', '<Primary><Shift><Alt>Down']"
+    key: "/org/gnome/shell/extensions/dash-to-dock/intellihide"
+    value: "true"
   when: "ansible_distribution == 'Pop!_OS'"
 
-- name: set keybindings for moving between workspaces - up
+- name: set dock fixed to false
   community.general.dconf:
-    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-up"
-    value: "['<Primary><Shift><Super>Up', '<Primary><Shift><Alt>Up']"
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-fixed"
+    value: "false"
   when: "ansible_distribution == 'Pop!_OS'"
 
-- name: set keybindings for moving windows between workspaces - up
-  community.general.dconf:
-    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-up"
-    value: "['<Primary><Super>Up', '<Primary><Super>KP_Up', '<Primary><Super>k', '<Primary><Alt>Up']"
-  when: "ansible_distribution == 'Pop!_OS'"
+# background - I wanted to auto-set this, but it looks like Pop OS does some magic. Easier to just copy the backgrounds I might need.
 
-- name: set keybindings for moving windows between workspaces - down
-  community.general.dconf:
-    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-down"
-    value: "['<Primary><Super>Down', '<Primary><Super>KP_Down', '<Primary><Super>j', '<Primary><Alt>Down']"
-  when: "ansible_distribution == 'Pop!_OS'"
+#- name: register xdpyinfo resolution
+#  shell: xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
+#  register: resolution
+#  changed_when: false
+#  when: "ansible_distribution == 'Pop!_OS'"
 
-# I'd like to set the background, but I'm gonna need to do some fancy-shmancy sed shit to make this work
-# xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
-# then copy in the right file (4k or 1080p) and set it
-# dconf: "org/gnome/desktop/background/picture-uri"
-# value: 'file:///home/xthor/Pictures/...'
+- name: create ~/Pictures/backgrounds directory
+  file:
+    path: ~/Pictures/backgrounds
+    state: directory
+    mode: 0770
+
+- name: copy backgrounds to Pictures folder
+  copy:
+    src: "{{ item }}"
+    dest: ~/Pictures/backgrounds
+    mode: '0640'
+  with_fileglob:
+    - "files/metallurgy1_single_*"

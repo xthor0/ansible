@@ -1,0 +1,14 @@
+- hosts: zabbixchecker
+  become: true
+
+  #tasks:
+  #  - name: Display all variables/facts known for a host
+  #    debug:
+  #      var: hostvars[inventory_hostname]
+  #    tags: debug_info
+
+  roles:
+   - role: users
+   - role: bash
+   - role: community.zabbix.zabbix_agent
+   - role: zabbixchecker

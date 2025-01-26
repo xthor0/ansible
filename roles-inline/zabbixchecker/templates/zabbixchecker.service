@@ -1,0 +1,13 @@
+[Unit]
+Description=Zabbix Server Checker Script
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/local/bin/zabbixchecker.sh {{ zabbixchecker_args }}
+
+[Install]
+WantedBy=multi-user.target

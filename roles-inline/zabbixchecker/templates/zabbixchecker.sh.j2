@@ -1,0 +1,115 @@
+#!/bin/bash
+
+# zabbix server IP address
+ZABBIX_SERVER="{{ zabbix_agent_server }}"
+
+# time between checks
+SLEEP=60
+
+function usage() {
+  echo "I only take one argument: -d for debugging"
+  exit 255
+}
+
+function notification_send() {
+  curl -s \
+  --form-string "token=a74zm3s7dc577532z2qet8fpkwuy6f" \
+  --form-string "user=uiLUuynXsvF7UCQATr3j6j7pG7dGoh" \
+  --form-string "message=Notification: ${*}" \
+  https://api.pushover.net/1/messages.json
+}
+
+function logmsg() {
+  logger "${*}"
+  if [ -n "${DEBUG}" ]; then
+    # log to screen
+    echo "${*}"
+  fi
+}
+
+# command-line arguments
+while getopts "d" OPTION; do
+	case $OPTION in
+		d) DEBUG=1;;
+		*) usage;;
+	esac
+done
+
+# if this changes, it means the host is in a bad state...
+status=0
+laststatus=0
+while true; do
+  /usr/bin/zabbix_get -s ${ZABBIX_SERVER} -k agent.ping >& /dev/null
+  if [ $? -eq 0 ]; then
+    if [ -n "${DEBUG}" ]; then
+      logmsg "zabbix_get exited 0"
+    fi
+    # should return 1
+    PING=$(/usr/bin/zabbix_get -s ${ZABBIX_SERVER} -k agent.ping)
+    if [ ${PING} -eq 1 ]; then
+      if [ -n "${DEBUG}" ]; then
+        logmsg "agent.ping is 1"
+      fi
+      if [ "$(/usr/bin/zabbix_get -s ${ZABBIX_SERVER} -k zabbix.stats | jq -r .response)" == "success" ]; then
+        status=0
+        OUTPUT="healthy"
+        if [ -n "${DEBUG}" ]; then
+          logmsg "zabbix.stats reports success"
+        fi
+      else
+        OUTPUT="UNHEALTHY: zabbix.stats output is not 'success'"
+        status=1
+        if [ -n "${DEBUG}" ]; then
+          logmsg "${OUTPUT}"
+        fi
+      fi
+    else
+      OUTPUT="UNHEALTHY: agent.ping output is ${PING} (expected: 1)"
+      status=1
+      if [ -n "${DEBUG}" ]; then
+        logmsg "${OUTPUT}"
+      fi
+    fi
+  else
+    OUTPUT="UNHEALTHY: zabbix_get non-zero exit"
+    status=1
+    if [ -n "${DEBUG}" ]; then
+      logmsg "${OUTPUT}"
+    fi
+  fi
+
+  # status
+  if [ ${status} -eq 0 ]; then
+    # if the status has changed, we're in RECOVERY, otherwise OK
+    if [ ${status} -eq ${laststatus} ]; then
+      STATE="OK"
+      notify=0
+    else
+      STATE="RECOVER"
+      notify=1
+    fi
+  else
+    # if the status has changed, we're in PROBLEM
+    if [ ${laststatus} -eq ${status} ]; then
+      STATE="PROBLEM"
+      notify=0
+    else
+      STATE="PROBLEM"
+      notify=1
+    fi
+  fi
+
+  # construct state output
+  message="${STATE}: zabbix server ${ZABBIX_SERVER} is ${OUTPUT}"
+  logmsg "${message}"
+
+  if [ ${notify} -eq 1 ]; then
+    notification_send "${message}"
+  fi
+
+  laststatus=${status}
+  if [ -n "${DEBUG}" ]; then
+    logmsg "sleeping for ${SLEEP} seconds"
+  fi
+  sleep ${SLEEP}
+done
