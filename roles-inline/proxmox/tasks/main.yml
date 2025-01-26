@@ -62,6 +62,12 @@
 - name: Enable PVESM local snippets
   shell: pvesm set local -content snippets,iso,vztmpl,backup
   when: pvesm_check.rc == 1
+  register: snippets_enable
+
+- name: Wait for local snippets directory
+  wait_for:
+    path: /var/lib/vz/snippets
+    timeout: 120
 
 - name: Create /var/lib/vz/snippets/vendor.yaml
   copy:
@@ -85,3 +91,9 @@
     mode: 0700
     owner: root
     group: root
+
+- name: apt dist-upgrade
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    upgrade: dist
