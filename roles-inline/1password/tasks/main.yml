@@ -17,3 +17,9 @@
     deb: "https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb"
   become: true 
   when: ansible_os_family == "Debian"
+
+- name: install 1password-cli
+  yum:
+    name: 1password-cli
+  become: true 
+  when: ansible_os_family == "RedHat"
