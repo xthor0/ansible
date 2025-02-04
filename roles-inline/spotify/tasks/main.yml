@@ -1,14 +1,6 @@
 ---
-#- name: Include Debian tasks
-#  include_tasks: Debian.yml
-#  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution or 'Debian' in ansible_distribution"
-
-- name: Include Fedora tasks
-  include_tasks: Fedora.yml
-  when: "'Fedora' in ansible_distribution"
-
-- name: install spotify package
-  package:
-    name: spotify-client
+- name: install Spotify
+  flatpak:
+    name: com.spotify.Client
     state: present
-  become: true
+    method: user

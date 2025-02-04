@@ -1,0 +1,7 @@
+---
+- name: Install Nextcloud Client (Fedora)
+  dnf:
+    name:
+      - nextcloud-client
+  become: true
+  when: "'Fedora' in ansible_distribution"
