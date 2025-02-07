@@ -1,0 +1,5 @@
+---
+- name: Benchmark
+  hosts: pcbench
+  roles:
+    - { role: minipcbench, tags: [ "minipcbench"] }

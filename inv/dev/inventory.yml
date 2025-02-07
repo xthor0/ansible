@@ -15,6 +15,11 @@ transmission:
     evarcha.xthosworld.lab:
       ansible_host: 10.200.54.209
 
+pcbench:
+  hosts:
+    acemagician.xthorsworld.lab:
+      ansible_host: 10.200.54.227
+      ansible_user: root
 
 libvirt:
   hosts:
