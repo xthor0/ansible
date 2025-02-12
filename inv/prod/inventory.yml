@@ -5,13 +5,11 @@ upsmon:
 
 linux:
   hosts:
-    etterkop.xthorsworld.com:
     ragno.xthorsworld.com:
     lancah.xthorsworld.com:
     gagamba.xthorsworld.com:
     cfproxy.xthorsworld.com:
     nextcloud.xthorsworld.com:
-    stor01.xthorsworld.com:
     brimba.xthorsworld.com:
   children:
     upsmon:

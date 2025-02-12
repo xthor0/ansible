@@ -31,13 +31,13 @@
     - { role: tilix, tags: [ "tilix" ] }
     - { role: telegram, tags: [ "telegram"] }
     - { role: firefox, tags: [ "firefox"] }
+    - { role: flatpak, tags: [ "flatpak"] }
     - { role: podman, tags: [ "podman"] }
     - { role: githubixx.kubectl, become: true, tags: [ "kubectl"] }
     - { role: geerlingguy.helm, tags: [ "helm"] }
     - { role: lefthook, tags: [ "lefthook"] }
     - { role: k9s, tags: [ "k9s"] }
     - { role: awscliv2, tags: [ "awscliv2"] }
-    - { role: flatpak, tags: [ "flatpak"] }
     - { role: remmina, tags: [ "remmina" ] }
     - { role: terraform, tags: [ "terraform" ] }
     - { role: nextcloud-client, tags: [ "nextcloud-client" ] }
