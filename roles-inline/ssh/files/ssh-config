@@ -17,8 +17,13 @@ Host *.xthorsworld.lab
   UserKnownHostsFile /dev/null
   LogLevel QUIET
 
-# Unifi Dream Machine Pro
-Host unifi.xthorsworld.com
+# proxmox systems
+Host vmh??.xthorsworld.com
     User root
-    PubkeyAcceptedAlgorithms +ssh-rsa
-    HostkeyAlgorithms +ssh-rsa
+
+Host pbs01.xthorsworld.com
+    User root
+
+# AII proxmox
+Host aiivmh01.american-ins.com
+    User root
