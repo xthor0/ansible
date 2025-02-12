@@ -49,3 +49,4 @@
     dest: /etc/apt/sources.list.d/vscode.list
     content: '# replaced by Ansible to avoid conflicts'
   become: true
+  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution"
