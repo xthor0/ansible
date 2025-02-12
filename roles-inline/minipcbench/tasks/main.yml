@@ -1,0 +1,18 @@
+- name: install benchmark packages
+  package:
+    name:
+      - sysbench
+      - screenfetch
+      - ethtool
+      - curl
+    state: present
+  become: true
+
+- name: install sysbench script
+  copy:
+    src: files/sysbench.sh
+    dest: /usr/local/bin/sysbench.sh
+    mode: '0755'
+    owner: root
+    group: root
+  become: true

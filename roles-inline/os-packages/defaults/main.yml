@@ -41,3 +41,4 @@ RedHat_packages:
   - p7zip-plugins
   - sqlite
   - mpv
+  - transmission-gtk

@@ -1,9 +1,14 @@
 ---
+- name: Check if /opt/zoom/ZoomLauncher exists
+  stat:
+    path: /opt/zoom/ZoomLauncher
+  register: stat_zoom_file
+
 - name: Download and install Zoom DEB
   apt:
     deb: "https://zoom.us/client/latest/zoom_amd64.deb"
   become: true 
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and not stat_zoom_file.stat.exists
 
 # note: this will fail on Rocky Linux. Here's the fix: https://forums.rockylinux.org/t/cannot-import-zooms-gpg-key/6598/9
 # recommended fix: update-crypto-policies --set LEGACY *OR* update-crypto-policies --set DEFAULT:SHA1
@@ -26,4 +31,4 @@
   yum:
     name: https://zoom.us/client/latest/zoom_x86_64.rpm
   become: true
-  when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat" and not stat_zoom_file.stat.exists
