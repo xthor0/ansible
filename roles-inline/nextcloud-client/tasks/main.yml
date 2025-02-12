@@ -6,11 +6,20 @@
   become: true
   when: "'Fedora' in ansible_distribution"
 
+# some hacky shit has to be done here, unfortunately
+# linux mint is based on Ubuntu, but ansible_distribution_release shows xia for 22.1, not noble
+- name: Register Real Dist Version (Debian family)
+  shell: grep ^UBUNTU_CODENAME /etc/os-release | cut -d \= -f 2
+  register: ubuntu_codename
+
+- debug:
+    msg: "{{ ubuntu_codename.stdout }}"
+
 - name: Add Nextcloud-Client repo (deb822_repository)
   ansible.builtin.deb822_repository:
     state: present
     enabled: true
-    name: php
+    name: nextcloud-devs
     uris: [https://ppa.launchpadcontent.net/nextcloud-devs/client/ubuntu]
     signed_by: |
       -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -44,7 +53,7 @@
       =eBID
       -----END PGP PUBLIC KEY BLOCK-----
     types: [deb]
-    suites: ["{{ ansible_facts['distribution_release'] }}"]
+    suites: ["{{ ubuntu_codename.stdout }}"]
     components: [main]
   become: true
   when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution"

@@ -24,22 +24,28 @@
   become: true
   when: ansible_os_family == "RedHat"
 
-- name: install deb package for vscode from https
-  apt:
-    deb: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+- name: Add VSCode APT repository
+  ansible.builtin.deb822_repository:
+    name: vscode
+    types: [deb]
+    uris: "https://packages.microsoft.com/repos/code"
+    signed_by: "https://packages.microsoft.com/keys/microsoft.asc"
+    suites: [stable]
+    components: [main]
+    state: present
+    enabled: yes
   become: true
-  when: "'Debian' in ansible_os_family"
+  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution"
 
-#- name: add apt key for vscode repo
-#  ansible.builtin.get_url:
-#    url: "https://packages.microsoft.com/repos/vscode/dists/stable/Release.gpg"
-#    dest: /etc/apt/trusted.gpg.d/vscode.asc
-#  become: true
-#  when: "'Debian' in ansible_os_family"
+- name: Install vscode (Debian)
+  apt:
+    name: code
+    state: present
+  become: true
+  when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution"
 
-#- name: add apt repositoriy for vscode
-#  apt_repository:
-#    repo: "deb [arch=amd64,signed-by=/etc/apt/trusted.gpg.d/vscode.asc] https://packages.microsoft.com/repos/vscode stable main"
-#    state: present
-#  become: true 
-#  when: "'Debian' in ansible_os_family"
+- name: comment out /etc/apt/sources.list.d/vscode.list
+  copy:
+    dest: /etc/apt/sources.list.d/vscode.list
+    content: '# replaced by Ansible to avoid conflicts'
+  become: true

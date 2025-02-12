@@ -6,20 +6,24 @@
   become: true
   when: ansible_os_family == "RedHat"
 
+- name: Check if /opt/1Password/1password exists
+  stat:
+    path: /opt/1Password/1password
+  register: stat_1pbin_file
+
 - name: install 1password RPM
   yum:
     name: https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm
   become: true 
-  when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat" and not stat_1pbin_file.stat.exists
 
 - name: install 1password DEB
   apt:
     deb: "https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb"
   become: true 
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and not stat_1pbin_file.stat.exists
 
 - name: install 1password-cli
-  yum:
+  package:
     name: 1password-cli
-  become: true 
-  when: ansible_os_family == "RedHat"
+  become: true
