@@ -11,34 +11,30 @@
 # I had to switch from `package` to each respective package manager command. Otherwise, `package` runs the package manager once per item. Yuck.
 - name: Install common packages
   yum:
-    name: "{{ item }}"
+    name: "{{ common_packages }}"
     state: present
   become: true
-  with_items: "{{ common_packages }}"
   when: ansible_os_family == "RedHat"
 
 - name: Install OS-specific packages
   yum:
-    name: "{{ item }}"
+    name: "{{ os_packages }}"
     state: present
   become: true
-  with_items: "{{ os_packages }}"
   when: ansible_os_family == "RedHat"
 
 - name: Install common packages
   apt:
-    name: "{{ item }}"
+    name: "{{ common_packages }}"
     state: present
   become: true
-  with_items: "{{ common_packages }}"
   when: ansible_os_family == "Debian"
 
 - name: Install OS-specific packages
   apt:
-    name: "{{ item }}"
+    name: "{{ os_packages }}"
     state: present
   become: true
-  with_items: "{{ os_packages }}"
   when: ansible_os_family == "Debian"
 
 - name: Remove snapd from Ubuntu

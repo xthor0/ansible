@@ -1,6 +1,0 @@
----
-- name: install Gear Lever
-  flatpak:
-    name: it.mijorus.gearlever
-    state: present
-    method: user

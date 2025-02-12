@@ -31,16 +31,14 @@
     - { role: tilix, tags: [ "tilix" ] }
     - { role: telegram, tags: [ "telegram"] }
     - { role: firefox, tags: [ "firefox"] }
-    - { role: spotify, tags: [ "spotify"] }
     - { role: podman, tags: [ "podman"] }
     - { role: githubixx.kubectl, become: true, tags: [ "kubectl"] }
     - { role: geerlingguy.helm, tags: [ "helm"] }
     - { role: lefthook, tags: [ "lefthook"] }
     - { role: k9s, tags: [ "k9s"] }
     - { role: awscliv2, tags: [ "awscliv2"] }
-    - { role: gearlever, tags: [ "gearlever"] }
-    - { role: notesnook, tags: [ "notesnook"] }
+    - { role: flatpak, tags: [ "flatpak"] }
     - { role: remmina, tags: [ "remmina" ] }
-    #- { role: synologydrive, tags: [ "synologydrive" ] } # need to set up a role for nextcloud-client
     - { role: terraform, tags: [ "terraform" ] }
+    - { role: nextcloud-client, tags: [ "nextcloud-client" ] }
     - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?

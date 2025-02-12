@@ -14,7 +14,6 @@
 
 - name: Install Flatpak packages
   flatpak:
-    name: "{{ item }}"
+    name: "{{ Flathub_packages }}"
     state: present
     method: user
-  with_items: "{{ Flathub_packages }}"

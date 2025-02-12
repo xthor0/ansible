@@ -42,4 +42,3 @@ RedHat_packages:
   - sqlite
   - mpv
   - transmission-gtk
-  - nextcloud-client
