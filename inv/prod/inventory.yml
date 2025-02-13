@@ -11,6 +11,7 @@ linux:
     cfproxy.xthorsworld.com:
     nextcloud.xthorsworld.com:
     brimba.xthorsworld.com:
+    caaro.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
