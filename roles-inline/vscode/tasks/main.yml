@@ -41,6 +41,7 @@
   apt:
     name: code
     state: present
+    update_cache: true
   become: true
   when: "'Ubuntu' in ansible_distribution or 'Pop!_OS' in ansible_distribution or 'Linux Mint' in ansible_distribution"
 
