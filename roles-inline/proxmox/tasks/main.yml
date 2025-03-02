@@ -113,9 +113,3 @@
     mode: 0700
     owner: root
     group: root
-
-- name: apt dist-upgrade
-  apt:
-    update_cache: yes
-    cache_valid_time: 3600
-    upgrade: dist
