@@ -1,2 +1,0 @@
-Flask==0.2
-Flask-SQLAlchemy==2.0

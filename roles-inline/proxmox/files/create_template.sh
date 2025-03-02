@@ -94,7 +94,7 @@ mv $(basename ${dlurl}) $(basename ${image})
 #virt-sysprep -a ${image} --selinux-relabel --network --update --install qemu-guest-agent --operations -machine-id
 
 # create the VM
-qm create ${vm_id} --name ${vmname} --memory 2048 --net0 virtio,bridge=vmbr0,tag=54 --agent enabled=1 --cpu x86-64-v3 --vga qxl
+qm create ${vm_id} --name ${vmname} --memory 2048 --net0 virtio,bridge=vmbr0,tag=54 --agent enabled=1 --cpu x86-64-v3 --vga qxl --serial0 socket
 
 # import the debian 12 qcow2 disk to VM created
 qm importdisk ${vm_id} ${image} ${storage}

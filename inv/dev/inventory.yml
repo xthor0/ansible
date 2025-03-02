@@ -5,7 +5,6 @@ zabbix_servers:
 linux:
   hosts:
   children:
-    libvirt:
     k3s:
     zabbix_servers:
     transmission:
@@ -20,12 +19,6 @@ pcbench:
     acemagician.xthorsworld.lab:
       ansible_host: 10.200.54.227
       ansible_user: root
-
-libvirt:
-  hosts:
-    #vmh01.xthorsworld.lab:
-    #  ansible_host: 10.200.54.124
-    #tvmh01.xthorsworld.com:
 
 proxmox:
   hosts:
