@@ -14,6 +14,7 @@ linux:
     caaro.xthorsworld.com:
     ddns.xthorsworld.com:
     blogsrv.xthorsworld.com:
+    sslprox.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
