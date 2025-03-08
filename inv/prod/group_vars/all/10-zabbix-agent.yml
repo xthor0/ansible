@@ -21,3 +21,4 @@ zabbix_api_validate_certs: false
 ansible_zabbix_url_path: /
 zabbix_agent_userparameters:
   - name: ZoL_without_sudo.conf
+  - name: md.conf
