@@ -15,6 +15,8 @@ linux:
     ddns.xthorsworld.com:
     blogsrv.xthorsworld.com:
     sslprox.xthorsworld.com:
+    etterkop.xthorsworld.com:
+    brimba.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
