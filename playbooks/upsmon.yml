@@ -4,4 +4,7 @@
   roles:
     - { role: users, tags: ["users"] }
     - { role: bash, tags: [ "bash"] }
-    - { role: apcupsd, tags: [ "apcupsd"] }
+    #- { role: apcupsd, tags: [ "apcupsd"] }
+    # TODO: write a role for nut-server 
+    - { role: server-packages, tags: [ "server-packages" ] }
+    - { role: pushover-me, tags: [ "pushover-me" ] }
