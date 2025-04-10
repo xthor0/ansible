@@ -45,33 +45,12 @@
     password: "{{ root_password_hash }}"
   become: true
 
-- name: Set SSH authorized_keys for root
-  authorized_key:
-    user: root
-    state: present
-    key: "{{ item }}"
-  with_items:
-    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJNEonif7PNwf6DFR1/nqU9phsdgGFzSMO8EWkD3caLDoAs8/TvnQ+iwvzcox8yAKpU6uIaungjEil3LdiScQSB6yJXB++/4pO827+8AkYmo3seKWkk7LTpHuW8zPc8dbsre1uBCuV7VoAeMJkml1O4wwYooJVt55Nfj2qwVqbg7EMyO9C0KN6X85GLOV1WI3Oa95gmwJvnhg3sbFFW0l4DddsU7rmqzftHyfNzgg/X7VbBa1GzAhhr+EmCh19r8msAgVj6odKutk9/Z8bvE9kUH1+4c0WkdpeVOkdcacluRFZ3lrb9+UTdZ/H1ebTEKbpp/wg7eGT+pO4JcFNrqSqyiVkcBjYi6u8rzCJ3KjSy9718wwWM+y3m/NW0gCuuKTQnCeNqe+b1SUvvPZqGvMykGxStHszkVSDjuGZlu9IsP59ALSWDOvTkybu+fIONw4EmItrdPmGqGHYuA0tTzwLh4QqPr8fvF8sZaVislzHaPWzwaafKc2QpxjoABpfXdU= # linux"
-    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBK3iRP3Unzjkv8+WvKQyaJCtEAAnC8jPjYqv/H4gSpu/nlhLweTW5LStsolj/Dbiya5nzZDkHI5HRSRhlIFx4Vw= # secretive (MacBook Air 15)"
-    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEMajokRd8LTapXzNeh2EvgCchVLur6777HGThz4jvpnEAJfCtXOT/C1LLAQhCFc1hdNzCT/YD0AAOs/dY6hBS4= # macbook pro m4 14"
-  
-  become: true
-
-- name: Remove SSH authorized_keys for root
-  authorized_key:
-    user: root
-    state: absent
-    key: "{{ item }}"
-  with_items:
-    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJxAV/7QW6fm8xwV05rDjh9eYZlXW54kBcSgfOVKVOAhSzzuH0+CmkZVL6vCYMBnkjGz/f33mp15WZBx4fjxLrw= # secretive (macbook pro)"
-    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHd8PMFpRbXMohUHJqvJmaFyF/JZHyHajm7kyDuQ7tJx5EkdqSFJI9lgLG5m9UWj8x33AUUqbktgnwXx+Y2CK4s= # secretive (Mac Studio)"
-    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFWZDrQ8smOqsoryiPga0Y2o4K6S1jg3HK7hbZqUPurZcKKaV6ma8fGl+mkLtZg1jzIeVx0R8nqDZDrIHuO4df8= # macbook pro m4 14"
-
-- name: install vim and axel
+- name: install additional packages (vim, axe, nut-client)
   apt:
     name:
       - vim
       - axel
+      - nut-client
     state: present
     update_cache: yes
 
@@ -113,3 +92,37 @@
     mode: 0700
     owner: root
     group: root
+
+- name: configure /etc/nut/nut.conf for netclient mode
+  notify: restart nut-client
+  copy:
+    dest: /etc/nut/nut.conf
+    content: |
+      MODE=netclient
+
+- name: configure /etc/nut/upsmon.conf for monitor mode
+  notify: restart nut-client
+  copy:
+    dest: /etc/nut/upsmon.conf
+    content: |
+      MINSUPPLIES 1
+      SHUTDOWNCMD "/sbin/shutdown -h +0"
+      POLLFREQ 5
+      POLLFREQALERT 5
+      HOSTSYNC 15
+      DEADTIME 15
+      POWERDOWNFLAG /etc/killpower
+      RBWARNTIME 43200
+      NOCOMMWARNTIME 300
+      FINALDELAY 5
+      MONITOR ups02@10.200.60.12 1 observer {{ lookup('community.general.onepassword', 'nut_observer', field='password', vault='Ansible') }} secondary
+
+# bug: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1056190
+- name: Add cron job to restart nut-monitor hourly
+  ansible.builtin.cron:
+    name: restart nut-monitor hourly
+    cron_file: restart_nutmonitor_hourly
+    user: root
+    minute: "0"
+    hour: "*"
+    job: "systemctl restart nut-monitor 2>& /dev/null"

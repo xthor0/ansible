@@ -27,6 +27,10 @@ transmission:
   hosts:
     evarcha.xthorsworld.com:
 
+sonarr:
+  hosts:
+    netsucker.xthorsworld.com:
+
 zabbix_servers:
   hosts:
     mon01.xthorsworld.com:
@@ -44,6 +48,8 @@ proxmox:
     vmh03.xthorsworld.com:
       ansible_user: root
     vmh04.xthorsworld.com:
+      ansible_user: root
+    vmh05.xthorsworld.com:
       ansible_user: root
 
 all:

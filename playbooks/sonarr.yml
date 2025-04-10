@@ -1,0 +1,11 @@
+- hosts: sonarr
+  name: download the whole internets
+  become: true
+
+  roles:
+    - { role: users, tags: [ "users" ] }
+    - { role: bash, tags: [ "bash" ] }
+    - role: geerlingguy.repo-epel
+      when: ansible_os_family == "RedHat"
+    - { role: server-packages, tags: [ "server-packages" ] }
+    - { role: openvpn, tags: [ "openvpn" ] }

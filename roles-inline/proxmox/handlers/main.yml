@@ -1,3 +1,8 @@
 ---
 - name: Reinstall proxmox-widget-toolkit
   command: "apt --reinstall install proxmox-widget-toolkit"
+
+- name: restart nut-client
+  service:
+    name: nut-client
+    state: restarted

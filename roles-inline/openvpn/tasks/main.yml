@@ -1,6 +1,6 @@
 ---
 - name: Download and install openvpn
-  yum:
+  package:
     name: openvpn
     state: present
   become: true

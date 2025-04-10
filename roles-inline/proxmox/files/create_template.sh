@@ -8,11 +8,11 @@ function bad_taste() {
 
 function usage() {
   echo "`basename $0`: Download and import a cloud-init based image for PVE"
-  echo "Usage: $(basename $0) -f <flavor>"
+  echo "Usage: $(basename $0) -f <flavor> -s <storage>"
 }
 
 # check if tools required by this script are installed
-for x in axel; do
+for x in axel jq; do
   which ${x} >& /dev/null 
   if [ $? -ne 0 ]; then
     echo "ERROR: Missing ${x} -- please install."
@@ -65,7 +65,8 @@ esac
 set -e
 
 # I store my templates starting at 9000 - get the next higest ID
-highest_id=$(qm list | awk '{ print $1 }' | grep -v ^VMID | grep -v ^1[0-9][0-9] | sort -n | tail -n1)
+#highest_id=$(qm list | awk '{ print $1 }' | grep -v ^VMID | grep -v ^1[0-9][0-9] | sort -n | tail -n1)
+highest_id=$(pvesh get /cluster/resources --type vm  --output-format json | jq '.[]|select(.template == 1)|.vmid' | sort -n | tail -n1)
 
 # determine which VM ID we should use
 if [ -z "${highest_id}" ]; then
@@ -100,7 +101,7 @@ qm create ${vm_id} --name ${vmname} --memory 2048 --net0 virtio,bridge=vmbr0,tag
 qm importdisk ${vm_id} ${image} ${storage}
 
 # attach disk
-qm set ${vm_id} --scsihw virtio-scsi-pci --scsi0 ${storage}:vm-${vm_id}-disk-0
+qm set ${vm_id} --scsihw virtio-scsi-pci --scsi0 ${storage}:vm-${vm_id}-disk-0,discard=on
 
 # create ide for cloudinit
 qm set ${vm_id} --ide2 ${storage}:cloudinit

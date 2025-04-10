@@ -1,0 +1,3 @@
+---
+nordvpn_service_username: "{{ lookup('community.general.onepassword', 'nordvpn-service-creds', field='username', vault='Ansible') }}"
+nordvpn_service_password: "{{ lookup('community.general.onepassword', 'nordvpn-service-creds', field='password', vault='Ansible') }}"
