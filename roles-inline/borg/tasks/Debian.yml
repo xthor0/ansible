@@ -1,0 +1,26 @@
+- name: Add {{ ansible_distribution_release }}-backports apt repo
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib
+    state: present
+  become: true
+
+- name: Add {{ ansible_distribution_release }}-backports apt repo
+  ansible.builtin.apt_repository:
+    repo: deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib
+    state: present
+  become: true
+
+- name: set apt preferences for borgbackup package
+  copy:
+    dest: /etc/apt/preferences.d/90_borgbackup
+    content: |
+      Package: src:borgbackup
+      Pin: release n=bookworm-backports
+      Pin-Priority: 990
+
+- name: install borgbackup package
+  apt:
+    name: borgbackup
+    state: present
+    update_cache: true
+  become: true

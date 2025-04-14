@@ -14,11 +14,9 @@ transmission:
     evarcha.xthosworld.lab:
       ansible_host: 10.200.54.209
 
-pcbench:
+borg:
   hosts:
-    acemagician.xthorsworld.lab:
-      ansible_host: 10.200.54.227
-      ansible_user: root
+    borg01.xthorsworld.lab:
 
 proxmox:
   hosts:
@@ -47,3 +45,4 @@ all:
     icinga2-server:
     k3s:
     iperf:
+    borg:

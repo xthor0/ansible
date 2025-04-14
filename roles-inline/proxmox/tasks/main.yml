@@ -125,4 +125,4 @@
     user: root
     minute: "0"
     hour: "*"
-    job: "systemctl restart nut-monitor 2>& /dev/null"
+    job: "systemctl restart nut-monitor > /dev/null 2>&1"

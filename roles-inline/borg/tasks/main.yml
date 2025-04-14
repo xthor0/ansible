@@ -1,0 +1,7 @@
+---
+- name: borg - include Debian tasks
+  include_tasks: Debian.yml
+  when: "'Debian' in ansible_distribution"
+
+- name: set up borg user
+  include_tasks: borg.yml

@@ -49,8 +49,10 @@ proxmox:
       ansible_user: root
     vmh04.xthorsworld.com:
       ansible_user: root
-    vmh05.xthorsworld.com:
-      ansible_user: root
+
+borg:
+  hosts:
+    lancah.xthorsworld.com:
 
 all:
   children:
@@ -58,3 +60,4 @@ all:
     upsmon:
     linux:
     proxmox:
+    borg:

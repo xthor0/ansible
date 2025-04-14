@@ -1,0 +1,6 @@
+- hosts: borg
+  name: build a Borg server
+  become: true
+
+  roles:
+    - { role: borg, tags: [ "borg" ] }

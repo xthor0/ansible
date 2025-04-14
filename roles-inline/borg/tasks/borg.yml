@@ -1,0 +1,22 @@
+---
+- name: add Borg user
+  ansible.builtin.user:
+    name: borg
+    shell: /bin/bash
+  become: true
+
+- name: Set SSH authorized_keys for borg user
+  authorized_key:
+    user: borg
+    state: present
+    key: "{{ item }}"
+  with_items:
+    "{{ borg_allowed_ssh_keys }}"
+
+- name: Remove SSH authorized_keys for borg user
+  authorized_key:
+    user: borg
+    state: absent
+    key: "{{ item }}"
+  with_items:
+    "{{ borg_removed_ssh_keys }}"
