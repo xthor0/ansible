@@ -45,7 +45,7 @@
     password: "{{ root_password_hash }}"
   become: true
 
-- name: install additional packages (vim, axe, nut-client)
+- name: install additional packages
   apt:
     name:
       - vim

@@ -1,0 +1,8 @@
+- hosts: benchmark
+  name: set up sysbench benchmarks
+  become: true
+
+  roles:
+    - { role: users, tags: [ "users" ] }
+    - { role: bash, tags: [ "bash" ] }
+    - { role: sysbench, tags: [ "sysbench" ] }

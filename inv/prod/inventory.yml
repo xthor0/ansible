@@ -18,6 +18,7 @@ linux:
     etterkop.xthorsworld.com:
     brimba.xthorsworld.com:
     pveweb.xthorsworld.com:
+    xonotic.xthorsworld.dmz:
   children:
     upsmon:
     zabbix_servers:
@@ -48,6 +49,8 @@ proxmox:
     vmh03.xthorsworld.com:
       ansible_user: root
     vmh04.xthorsworld.com:
+      ansible_user: root
+    vmh05.xthorsworld.com:
       ansible_user: root
 
 borg:

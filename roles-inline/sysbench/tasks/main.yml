@@ -1,0 +1,17 @@
+---
+- name: install sysbench package
+  package:
+    name: sysbench
+    state: present
+  become: true
+
+- name: copy sysbench script
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    owner: root
+    group: root
+  with_items:
+    - { src: files/sysbench.sh, dest: /usr/local/bin, mode: '0755' }
+  become: true
