@@ -19,6 +19,7 @@ linux:
     brimba.xthorsworld.com:
     pveweb.xthorsworld.com:
     xonotic.xthorsworld.dmz:
+    spindel.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
@@ -27,6 +28,10 @@ linux:
 transmission:
   hosts:
     evarcha.xthorsworld.com:
+
+docker:
+  hosts:
+    brimba.xthorsworld.com:
 
 sonarr:
   hosts:
@@ -52,6 +57,8 @@ proxmox:
       ansible_user: root
     vmh05.xthorsworld.com:
       ansible_user: root
+    vmh06.xthorsworld.com:
+      ansible_user: root
 
 borg:
   hosts:
@@ -64,3 +71,5 @@ all:
     linux:
     proxmox:
     borg:
+    immich:
+    sonarr:

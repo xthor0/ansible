@@ -29,6 +29,9 @@ proxmox:
     dvmh03.xthorsworld.lab:
       ansible_user: root
       ansible_host: 10.200.54.9
+    vmhtemp.xthorsworld.lab:
+      ansible_user: root
+      ansible_host: 10.200.10.19
 
 k3s:
   hosts:

@@ -20,11 +20,18 @@
     regexp: '^(?!#)'
     replace: '#'
 
-- name: Update Debian apt sources to mirror.xmission.com
-  replace:
-    path: /etc/apt/sources.list
-    regexp: 'ftp.us.debian.org'
-    replace: 'mirror.xmission.com'
+- name: Configure Debian apt sources
+  copy:
+    dest: /etc/apt/sources.list
+    mode: 0644
+    owner: root
+    group: root
+    content: |
+      # managed by ansible - changes will be overwritten
+      deb http://mirror.xmission.com/debian bookworm main contrib non-free non-free-firmware
+      deb http://mirror.xmission.com/debian bookworm-updates main contrib non-free non-free-firmware
+      # security updates
+      deb http://security.debian.org bookworm-security main contrib non-free non-free-firmware
 
 - name: Update apt cache
   apt:
@@ -51,8 +58,29 @@
       - vim
       - axel
       - nut-client
+      - screen
     state: present
     update_cache: yes
+
+- name: get CPU vendor
+  shell: grep ^vendor_id /proc/cpuinfo | uniq | awk '{ print $3 }'
+  register: cpu_vendor
+
+- name: install AMD CPU microcode
+  apt:
+    name:
+      - amd64-microcode
+    state: present
+    update_cache: yes
+  when: cpu_vendor.stdout.find('AuthenticAMD') != -1
+
+- name: install Intel CPU microcode
+  apt:
+    name:
+      - intel-microcode
+    state: present
+    update_cache: yes
+  when: cpu_vendor.stdout.find('GenuineIntel') != -1
 
 - name: Check if local snippets are enabled
   shell: pvesm list local | grep -q ^local\:snippets
