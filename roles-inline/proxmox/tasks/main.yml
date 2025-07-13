@@ -65,6 +65,7 @@
 - name: get CPU vendor
   shell: grep ^vendor_id /proc/cpuinfo | uniq | awk '{ print $3 }'
   register: cpu_vendor
+  changed_when: false
 
 - name: install AMD CPU microcode
   apt:
