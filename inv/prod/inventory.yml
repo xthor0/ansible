@@ -32,6 +32,7 @@ transmission:
 docker:
   hosts:
     brimba.xthorsworld.com:
+    pajak.xthorsworld.com:
 
 sonarr:
   hosts:
@@ -52,12 +53,6 @@ proxmox:
     vmh02.xthorsworld.com:
       ansible_user: root
     vmh03.xthorsworld.com:
-      ansible_user: root
-    vmh04.xthorsworld.com:
-      ansible_user: root
-    vmh05.xthorsworld.com:
-      ansible_user: root
-    vmh06.xthorsworld.com:
       ansible_user: root
 
 borg:

@@ -36,3 +36,23 @@
   with_items: "{{ os_packages }}"
   when: ansible_os_family == "Debian"
 
+- name: get CPU vendor for microcode package
+  shell: grep ^vendor_id /proc/cpuinfo | uniq | awk '{ print $3 }'
+  register: cpu_vendor
+  changed_when: false
+
+- name: install AMD CPU microcode
+  apt:
+    name:
+      - amd64-microcode
+    state: present
+    update_cache: yes
+  when: cpu_vendor.stdout.find('AuthenticAMD') != -1 and ansible_os_family == "Debian" and ansible_virtualization_role != "guest"
+
+- name: install Intel CPU microcode
+  apt:
+    name:
+      - intel-microcode
+    state: present
+    update_cache: yes
+  when: cpu_vendor.stdout.find('GenuineIntel') != -1 and ansible_os_family == "Debian" and ansible_virtualization_role != "guest"
