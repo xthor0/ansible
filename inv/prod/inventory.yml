@@ -54,6 +54,8 @@ proxmox:
       ansible_user: root
     vmh03.xthorsworld.com:
       ansible_user: root
+    vmh04.xthorsworld.com:
+      ansible_user: root
 
 borg:
   hosts:
