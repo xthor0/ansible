@@ -33,17 +33,13 @@
       # security updates
       deb http://security.debian.org bookworm-security main contrib non-free non-free-firmware
 
-- name: Update apt cache
-  apt:
-    update_cache: yes
-
 - name: Disable subscription nag
   notify: Reinstall proxmox-widget-toolkit
   copy:
     dest: /etc/apt/apt.conf.d/no-nag-script
     content: |
       # managed by Ansible
-      DPkg::Post-Invoke { "dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ $? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/.*data\.status.*{/{s/\!//;s/active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi"; };
+      DPkg::Post-Invoke { "dpkg -V proxmox-widget-toolkit 2>/dev/null && [ -f /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js ] && echo 'Removing subscription nag from UI...' && sed -i '/data\.status/{s/\!/=/;s/active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"; };
 
 - name: Set root password
   user:
