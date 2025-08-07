@@ -1,37 +1,51 @@
 ---
 - name: Fix Ceph apt sources
   copy:
-    dest: /etc/apt/sources.list.d/ceph.list
+    dest: /etc/apt/sources.list.d/ceph.sources
     content: |
       # managed by Ansible
-      deb http://download.proxmox.com/debian/ceph-quincy {{ ansible_distribution_release }} no-subscription
-      deb http://download.proxmox.com/debian/ceph-reef {{ ansible_distribution_release }} no-subscription
+      Types: deb
+      URIs: http://download.proxmox.com/debian/ceph-squid
+      Suites: {{ ansible_distribution_release }}
+      Components: no-subscription
+      Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
 
 - name: Add PVE no-subscription apt sources
   copy:
-    dest: /etc/apt/sources.list.d/pve-no-subscription.list
+    dest: /etc/apt/sources.list.d/proxmox.sources
     content: |
       # managed by ansible
-      deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription
+      Types: deb
+      URIs: http://download.proxmox.com/debian/pve
+      Suites: {{ ansible_distribution_release }}
+      Components: pve-no-subscription
+      Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
 
 - name: Comment out pve-enterprise sources
   replace:
-    path: /etc/apt/sources.list.d/pve-enterprise.list
+    path: /etc/apt/sources.list.d/pve-enterprise.sources
     regexp: '^(?!#)'
     replace: '#'
 
 - name: Configure Debian apt sources
   copy:
-    dest: /etc/apt/sources.list
+    dest: /etc/apt/sources.list.d/debian.sources
     mode: 0644
     owner: root
     group: root
     content: |
       # managed by ansible - changes will be overwritten
-      deb http://mirror.xmission.com/debian bookworm main contrib non-free non-free-firmware
-      deb http://mirror.xmission.com/debian bookworm-updates main contrib non-free non-free-firmware
-      # security updates
-      deb http://security.debian.org bookworm-security main contrib non-free non-free-firmware
+      Types: deb
+      URIs: http://deb.debian.org/debian/
+      Suites: {{ ansible_distribution_release }} {{ ansible_distribution_release }}-updates
+      Components: main contrib non-free-firmware
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+      Types: deb
+      URIs: http://security.debian.org/debian-security/
+      Suites: {{ ansible_distribution_release }}-security
+      Components: main contrib non-free-firmware
+      Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 - name: Disable subscription nag
   notify: Reinstall proxmox-widget-toolkit
@@ -39,7 +53,7 @@
     dest: /etc/apt/apt.conf.d/no-nag-script
     content: |
       # managed by Ansible
-      DPkg::Post-Invoke { "dpkg -V proxmox-widget-toolkit 2>/dev/null && [ -f /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js ] && echo 'Removing subscription nag from UI...' && sed -i '/data\.status/{s/\!/=/;s/active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"; };
+      DPkg::Post-Invoke { "if [ -s /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js ] && ! grep -q -F 'NoMoreNagging' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; then echo 'Removing subscription nag from UI...'; sed -i '/data\.status/{s/\!//;s/active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; fi" };
 
 - name: Set root password
   user:
