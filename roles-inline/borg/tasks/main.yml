@@ -3,5 +3,9 @@
   include_tasks: Debian.yml
   when: "'Debian' in ansible_distribution"
 
+- name: borg - include Rocky Linux 9 tasks
+  include_tasks: Rocky9.yml
+  when: ansible_distribution == 'Rocky' and ansible_distribution_major_version == '9'
+
 - name: set up borg user
   include_tasks: borg.yml
