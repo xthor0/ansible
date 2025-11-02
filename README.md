@@ -14,7 +14,11 @@ Basic instructions:
 
 - Install the base OS (I've tested on Fedora, Rocky Linux, Ubuntu, and Linux Mint)
 - install `ansible` and `git`
-  - get the ansible PPA for Ubuntu flavors: https://launchpad.net/~ansible/+archive/ubuntu/ansible
+  - Ubuntu: get the ansible PPA: https://launchpad.net/~ansible/+archive/ubuntu/ansible
+  - Fedora: install the `ansible` package using DNF
+  - Rocky Linux
+    - Rocky 9 should still have the `ansible` package, if you have EPEL installed and enabled
+    - on Rocky 10, I had to use pipx: `sudo dnf install pipx && pipx install --include-deps ansible` (this has the advantage of getting the absolute latest version, though)
 - On my personal workstation, copy over SSH keys and load them: `eval $(ssh-agent) && ssh-add`
 - Clone this git repo and cd to the directory
 - Install the role dependencies: `ansible-galaxy install -r requirements/workstation.yaml`
