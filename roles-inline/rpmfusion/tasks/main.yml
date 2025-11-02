@@ -14,8 +14,8 @@
     key: "{{ item }}"
     state: present
   with_items:
-    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-el-9" # rpmfusion free
-    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-el-9" # rpmfusion non-free
+    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-el-{{ ansible_distribution_major_version }}" # rpmfusion free
+    - "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-el-{{ ansible_distribution_major_version }}" # rpmfusion non-free
   become: true 
   when: "'Rocky' in ansible_distribution"
 
