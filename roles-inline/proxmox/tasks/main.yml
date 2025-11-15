@@ -69,6 +69,7 @@
       - axel
       - nut-client
       - screen
+      - jq
     state: present
     update_cache: yes
 

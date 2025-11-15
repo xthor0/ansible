@@ -57,6 +57,7 @@ case ${flavor} in
   buster) image="${tmpdir}/buster.qcow2"; dlurl="https://cloud.debian.org/images/cloud/buster/latest/debian-10-generic-amd64.qcow2"; vmname=debian10-tmpl;;
   bullseye) image="${tmpdir}/bullseye.qcow2"; dlurl="https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-amd64.qcow2"; vmname=debian11-tmpl;;
   bookworm) image="${tmpdir}/bookworm.qcow2"; dlurl="https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"; vmname=debian12-tmpl;;
+  trixie) image="${tmpdir}/trixie.qcow2"; dlurl="https://cloud.debian.org/images/cloud/trixie/latest/debian-13-generic-amd64.qcow2"; vmname=debian13-tmpl;;
   f40) image="${tmpdir}/fedora40.qcow2"; dlurl="https://dl.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2"; vmname=fedora40-tmpl;;
   *) bad_taste;;
 esac
