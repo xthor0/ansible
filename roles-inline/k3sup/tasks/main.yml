@@ -3,6 +3,11 @@
   include_role:
     name: local-dirs
 
+- name: Check if k3sup already exists
+  ansible.builtin.stat:
+    path: ~/.local/bin/k3sup
+  register: k3sup_file_status
+
 - name: Get k3sup release info from api.github.com
   uri:
     url: "https://api.github.com/repos/alexellis/k3sup/releases/latest"
@@ -18,3 +23,4 @@
     url: https://github.com/alexellis/k3sup/releases/download/{{ k3sup_release }}/k3sup
     dest: ~/.local/bin/k3sup
     mode: '0750'
+  when: not k3sup_file_status.stat.exists

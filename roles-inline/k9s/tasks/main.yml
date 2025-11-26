@@ -3,6 +3,11 @@
   include_role:
     name: local-dirs
 
+- name: Check if k9s binary already exists
+  ansible.builtin.stat:
+    path: ~/.local/bin/k9s
+  register: k9s_file_status
+
 - name: Get k9s release info from api.github.com
   uri:
     url: "https://api.github.com/repos/derailed/k9s/releases/latest"
@@ -20,3 +25,4 @@
     remote_src: True
     include:
       - k9s
+  when: not k9s_file_status.stat.exists

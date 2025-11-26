@@ -3,7 +3,6 @@
   file:
     path: ~/.local/bin
     mode: 0770
-    recurse: yes
 
 - name: Create ~/Downloads directory
   file:
