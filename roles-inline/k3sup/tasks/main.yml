@@ -1,0 +1,20 @@
+---
+- name: include local-dirs role
+  include_role:
+    name: local-dirs
+
+- name: Get k3sup release info from api.github.com
+  uri:
+    url: "https://api.github.com/repos/alexellis/k3sup/releases/latest"
+    return_content: yes
+  register: github_api_k3sup
+
+- name: Set fact - latest k3sup release
+  set_fact:
+    k3sup_release: "{{ github_api_k3sup.json.tag_name }}"
+
+- name: Download and install k3sup
+  ansible.builtin.get_url:
+    url: https://github.com/alexellis/k3sup/releases/download/{{ k3sup_release }}/k3sup
+    dest: ~/.local/bin/k3sup
+    mode: '0750'

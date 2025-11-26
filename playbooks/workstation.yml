@@ -41,4 +41,5 @@
     - { role: remmina, tags: [ "remmina" ] }
     - { role: terraform, tags: [ "terraform" ] }
     - { role: nextcloud-client, tags: [ "nextcloud-client" ] }
+    - { role: k3sup, tags: [ "k3sup" ] }
     - { role: libvirt, tags: [ "libvirt" ] } # running this last prevents systemd-resolve issues on ubuntu?
