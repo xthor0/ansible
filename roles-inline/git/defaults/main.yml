@@ -1,8 +1,5 @@
 ---
 git_repo_dict:
-  ansible:
-    url: git@github.com:xthor0/ansible.git
-    basedir: personal
   scripts:
     url: git@github.com:xthor0/scripts.git
     basedir: personal

@@ -2,6 +2,7 @@
 - name: create ~/.local/bin directory
   file:
     path: ~/.local/bin
+    state: directory
     mode: 0770
 
 - name: Create ~/Downloads directory
