@@ -15,6 +15,7 @@ linux:
     sslprox.xthorsworld.com:
     brimba.xthorsworld.com:
     xonotic.xthorsworld.dmz:
+    gagamba.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
@@ -57,6 +58,7 @@ proxmox:
 borg:
   hosts:
     lancah.xthorsworld.com:
+    gagamba.xthorsworld.com:
 
 all:
   children:
