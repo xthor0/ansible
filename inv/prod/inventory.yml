@@ -6,10 +6,7 @@ upsmon:
 linux:
   hosts:
     ragno.xthorsworld.com:
-    lancah.xthorsworld.com:
     nextcloud.xthorsworld.com:
-    pajak.xthorsworld.com:
-    caaro.xthorsworld.com:
     ddns.xthorsworld.com:
     blogsrv.xthorsworld.com:
     sslprox.xthorsworld.com:
@@ -20,6 +17,7 @@ linux:
     upsmon:
     zabbix_servers:
     transmission:
+    sonarr:
 
 transmission:
   hosts:
@@ -28,7 +26,6 @@ transmission:
 docker:
   hosts:
     brimba.xthorsworld.com:
-    pajak.xthorsworld.com:
 
 sonarr:
   hosts:
@@ -57,7 +54,6 @@ proxmox:
 
 borg:
   hosts:
-    lancah.xthorsworld.com:
     gagamba.xthorsworld.com:
 
 all:
