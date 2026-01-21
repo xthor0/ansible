@@ -7,4 +7,6 @@
     - { role: bash, tags: [ "bash" ] }
     - { role: server-packages, tags: [ "server-packages" ] }
     - { role: pushover-me, tags: [ "pushover-me" ] }
-    - { role: community.zabbix.zabbix_agent, tags: [ "zabbix-agent" ] }
+    - role: community.zabbix.zabbix_agent
+      tags: [ "zabbix-agent" ]
+      when: not (ansible_distribution == 'Debian' and ansible_distribution_major_version == '13')
