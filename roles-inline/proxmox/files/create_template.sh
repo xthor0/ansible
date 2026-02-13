@@ -52,6 +52,7 @@ case ${flavor} in
   centos7) image="${tmpdir}/centos7.qcow2"; dlurl="https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2c"; vmname=centos7-tmpl;;
   alma8) image="${tmpdir}/almalinux8.qcow2"; dlurl="https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2"; vmname=almalinux8-tmpl;;
   alma9) image="${tmpdir}/almalinux9.qcow2"; dlurl="https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"; vmname=almalinux9-tmpl;;
+  alma10) image="${tmpdir}/almalinux10.qcow2"; dlurl="https://repo.almalinux.org/almalinux/10/cloud/x86_64/images/AlmaLinux-10-GenericCloud-latest.x86_64.qcow2"; vmname=almalinux10-tmpl;;
   rocky8) image="${tmpdir}/rocky8.qcow2"; dlurl="https://dl.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud.latest.x86_64.qcow2"; vmname=rocky8-tmpl;;
   rocky9) image="${tmpdir}/rocky9.qcow2"; dlurl="https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2"; vmname=rocky9-tmpl;;
   buster) image="${tmpdir}/buster.qcow2"; dlurl="https://cloud.debian.org/images/cloud/buster/latest/debian-10-generic-amd64.qcow2"; vmname=debian10-tmpl;;
