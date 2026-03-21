@@ -16,6 +16,7 @@ linux:
     intsslprox.xthorsworld.com:
     caaro.xthorsworld.com:
     mirror.xthorsworld.com:
+    pajak.xthorsworld.srv:
   children:
     upsmon:
     zabbix_servers:
