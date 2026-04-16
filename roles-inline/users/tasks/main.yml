@@ -28,6 +28,7 @@
     - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJNEonif7PNwf6DFR1/nqU9phsdgGFzSMO8EWkD3caLDoAs8/TvnQ+iwvzcox8yAKpU6uIaungjEil3LdiScQSB6yJXB++/4pO827+8AkYmo3seKWkk7LTpHuW8zPc8dbsre1uBCuV7VoAeMJkml1O4wwYooJVt55Nfj2qwVqbg7EMyO9C0KN6X85GLOV1WI3Oa95gmwJvnhg3sbFFW0l4DddsU7rmqzftHyfNzgg/X7VbBa1GzAhhr+EmCh19r8msAgVj6odKutk9/Z8bvE9kUH1+4c0WkdpeVOkdcacluRFZ3lrb9+UTdZ/H1ebTEKbpp/wg7eGT+pO4JcFNrqSqyiVkcBjYi6u8rzCJ3KjSy9718wwWM+y3m/NW0gCuuKTQnCeNqe+b1SUvvPZqGvMykGxStHszkVSDjuGZlu9IsP59ALSWDOvTkybu+fIONw4EmItrdPmGqGHYuA0tTzwLh4QqPr8fvF8sZaVislzHaPWzwaafKc2QpxjoABpfXdU= # linux"
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEMajokRd8LTapXzNeh2EvgCchVLur6777HGThz4jvpnEAJfCtXOT/C1LLAQhCFc1hdNzCT/YD0AAOs/dY6hBS4= # macbook pro m4 14"
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBTwUxyjPuBQJDHcP4lzarhNn/vNd6qEPg1ndCGzRCoFTzNHt3D+QZQELDX7Mcstlc+Lx5KFoi83AdPCv02rri4= # m4 mac mini"
+    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPc7GKWx7j8mbAxYsbRf3EupCVO8KGt6ZnsH86aXi8mnHQjCdz6awNnSAueh5pIAJcDccHjfE3BuP68J2jxx6rI= # m3 macbook air 15"
 
 
 - name: Remove SSH authorized_keys for xthor
