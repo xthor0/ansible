@@ -14,9 +14,8 @@ linux:
     xonotic.xthorsworld.dmz:
     gagamba.xthorsworld.com:
     intsslprox.xthorsworld.com:
-    caaro.xthorsworld.com:
     mirror.xthorsworld.com:
-    pajak.xthorsworld.srv:
+    pajak.xthorsworld.com:
   children:
     upsmon:
     zabbix_servers:
