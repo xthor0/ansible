@@ -29,7 +29,7 @@
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEMajokRd8LTapXzNeh2EvgCchVLur6777HGThz4jvpnEAJfCtXOT/C1LLAQhCFc1hdNzCT/YD0AAOs/dY6hBS4= # macbook pro m4 14"
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBTwUxyjPuBQJDHcP4lzarhNn/vNd6qEPg1ndCGzRCoFTzNHt3D+QZQELDX7Mcstlc+Lx5KFoi83AdPCv02rri4= # m4 mac mini"
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPc7GKWx7j8mbAxYsbRf3EupCVO8KGt6ZnsH86aXi8mnHQjCdz6awNnSAueh5pIAJcDccHjfE3BuP68J2jxx6rI= # m3 macbook air 15"
-    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBH16udH3f/LEhwE7k6HmeFskPt7QkrAnD9Rt1HomD4ziH4E5nI6EZmxdB1jsY3ys4rjChJwK3trhNbzyLdJGnc0= # mac mini m4 pro"
+    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM/ImWv7UDLqSJAMv8yWg/G5IEAt/sX4tt7g8JoJIDDjIVTCRdURmmqiSY0yyapWatLq4neuBaUB0YWMvkHGxcI= # m4 pro mac mini"
 
 
 - name: Remove SSH authorized_keys for xthor
@@ -42,6 +42,7 @@
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHd8PMFpRbXMohUHJqvJmaFyF/JZHyHajm7kyDuQ7tJx5EkdqSFJI9lgLG5m9UWj8x33AUUqbktgnwXx+Y2CK4s= # secretive (Mac Studio)"
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBK3iRP3Unzjkv8+WvKQyaJCtEAAnC8jPjYqv/H4gSpu/nlhLweTW5LStsolj/Dbiya5nzZDkHI5HRSRhlIFx4Vw= # secretive (MacBook Air 15)"
     - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFWZDrQ8smOqsoryiPga0Y2o4K6S1jg3HK7hbZqUPurZcKKaV6ma8fGl+mkLtZg1jzIeVx0R8nqDZDrIHuO4df8= # macbook pro m4 14"
+    - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBH16udH3f/LEhwE7k6HmeFskPt7QkrAnD9Rt1HomD4ziH4E5nI6EZmxdB1jsY3ys4rjChJwK3trhNbzyLdJGnc0= # mac mini m4 pro"
 
 - name: Set root password
   user:
